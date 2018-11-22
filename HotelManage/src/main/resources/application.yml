@@ -1,5 +1,0 @@
-spring:
-    datasource:
-      url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&autoReconnect=true
-      username: root
-      password: 12548970
