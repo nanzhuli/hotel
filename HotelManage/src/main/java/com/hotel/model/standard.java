@@ -48,4 +48,5 @@ public class standard {
     public String getEquip2() {
         return equip2;
     }
+
 }

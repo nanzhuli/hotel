@@ -13,10 +13,8 @@ public class standardService {
     @Autowired
     private standardRepository standardrespository;
 
-
     public List<standard> getAll() {
         return (List<standard>) standardrespository.findAll();
     }
-
 
 }
