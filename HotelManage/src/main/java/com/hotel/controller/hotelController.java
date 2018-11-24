@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class hotelController {
     @RequestMapping(value = "/123")
     public String hotel(){
-        return "hotel";
+        return "test";
     }
 
 }
