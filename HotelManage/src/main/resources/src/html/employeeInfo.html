@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquerysession.js"></script>
+<script type="text/javascript" src="../../js/servers.js"></script>
+<script src="../../layui/layui.js"></script>
+
+<link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+<link rel="stylesheet" href="../../css/style.css" media="all">
+
+<div id="employeeInfo" class="display-table">
+    <table class="layui-table" id="employeeInfo_table">
+        <thead>
+        <tr>
+            <td>工号</td>
+            <td>姓名</td>
+            <td>性别</td>
+            <td>年龄</td>
+            <td>职位</td>
+            <td>权限</td>
+            <td>工资</td>
+            <td>工作时间段</td>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script src="../js/employeeInfo.js"></script>
+<script type="application/javascript">
+    // layui 初始化
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+
+    $(function () {
+        employeeInfo.init();
+    });
+</script>
