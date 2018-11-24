@@ -1,0 +1,3 @@
+var roomStd = function () {
+
+};
