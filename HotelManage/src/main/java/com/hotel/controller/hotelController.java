@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class hotelController {
-    @RequestMapping(value = "/123",method = RequestMethod.GET)
+    @RequestMapping(value = "/123")
     public String hotel(){
         return "hotel";
     }

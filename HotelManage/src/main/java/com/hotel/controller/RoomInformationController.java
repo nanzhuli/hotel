@@ -22,7 +22,6 @@ public class RoomInformationController {
 
     @Autowired
     roomService roomservice;
-    roomRepository roomrespository;
 
     //查询房间标准列表
     @RequestMapping("/standard")
