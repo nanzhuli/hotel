@@ -5,19 +5,25 @@ import com.hotel.repository.roomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class roomService {
     @Autowired
     roomRepository roomrepository;
 
-    public List<room> getAll() {
-        return (List<room>) roomrepository.findAll();
+    public Iterable<room> getAll() {
+        return  roomrepository.findAll();
     }
 
-    public void save(room r) {
-        roomrepository.save(r);
+    public room save(room r) {
+        return roomrepository.save(r);
+    }
+
+    public room findById(int roomno) {
+        return roomrepository.findById(roomno).orElse(null);
+    }
+
+    public void delete(room r) {
+        roomrepository.delete(r);
     }
 
 }

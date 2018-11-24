@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class hotelController {
-    @RequestMapping(value = "/hotel",method = RequestMethod.GET)
+    @RequestMapping(value = "/123",method = RequestMethod.GET)
     public String hotel(){
         return "hotel";
     }

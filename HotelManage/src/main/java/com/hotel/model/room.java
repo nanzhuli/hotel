@@ -55,4 +55,15 @@ public class room {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    @Override
+    public String toString() {
+        return "room{" +
+                "roomno=" + roomno +
+                ", type=" + type +
+                ", price=" + price +
+                ", ifwindow=" + ifwindow +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }

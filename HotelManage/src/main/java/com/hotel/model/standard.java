@@ -49,4 +49,15 @@ public class standard {
         return equip2;
     }
 
+    @Override
+    public String toString() {
+        return "standard{" +
+                "stdno=" + stdno +
+                ", stdname='" + stdname + '\'' +
+                ", roomerea=" + roomerea +
+                ", bedno=" + bedno +
+                ", equip1='" + equip1 + '\'' +
+                ", equip2='" + equip2 + '\'' +
+                '}';
+    }
 }
