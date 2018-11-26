@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-public class eventCoontroller {
+public class EventController {
     @Autowired
     eventService eventservice;
 
