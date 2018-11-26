@@ -23,14 +23,15 @@ var roomStd = {
 
     funcs: {
         renderTable: function() {
-            $.get(home.urls.roomStd.getStd(), {
+            // $.get(home.urls.roomStd.getStd(), {
+            $.get("/standard", {
                 // page: 0
             }, function(result) {
-                var stds = result.data.content;        //获取数据
+                var stds = result.data;        //获取数据
                 console.log(stds);
                 var $tbody = $("#roomStd_table").children('tbody');
                 roomStd.funcs.renderHandler($tbody, stds);
-                roomStd.pageSize = result.data.content.length;
+                // roomStd.pageSize = result.data.content.length;
                 // var page = result.data;
                 // /** @namespace page.totalPages 这是返回数据的总页码数 */
                 // layui.laypage.render({
