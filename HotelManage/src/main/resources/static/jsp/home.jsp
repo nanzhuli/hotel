@@ -69,7 +69,7 @@
 <script src="../js/jquerysession.js"></script>
 
 <script src="../js/servers.js"></script>
-<script src="../js/home.js"></script>
+<script src="../src/js/home.js"></script>
 <script src="../js/Chart.js"></script>
 <script type="application/javascript">
     $(function () {
