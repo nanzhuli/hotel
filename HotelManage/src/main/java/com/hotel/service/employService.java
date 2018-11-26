@@ -3,6 +3,7 @@ package com.hotel.service;
 import com.hotel.model.employ;
 import com.hotel.model.event;
 import com.hotel.repository.employRepository;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -44,6 +45,23 @@ public class employService {
         Example<employ> ex = Example.of(e, exampleMatcher);
         Optional<employ> worker = employrepository.findOne(ex);
         return worker.orElse(e);
+    }
+
+    public List<employ> findAll() {
+        return employrepository.findAll();
+    }
+
+    public employ findByEmployno(int employno) {
+        return employrepository.findById(employno).orElse(null);
+
+    }
+
+    public employ save(employ e) {
+        return employrepository.save(e);
+    }
+
+    public void delete(employ e) {
+        employrepository.delete(e);
     }
 
 }
