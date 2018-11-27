@@ -6,23 +6,53 @@
     display: table-cell;
 }
 
+.block-left {
+    width: 50%;
+    float: left;
+    text-align: left;
+}
+
+.block-right {
+    width: 50%;
+    float: left;
+    text-align: right;
+}
+
 iframe {
     border: 0;
 }
 
-.display-image{
+.display-image {
     position: relative;
     top: 15%;
     text-align: center;
 }
 
-.display-table table{
+.display-table table {
     width: 70%;
     border-collapse: collapse;
     margin: 40px auto auto;
 }
 
+.popup {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.popup text {
+    height: 30px;
+}
+
+.popup select {
+    width: 174px;
+    height: 30px;
+}
+
 tr, td {
     font-size: 12px;
     text-align: center;
+}
+
+p {
+    padding: 5px 0px 5px 0px;
 }

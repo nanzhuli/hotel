@@ -16,21 +16,18 @@ var roomStd = {
     //     });
     // },
     pageSize: 0,
-    init: function() {
+    init: function () {
         // document.write("<script src=\"../js/roomStd.js\"></script>");
         roomStd.funcs.renderTable();
     },
 
     funcs: {
-        renderTable: function() {
+        renderTable: function () {
             // $.get(home.urls.roomStd.getStd(), {
-            $.get("/standard", {
-                // page: 0
-            }, function(result) {
-                var stds = result.data;        //获取数据
-                console.log(stds);
+            $.get("/standard", {}, function (result) {
+                var data = result.data;        //获取数据
                 var $tbody = $("#roomStd_table").children('tbody');
-                roomStd.funcs.renderHandler($tbody, stds);
+                roomStd.funcs.renderHandler($tbody, data);
                 // roomStd.pageSize = result.data.content.length;
                 // var page = result.data;
                 // /** @namespace page.totalPages 这是返回数据的总页码数 */
@@ -62,9 +59,9 @@ var roomStd = {
             // var searchBtn = $('#model-li-hide-search-60')
             // equipment_manage.funcs.bindSearchEventListener(searchBtn)
         },
-        bindAddEventListener: function(addBtn) {
+        bindAddEventListener: function (addBtn) {
             addBtn.off('click')
-            addBtn.on('click', function() {
+            addBtn.on('click', function () {
 
                 //首先就是弹出一个弹出框
                 layer.open({
@@ -82,7 +79,7 @@ var roomStd = {
                     area: ['350px', '260px'],
                     btn: ['确认', '取消'],
                     offset: ['30%', '35%'],
-                    yes: function(index) {
+                    yes: function (index) {
                         var code = $('#code').val()
                         var name = $('#name').val()
                         var department_code = $('#department_code').val()
@@ -94,13 +91,13 @@ var roomStd = {
                             departmentCode: department_code,
                             productLineCode: productline_code,
                             inspectorCode: user_code
-                        }, function(result) {
+                        }, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
                             })
-                            if(result.code === 0) {
-                                var time = setTimeout(function() {
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
                                     equipment_manage.init()
                                     clearTimeout(time)
                                 }, 500)
@@ -108,28 +105,28 @@ var roomStd = {
                             layer.close(index)
                         })
                     },
-                    btn2: function(index) {
+                    btn2: function (index) {
                         layer.close(index)
                     }
                 });
 
                 var department_select = $("#department_code");
                 department_select.empty();
-                equipment_manage.department_result.forEach(function(department) {
+                equipment_manage.department_result.forEach(function (department) {
                     var option = $("<option>").val(department.code).text(department.name);
                     department_select.append(option);
                 });
 
                 var productline_select = $("#productline_code");
                 productline_select.empty();
-                equipment_manage.productline_result.forEach(function(productline) {
+                equipment_manage.productline_result.forEach(function (productline) {
                     var option = $("<option>").val(productline.code).text(productline.name);
                     productline_select.append(option);
                 });
 
                 var user_select = $("#user_code");
                 user_select.empty();
-                equipment_manage.user_result.forEach(function(user) {
+                equipment_manage.user_result.forEach(function (user) {
                     var option = $("<option>").val(user.code).text(user.name);
                     user_select.append(option);
                 });
@@ -137,9 +134,9 @@ var roomStd = {
             })
 
         },
-        bindDeleteEventListener: function(deleteBtns) {
+        bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click')
-            deleteBtns.on('click', function() {
+            deleteBtns.on('click', function () {
                 //首先弹出一个询问框
                 var _this = $(this)
                 layer.open({
@@ -149,17 +146,17 @@ var roomStd = {
                     area: ['180px', '130px'],
                     btn: ['确认', '取消'],
                     offset: ['40%', '55%'],
-                    yes: function(index) {
+                    yes: function (index) {
                         var equipmentCode = _this.attr('id').substr(3)
                         $.post(home.urls.equipment.deleteByCode(), {
                             code: equipmentCode
-                        }, function(result) {
+                        }, function (result) {
                             layer.msg(result.message, {
                                 offset: ['40%', '55%'],
                                 time: 700
                             })
-                            if(result.code === 0) {
-                                var time = setTimeout(function() {
+                            if (result.code === 0) {
+                                var time = setTimeout(function () {
                                     equipment_manage.init()
                                     clearTimeout(time)
                                 }, 500)
@@ -167,20 +164,20 @@ var roomStd = {
                             layer.close(index)
                         })
                     },
-                    btn2: function(index) {
+                    btn2: function (index) {
                         layer.close(index)
                     }
                 })
             })
         },
-        bindSearchEventListener: function(searchBtn) {
+        bindSearchEventListener: function (searchBtn) {
 
             searchBtn.off('click')
-            searchBtn.on('click', function() {
+            searchBtn.on('click', function () {
                 var equipment_name = $('#equipment_name_input').val()
                 $.post(home.urls.equipment.getAllByLikeNameByPage(), {
                     name: equipment_name
-                }, function(result) {
+                }, function (result) {
                     var page = result.data
                     var equipments = result.data.content //获取数据
                     $tbody = $("#equipment_table").children('tbody')
@@ -188,12 +185,12 @@ var roomStd = {
                     layui.laypage.render({
                         elem: 'equipment_page',
                         count: 10 * page.totalPages, //数据总数
-                        jump: function(obj, first) {
+                        jump: function (obj, first) {
                             $.post(home.urls.equipment.getAllByLikeNameByPage(), {
                                 name: equipment_name,
                                 page: obj.curr - 1,
                                 size: obj.limit
-                            }, function(result) {
+                            }, function (result) {
                                 var equipments = result.data.content //获取数据
                                 $tbody = $("#equipment_table").children('tbody')
                                 equipment_manage.funcs.renderHandler($tbody, equipments)
@@ -204,13 +201,13 @@ var roomStd = {
                 })
             })
         },
-        bindRefreshEventLisener: function(refreshBtn) {
+        bindRefreshEventLisener: function (refreshBtn) {
             refreshBtn.off('click')
-            refreshBtn.on('click', function() {
+            refreshBtn.on('click', function () {
                 var index = layer.load(2, {
                     offset: ['40%', '58%']
                 });
-                var time = setTimeout(function() {
+                var time = setTimeout(function () {
                     layer.msg('刷新成功', {
                         offset: ['40%', '55%'],
                         time: 700
@@ -221,19 +218,19 @@ var roomStd = {
                 }, 200)
             })
         },
-        bindSelectAll: function(selectAllBox) {
+        bindSelectAll: function (selectAllBox) {
             selectAllBox.off('change')
-            selectAllBox.on('change', function() {
+            selectAllBox.on('change', function () {
                 var status = selectAllBox.prop('checked')
-                $('.checkbox').each(function() {
+                $('.checkbox').each(function () {
                     $(this).prop('checked', status)
                 })
             })
         },
-        bindDeleteBatchEventListener: function(deleteBatchBtn) {
+        bindDeleteBatchEventListener: function (deleteBatchBtn) {
             deleteBatchBtn.off('click')
-            deleteBatchBtn.on('click', function() {
-                if($('.checkbox:checked').length === 0) {
+            deleteBatchBtn.on('click', function () {
+                if ($('.checkbox:checked').length === 0) {
                     layer.msg('亲,您还没有选中任何数据！', {
                         offset: ['40%', '55%'],
                         time: 700
@@ -246,10 +243,10 @@ var roomStd = {
                         area: ['190px', '130px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
-                        yes: function(index) {
+                        yes: function (index) {
                             var equipmentCodes = []
-                            $('.checkbox').each(function() {
-                                if($(this).prop('checked')) {
+                            $('.checkbox').each(function () {
+                                if ($(this).prop('checked')) {
                                     equipmentCodes.push({
                                         code: $(this).val()
                                     })
@@ -261,9 +258,9 @@ var roomStd = {
                                 data: JSON.stringify(equipmentCodes),
                                 dataType: 'json',
                                 type: 'post',
-                                success: function(result) {
-                                    if(result.code === 0) {
-                                        var time = setTimeout(function() {
+                                success: function (result) {
+                                    if (result.code === 0) {
+                                        var time = setTimeout(function () {
                                             equipment_manage.init()
                                             clearTimeout(time)
                                         }, 500)
@@ -276,21 +273,21 @@ var roomStd = {
                             })
                             layer.close(index)
                         },
-                        btn2: function(index) {
+                        btn2: function (index) {
                             layer.close(index)
                         }
                     })
                 }
             })
         },
-        bindEditEventListener: function(editBtns) {
+        bindEditEventListener: function (editBtns) {
             editBtns.off('click')
-            editBtns.on('click', function() {
+            editBtns.on('click', function () {
                 var _selfBtn = $(this)
                 var equipmentCode = _selfBtn.attr('id').substr(5)
                 $.post(home.urls.equipment.getByCode(), {
                     code: equipmentCode
-                }, function(result) {
+                }, function (result) {
                     var equipment = result.data
                     layer.open({
                         type: 1,
@@ -307,7 +304,7 @@ var roomStd = {
                         area: ['350px', '260px'],
                         btn: ['确认', '取消'],
                         offset: ['40%', '45%'],
-                        yes: function(index) {
+                        yes: function (index) {
                             var code = $('#code').val()
                             var name = $('#name').val()
                             var department_code = $('#department_code').val()
@@ -319,13 +316,13 @@ var roomStd = {
                                 departmentCode: department_code,
                                 productLineCode: productline_code,
                                 inspectorCode: user_code
-                            }, function(result) {
+                            }, function (result) {
                                 layer.msg(result.message, {
                                     offset: ['40%', '55%'],
                                     time: 700
                                 })
-                                if(result.code === 0) {
-                                    var time = setTimeout(function() {
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
                                         equipment_manage.init()
                                         clearTimeout(time)
                                     }, 500)
@@ -333,50 +330,49 @@ var roomStd = {
                                 layer.close(index)
                             })
                         },
-                        btn2: function(index) {
+                        btn2: function (index) {
                             layer.close(index)
                         }
                     })
                     var department_select = $("#department_code");
                     department_select.empty();
-                    equipment_manage.department_result.forEach(function(department) {
+                    equipment_manage.department_result.forEach(function (department) {
                         var option = $("<option>").val(department.code).text(department.name);
                         department_select.append(option);
 
-                        if(equipment && equipment.department && department.code == equipment.department.code) {
+                        if (equipment && equipment.department && department.code == equipment.department.code) {
                             department_select.val(department.code)
                         }
                     });
 
                     var productline_select = $("#productline_code");
                     productline_select.empty();
-                    equipment_manage.productline_result.forEach(function(productline) {
+                    equipment_manage.productline_result.forEach(function (productline) {
                         var option = $("<option>").val(productline.code).text(productline.name);
                         productline_select.append(option);
 
-                        if(equipment && equipment.department && productline.code == equipment.productLine.code) {
+                        if (equipment && equipment.department && productline.code == equipment.productLine.code) {
                             productline_select.val(productline.code)
                         }
                     });
 
                     var user_select = $("#user_code");
                     user_select.empty();
-                    equipment_manage.user_result.forEach(function(user) {
+                    equipment_manage.user_result.forEach(function (user) {
                         var option = $("<option>").val(user.code).text(user.name);
                         user_select.append(option);
 
-                        if(equipment && equipment.inspector && user.code == equipment.inspector.code) {
+                        if (equipment && equipment.inspector && user.code == equipment.inspector.code) {
                             user_select.val(user.code)
                         }
                     });
                 })
             })
         },
-        renderHandler: function($tbody, data) {
+        renderHandler: function ($tbody, data) {
             $tbody.empty();                  //清空表格
-            data.forEach(function(e) {
+            data.forEach(function (e) {
                 // $('#checkAll').prop('checked', false)
-                console.log("fangwen");
                 $tbody.append(
                     "<tr>" +
                     "<td>" + (e.stdno) + "</td>" +
@@ -399,13 +395,13 @@ var roomStd = {
             // var checkboxes = $('.checkbox')
             // equipment_manage.funcs.disselectAll(checkboxes, selectAllBox)
         },
-        disselectAll: function(checkboxes, selectAllBox) {
+        disselectAll: function (checkboxes, selectAllBox) {
             checkboxes.off('change')
-            checkboxes.on('change', function() {
+            checkboxes.on('change', function () {
                 var statusNow = $(this).prop('checked')
-                if(statusNow === false) {
+                if (statusNow === false) {
                     selectAllBox.prop('checked', false)
-                } else if(statusNow === true && $('.checkbox:checked').length === equipment_manage.pageSize) {
+                } else if (statusNow === true && $('.checkbox:checked').length === equipment_manage.pageSize) {
                     selectAllBox.prop('checked', true)
                 }
             })
