@@ -22,11 +22,13 @@ public class EventController {
 
     employService employservice;
 
+    //查看事务列表
     @RequestMapping("/event/allList")
     public result<event> eventList() {
         return resultReturn.success(eventservice.findAll());
     }
 
+    //添加新的事务
     @RequestMapping("/event/add")
     public result evenAdd(@RequestParam("type") int type, @RequestParam("roomno") int roomno,
                           @RequestParam("comment") String comment) {
@@ -50,6 +52,7 @@ public class EventController {
         }
     }
 
+    //更新事务
     @RequestMapping("/event/update/{eventno}")
     public result eventUpdate(@PathVariable("eventno") int eventno, @RequestParam("type") int type,
                               @RequestParam("roomno") int roomno, @RequestParam("comment") String comment) {
@@ -69,6 +72,7 @@ public class EventController {
         }
     }
 
+    //根据eventno删除事务
     @RequestMapping("/event/delete/{eventno}")
     public result eventDelete(@PathVariable("eventno") int eventno) {
         List<event> e = eventservice.findAllByEventno(eventno);
@@ -77,6 +81,17 @@ public class EventController {
         event E = e.get(0);
         eventservice.delete(E);
         return resultReturn.success(E);
+    }
+
+    @RequestMapping("/event/searchOne/{eventno}")
+    public result evenSerchOne(@PathVariable("eventno") int eventno) {
+        event e = eventservice.findById(eventno);
+        if(e == null) {
+            return resultReturn.error(0,"it's not exist, you can't delete!");
+        }
+        else {
+            return resultReturn.success(e);
+        }
     }
 
 }

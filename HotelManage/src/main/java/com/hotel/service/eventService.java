@@ -34,4 +34,8 @@ public class eventService {
     public void delete(event e){
         eventrepository.delete(e);
     }
+
+    public event findById(int eventno) {
+        return eventrepository.findById(eventno).orElse(null);
+    }
 }

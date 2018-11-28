@@ -4,7 +4,6 @@ import com.hotel.model.result;
 import com.hotel.model.room;
 import com.hotel.model.standard;
 import com.hotel.other.resultReturn;
-import com.hotel.repository.roomRepository;
 import com.hotel.service.roomService;
 import com.hotel.service.standardService;
 import org.springframework.beans.factory.annotation.Autowired;
