@@ -56,6 +56,7 @@ public class standard {
     public String toString() {
         return "standard{" +
                 "stdno=" + stdno +
+                ", rooms=" + rooms +
                 ", stdname='" + stdname + '\'' +
                 ", roomerea=" + roomerea +
                 ", bedno=" + bedno +

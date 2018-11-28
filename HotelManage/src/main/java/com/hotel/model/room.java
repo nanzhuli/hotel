@@ -1,9 +1,6 @@
 package com.hotel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "room")
@@ -14,6 +11,11 @@ public class room {
     private int price;
     private int ifwindow;
     private String comment;
+
+//    @ManyToOne(targetEntity = standard.class)
+//    @JoinColumn(name = "type")
+//    private standard s;
+
 
     public int getRoomno() {
         return roomno;

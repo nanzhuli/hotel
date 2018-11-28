@@ -18,11 +18,11 @@ public class event {
     private Timestamp endtime;
     private String comment;
 
-    public int getEvento() {
+    public int getEventno() {
         return eventno;
     }
 
-    public void setEvento(int evento) {
+    public void setEventno(int evento) {
         this.eventno = evento;
     }
 
@@ -58,11 +58,11 @@ public class event {
         this.starttime = starttime;
     }
 
-    public Timestamp getEndtiome() {
+    public Timestamp getEndtime() {
         return endtime;
     }
 
-    public void setEndtiome(Timestamp endtime) {
+    public void setEndtime(Timestamp endtime) {
         this.endtime = endtime;
     }
 
@@ -77,12 +77,12 @@ public class event {
     @Override
     public String toString() {
         return "event{" +
-                "evento=" + eventno +
+                "eventno=" + eventno +
                 ", type=" + type +
                 ", roomno=" + roomno +
                 ", employno=" + employno +
                 ", starttime=" + starttime +
-                ", endtiome=" + endtime +
+                ", endtime=" + endtime +
                 ", comment='" + comment + '\'' +
                 '}';
     }
