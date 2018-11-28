@@ -68,3 +68,19 @@ tr, td {
 p {
     padding: 5px 0px 5px 0px;
 }
+
+.search-bar {
+    width: 120px;
+    height: 27px;
+    border-width: 0 0 1px 0;
+    background-color: #f2f2f2;
+    border-color: #4E5465;
+}
+
+.select-bar{
+    width: 80px;
+    height: 25px;
+    border-width: 0 0 0 0;
+    background-color: #f2f2f2;
+    border-color: #4E5465;
+}

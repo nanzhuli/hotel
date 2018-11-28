@@ -14,19 +14,21 @@ var roomInfo = {
     },
     funcs: {
         renderTable: function () {
-            $.get("/room/roomlist", {}, function (result) {
+            $.get(home.urls.roomInfo.getAll, {}, function (result) {
 
                 var data = result.data;        //获取数据
                 var $tbody = $("#room-info-table").children('tbody');
                 roomInfo.funcs.renderHandler($tbody, data);
+                var searchBtn = $('#search');
+                roomInfo.funcs.bindSearchEventListener(searchBtn, $tbody);
             });
             // 数据渲染完毕
             var refreshBtn = $("#refresh");
             roomInfo.funcs.bindRefreshEventListener(refreshBtn);
             var addBtn = $("#add");
             roomInfo.funcs.bindAddEventListener(addBtn);
-            var searchBtn = $('#search');
-            roomInfo.funcs.bindSearchEventListener(searchBtn);
+            var selectBtn = $("#select-bar");
+            roomInfo.funcs.bindSelectEventListener(selectBtn);
         },
         renderHandler: function ($tbody, data) {
             $tbody.empty();                  //清空表格
@@ -34,9 +36,9 @@ var roomInfo = {
                 $tbody.append(
                     "<tr>" +
                     "<td>" + (e.roomno) + "</td>" +
-                    "<td>" + (e.type) + "</td>" +
+                    "<td>" + home.type[e.type - 1] + "</td>" +
                     "<td>" + (e.price) + "</td>" +
-                    "<td>" + (e.ifwindow) + "</td>" +
+                    "<td>" + (home.window[e.ifwindow]) + "</td>" +
                     "<td>" + (home.funcs.spaceFunc(e.comment)) + "</td>" +
                     "<td><a href='#' class='edits' id='edit-" + e.roomno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
                     "<td><a href='#' class='deletes' id='delete-" + e.roomno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
@@ -83,10 +85,10 @@ var roomInfo = {
                             "<div id='addModal' class='popup'>" +
                             "<p>客房编号：<input type='number' id='room-no'/></p>" +
                             "<p>客房类型：<select id='room-type'>" +
-                            "<option value='1'>1</option>" +
-                            "<option value='2'>2</option>" +
-                            "<option value='3'>3</option>" +
-                            "<option value='4'>4</option>" +
+                            "<option value='1'>Single Room</option>" +
+                            "<option value='2'>Double Room</option>" +
+                            "<option value='3'>Business Room</option>" +
+                            "<option value='4'>Family Room</option>" +
                             "</select></p>" +
                             "<p>客房单价：<input type='number' id='room-price'/></p>" +
                             "<p>是否有窗：<select id='ifwindow'>" +
@@ -104,7 +106,7 @@ var roomInfo = {
                             var price = $('#room-price').val();
                             var ifwindow = $('#ifwindow').val();
                             var comment = $('#comment').val();
-                            $.post("/room/add", {
+                            $.post(home.urls.roomInfo.add, {
                                 roomno: roomno,
                                 type: type,
                                 price: price,
@@ -132,64 +134,78 @@ var roomInfo = {
                 });
             })
         },
-        /////////////////施工中//////////////////
-        bindSearchEventListener: function (searchBtn) {
+        bindSearchEventListener: function (searchBtn, $tbody) {
             searchBtn.off('click');
             searchBtn.on('click', function () {
-                var equipment_name = $('#equipment_name_input').val()
-                $.post(home.urls.equipment.getAllByLikeNameByPage(), {
-                    name: equipment_name
-                }, function (result) {
-                    var page = result.data
-                    var equipments = result.data.content //获取数据
-                    $tbody = $("#equipment_table").children('tbody')
-                    equipment_manage.funcs.renderHandler($tbody, equipments)
-                    layui.laypage.render({
-                        elem: 'equipment_page',
-                        count: 10 * page.totalPages, //数据总数
-                        jump: function (obj, first) {
-                            $.post(home.urls.equipment.getAllByLikeNameByPage(), {
-                                name: equipment_name,
-                                page: obj.curr - 1,
-                                size: obj.limit
-                            }, function (result) {
-                                var equipments = result.data.content //获取数据
-                                $tbody = $("#equipment_table").children('tbody')
-                                equipment_manage.funcs.renderHandler($tbody, equipments)
-                                equipment_manage.pageSize = result.data.content.length
-                            })
+                var select = $('#select-bar').val();
+                var search = $('#search-bar').val();
+                $.post(home.urls.roomInfo.getAll, {}, function (result) {
+                    $tbody.empty();
+                    var data = result.data;
+                    for (var i = 0; i < data.length; i++) {
+                        var flag = 0;
+                        switch (parseInt(select)) {
+                            case 0:
+                                flag = (JSON.stringify(data[i].roomno).indexOf(search) !== -1);
+                                break;
+                            case 1:
+                                flag = (parseInt(data[i].type) === parseInt(search));
+                                break;
+                            case 2:
+                                flag = (JSON.stringify(data[i].price).indexOf(search) !== -1);
+                                break;
+                            case 3:
+                                flag = (parseInt(data[i].ifwindow) === parseInt(search));
+                                break;
+                            case 4:
+                                flag = (JSON.stringify(data[i].comment).indexOf(search) !== -1);
+                                break;
                         }
-                    })
+                        if (flag) {
+                            $tbody.append(
+                                "<tr>" +
+                                "<td>" + (data[i].roomno) + "</td>" +
+                                "<td>" + home.type[data[i].type - 1] + "</td>" +
+                                "<td>" + (data[i].price) + "</td>" +
+                                "<td>" + (home.window[data[i].ifwindow]) + "</td>" +
+                                "<td>" + (home.funcs.spaceFunc(data[i].comment)) + "</td>" +
+                                "<td><a href='#' class='edits' id='edit-" + data[i].roomno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
+                                "<td><a href='#' class='deletes' id='delete-" + data[i].roomno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
+                                "</tr>")
+                        }
+                    }
+                    // 数据渲染完毕
+                    var editBtns = $('.edits');
+                    var deleteBtns = $('.deletes');
+                    roomInfo.funcs.bindEditEventListener(editBtns);
+                    roomInfo.funcs.bindDeleteEventListener(deleteBtns);
                 })
             })
         },
-        ////施工中///差一个查找单个的接口///
         bindEditEventListener: function (editbtns) {
             editbtns.off('click');
             editbtns.on('click', function () {
                 console.log("EDIT");
                 var code = this.id.substr(5);
                 console.log(code);
-                $.get("/room/searchOne/" + code, {}, function (result) {
+                $.get(home.urls.roomInfo.getOne + code, {}, function (result) {
+                    console.log(result);
+                    var res = result.data;
                     layui.use('layer', function () {
                         layer.open({
                             type: 1,
                             title: '编辑',
                             content:
                                 "<div id='addModal' class='popup'>" +
-                                "<p>客房编号：<input type='number' id='room-no' value='" + result.roomno + "'/></p>" +
+                                "<p>客房编号：<input type='number' id='room-no' value='" + res.roomno + "' disabled='disabled'/></p>" +
                                 "<p>客房类型：<select id='room-type'>" +
-                                "<option value='1'>1</option>" +
-                                "<option value='2'>2</option>" +
-                                "<option value='3'>3</option>" +
-                                "<option value='4'>4</option>" +
+                                roomInfo.funcs.selectType(res.type) +
                                 "</select></p>" +
-                                "<p>客房单价：<input type='number' id='room-price' value='" + result.price + "'/></p>" +
+                                "<p>客房单价：<input type='number' id='room-price' value='" + res.price + "'/></p>" +
                                 "<p>是否有窗：<select id='ifwindow'>" +
-                                "<option value='0'>无</option>" +
-                                "<option value='1'>有</option>" +
+                                roomInfo.funcs.selectWindow(res.ifwindow) +
                                 "</select></p>" +
-                                "<p>客房备注：<input type='text' id='comment' value='" + result.comment + "'/></p>" +
+                                "<p>客房备注：<input type='text' id='comment' value='" + home.funcs.spaceFuncEmpty(res.comment) + "'/></p>" +
                                 "</div>",
                             area: ['350px', '380px'],
                             btn: ['确认', '取消'],
@@ -200,8 +216,13 @@ var roomInfo = {
                                 var price = $('#room-price').val();
                                 var ifwindow = $('#ifwindow').val();
                                 var comment = $('#comment').val();
-                                $.post("/room/update"+roomno, {
-                                    roomno: roomno,
+                                console.log(roomno);
+                                console.log(type);
+                                console.log(price);
+                                console.log(ifwindow);
+                                console.log(comment);
+                                $.post(home.urls.roomInfo.update + roomno, {
+                                    // roomno: roomno,
                                     type: type,
                                     price: price,
                                     ifwindow: ifwindow,
@@ -245,7 +266,7 @@ var roomInfo = {
                         offset: ['35%', '40%'],
                         yes: function (index) {
                             console.log(code);
-                            $.post("/room/delete/" + code, {}, function (result) {
+                            $.post(home.urls.roomInfo.delete + code, {}, function (result) {
                                 layer.msg(result.msg, {
                                     offset: ['50%', '50%'],
                                     time: 700
@@ -265,6 +286,57 @@ var roomInfo = {
                     })
                 })
             })
+        },
+        bindSelectEventListener: function (selectBtn) {
+            selectBtn.off('click');
+            selectBtn.on('click', function () {
+                var select = parseInt($('#select-bar').val());
+                var element = $('#change')[0];
+                console.log(element);
+                if (select === 0 || select === 2 || select === 4) {
+                    element.innerHTML = "<input type='text' id='search-bar' class='search-bar' placeholder='输入关键字'>";
+                }
+                else if (select === 1) {
+                    element.innerHTML =
+                        "<select id='search-bar' class='search-bar'>" +
+                        "<option value='1'>Singe Room</option>" +
+                        "<option value='2'>Double Room</option>" +
+                        "<option value='3'>Business Room</option>" +
+                        "<option value='4'>Family Room</option>" +
+                        "</select>";
+                }
+                else {
+                    element.innerHTML =
+                        "<select id='search-bar' class='search-bar'>" +
+                        "<option value='0'>无</option>" +
+                        "<option value='1'>有</option>" +
+                        "</select>";
+                }
+            });
+        },
+        selectType: function (data) {
+            var str = "";
+            for (var i = 1; i <= 4; i++) {
+                if (i === data) {
+                    str += "<option value='" + i + "' selected='selected'>" + home.type[i - 1] + "</option>";
+                }
+                else {
+                    str += "<option value='" + i + "'>" + home.type[i - 1] + "</option>";
+                }
+            }
+            return str;
+        },
+        selectWindow: function (data) {
+            var str = "";
+            if (data === 0) {
+                str += "<option value='0' selected='selected'>无</option>" +
+                    "<option value='1'>有</option>";
+            }
+            else {
+                str += "<option value='0'>无</option>" +
+                    "<option value='1' selected='selected'>有</option>";
+            }
+            return str;
         }
     }
 };
