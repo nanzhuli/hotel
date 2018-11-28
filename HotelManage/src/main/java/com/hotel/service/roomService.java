@@ -2,10 +2,13 @@ package com.hotel.service;
 
 import com.hotel.model.room;
 import com.hotel.repository.roomRepository;
+import org.hibernate.validator.constraints.EAN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class roomService {
@@ -27,5 +30,6 @@ public class roomService {
     public void delete(room r) {
         roomrepository.delete(r);
     }
+
 
 }

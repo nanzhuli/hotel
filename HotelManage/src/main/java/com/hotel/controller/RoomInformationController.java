@@ -63,6 +63,18 @@ public class RoomInformationController {
         }
     }
 
+    @RequestMapping("/room/searchOne/{roomno}")
+    public result roomSerchOne(@PathVariable("roomno") int roomno) {
+        room r = roomservice.findById(roomno);
+        if(r == null) {
+            return resultReturn.error(0,"it's not exist, you can't delete!");
+        }
+        else {
+            return resultReturn.success(r);
+        }
+    }
+
+
     @RequestMapping("/room/delete/{roomno}")
     public result roomDelete(@PathVariable("roomno") int roomno) {
         //需要先查询是否存在
