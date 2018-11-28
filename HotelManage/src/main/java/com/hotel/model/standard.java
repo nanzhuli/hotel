@@ -1,12 +1,17 @@
 package com.hotel.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "standard")
 public class standard {
     @Id
     private int stdno;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "type")
+    private List<room> rooms;
 
     @Column(name = "stdname")
     private String stdname;
