@@ -17,10 +17,17 @@ var roomStd = {
     // },
     pageSize: 0,
     init: function () {
-        // document.write("<script src=\"../js/roomStd.js\"></script>");
-        roomStd.funcs.renderTable();
+        layui.use('layer', function () {
+            var index = layer.load(2, {
+                offset: ['48%', '48%'],
+                time: 300,
+                anim: -1,
+                isOutAnim: false
+            });
+            roomStd.funcs.renderTable();
+            // layer.close(index);
+        });
     },
-
     funcs: {
         renderTable: function () {
             // $.get(home.urls.roomStd.getStd(), {
@@ -54,8 +61,8 @@ var roomStd = {
             //$数据渲染完毕
             // var addBtn = $("#model-li-hide-add-60")
             // equipment_manage.funcs.bindAddEventListener(addBtn) //追加增加事件
-            // var refreshBtn = $('#model-li-hide-refresh-60')
-            // equipment_manage.funcs.bindRefreshEventLisener(refreshBtn) //追加刷新事件
+            var refreshBtn = $('#refresh')
+            roomStd.funcs.bindRefreshEventListener(refreshBtn) //追加刷新事件
             // var searchBtn = $('#model-li-hide-search-60')
             // equipment_manage.funcs.bindSearchEventListener(searchBtn)
         },
@@ -201,21 +208,23 @@ var roomStd = {
                 })
             })
         },
-        bindRefreshEventLisener: function (refreshBtn) {
-            refreshBtn.off('click')
+        bindRefreshEventListener: function (refreshBtn) {
+            refreshBtn.off('click');
             refreshBtn.on('click', function () {
-                var index = layer.load(2, {
-                    offset: ['40%', '58%']
+                layui.use('layer', function () {
+                    var index = layer.load(2, {
+                        offset: ['48%', '48%']
+                    });
+                    var time = setTimeout(function () {
+                        layer.msg('刷新成功', {
+                            offset: ['48%', '45%'],
+                            time: 700
+                        });
+                        roomStd.init();
+                        layer.close(index);
+                        clearTimeout(time);
+                    }, 200)
                 });
-                var time = setTimeout(function () {
-                    layer.msg('刷新成功', {
-                        offset: ['40%', '55%'],
-                        time: 700
-                    })
-                    equipment_manage.init()
-                    layer.close(index)
-                    clearTimeout(time)
-                }, 200)
             })
         },
         bindSelectAll: function (selectAllBox) {
