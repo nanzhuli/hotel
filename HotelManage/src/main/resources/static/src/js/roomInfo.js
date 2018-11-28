@@ -1,7 +1,16 @@
 var roomInfo = {
     pageSize: 0,
     init: function () {
-        roomInfo.funcs.renderTable();
+        layui.use('layer', function () {
+            var index = layer.load(2, {
+                offset: ['48%', '48%'],
+                time: 300,
+                anim: -1,
+                isOutAnim: false
+            });
+            roomInfo.funcs.renderTable();
+            // layer.close(index);
+        });
     },
     funcs: {
         renderTable: function () {
@@ -58,6 +67,8 @@ var roomInfo = {
                 });
             })
         },
+        // 要做个输入合法性检测
+        // 对齐的话，改成table会不会好一点？
         bindAddEventListener: function (addBtn) {
             addBtn.off('click');
             addBtn.on('click', function () {
@@ -70,14 +81,14 @@ var roomInfo = {
                         title: '添加',
                         content:
                             "<div id='addModal' class='popup'>" +
-                            "<p>客房编号：<input type='number' id='room-no' required='required'/></p>" +
+                            "<p>客房编号：<input type='number' id='room-no'/></p>" +
                             "<p>客房类型：<select id='room-type'>" +
                             "<option value='1'>1</option>" +
                             "<option value='2'>2</option>" +
                             "<option value='3'>3</option>" +
                             "<option value='4'>4</option>" +
                             "</select></p>" +
-                            "<p>客房单价：<input type='number' id='room-price' required='required'/></p>" +
+                            "<p>客房单价：<input type='number' id='room-price'/></p>" +
                             "<p>是否有窗：<select id='ifwindow'>" +
                             "<option value='0'>无</option>" +
                             "<option value='1'>有</option>" +
@@ -100,8 +111,9 @@ var roomInfo = {
                                 ifwindow: ifwindow,
                                 comment: comment
                             }, function (result) {
-                                layer.msg(result.message, {
-                                    offset: ['40%', '55%'],
+                                console.log(result);
+                                layer.msg(result.msg, {
+                                    offset: ['50%', '50%'],
                                     time: 700
                                 });
                                 if (result.code === 0) {
@@ -151,15 +163,77 @@ var roomInfo = {
                 })
             })
         },
+        ////施工中///差一个查找单个的接口///
         bindEditEventListener: function (editbtns) {
+            editbtns.off('click');
+            editbtns.on('click', function () {
+                console.log("EDIT");
+                var code = this.id.substr(5);
+                console.log(code);
+                layui.use('layer', function () {
+                    layer.open({
+                        type: 1,
+                        title: '编辑',
+                        content:
+                            "<div id='addModal' class='popup'>" +
+                            "<p>客房编号：<input type='number' id='room-no'/></p>" +
+                            "<p>客房类型：<select id='room-type'>" +
+                            "<option value='1'>1</option>" +
+                            "<option value='2'>2</option>" +
+                            "<option value='3'>3</option>" +
+                            "<option value='4'>4</option>" +
+                            "</select></p>" +
+                            "<p>客房单价：<input type='number' id='room-price'/></p>" +
+                            "<p>是否有窗：<select id='ifwindow'>" +
+                            "<option value='0'>无</option>" +
+                            "<option value='1'>有</option>" +
+                            "</select></p>" +
+                            "<p>客房备注：<input type='text' id='comment'/></p>" +
+                            "</div>",
+                        area: ['350px', '380px'],
+                        btn: ['确认', '取消'],
+                        offset: ['30%', '35%'],
+                        yes: function (index) {
+                            var roomno = $('#room-no').val();
+                            var type = $('#room-type').val();
+                            var price = $('#room-price').val();
+                            var ifwindow = $('#ifwindow').val();
+                            var comment = $('#comment').val();
+                            $.post("/room/add", {
+                                roomno: roomno,
+                                type: type,
+                                price: price,
+                                ifwindow: ifwindow,
+                                comment: comment
+                            }, function (result) {
+                                console.log(result);
+                                layer.msg(result.msg, {
+                                    offset: ['50%', '50%'],
+                                    time: 700
+                                });
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        roomInfo.init();
+                                        clearTimeout(time);
+                                    }, 500)
+                                }
+                                layer.close(index)
+                            })
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                        }
+                    });
+                })
+            })
         },
-        /////////////////施工中//////////////////
         bindDeleteEventListener: function (deleteBtns) {
             deleteBtns.off('click');
             deleteBtns.on('click', function () {
                 console.log("DELETE");
+                var code = this.id.substr(7);
+                console.log(code);
                 layui.use('layer', function () {
-                    var _this = $(this);
                     layer.open({
                         type: 1,
                         title: '删除',
@@ -168,16 +242,15 @@ var roomInfo = {
                         btn: ['确认', '取消'],
                         offset: ['40%', '55%'],
                         yes: function (index) {
-                            console.log(_this);
-                            var code = _this.attr('id').substr(6);
+                            console.log(code);
                             $.post("/room/delete/" + code, {}, function (result) {
-                                layer.msg(result.message, {
-                                    offset: ['40%', '55%'],
+                                layer.msg(result.msg, {
+                                    offset: ['50%', '50%'],
                                     time: 700
                                 });
                                 if (result.code === 0) {
                                     var time = setTimeout(function () {
-                                        roomInfo.init()
+                                        roomInfo.init();
                                         clearTimeout(time)
                                     }, 500)
                                 }
