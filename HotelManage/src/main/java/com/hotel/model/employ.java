@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name = "employ")
 public class employ {
     @Id
-    @GeneratedValue
     private int employno;
     private String employname;
     private int employsex;

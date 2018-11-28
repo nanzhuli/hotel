@@ -6,8 +6,6 @@ import javax.persistence.*;
 @Table(name = "standard")
 public class standard {
     @Id
-    @GeneratedValue
-    @Column(name = "stdno")
     private int stdno;
 
     @Column(name = "stdname")

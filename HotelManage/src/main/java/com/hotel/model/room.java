@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name = "room")
 public class room {
     @Id
-    @GeneratedValue
     private int roomno;
     private int type;
     private int price;

@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 @Table(name = "event")
 public class event {
     @Id
-    @GeneratedValue
     private int eventno;
     private int type;
     private int roomno;

@@ -8,10 +8,7 @@ import com.hotel.repository.roomRepository;
 import com.hotel.service.roomService;
 import com.hotel.service.standardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,12 +33,14 @@ public class RoomInformationController {
     }
 
     //添加客房信息
-    @RequestMapping("/room/add")
+    @PostMapping("/room/add")
     public result roomAdd(@RequestParam("roomno") int roomno, @RequestParam("type") int type,
                           @RequestParam("price") int price, @RequestParam("ifwindow") int ifwindow,
                           @RequestParam("comment") String comment) {
+        System.out.println("qian"+roomno+"   "+roomservice.findById(roomno));
         //需要做检测
         if(roomservice.findById(roomno)==null) {
+            System.out.println(roomno);
             room r = saveRoom(roomno, type, price, ifwindow, comment);
             return resultReturn.success(roomservice.save(r));
         }
