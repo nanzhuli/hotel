@@ -82,7 +82,7 @@ public class EventController {
             return resultReturn.error(0,"can't match worker in that time");
         }
         else{
-            em.setEmployno(em.getEmployno());
+            E.setEmployno(em.getEmployno());
             return resultReturn.success(eventservice.save(E));
         }
     }

@@ -41,6 +41,18 @@ iframe {
     padding: 5px 0px 5px 0px;
 }
 
+.display-table-large table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 40px auto auto;
+}
+
+.display-table-large tr, td {
+    font-size: 12px;
+    text-align: center;
+    padding: 5px 0px 5px 0px;
+}
+
 .layui-layer-content {
     /*height: 80px !important;*/
 }

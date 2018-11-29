@@ -36,9 +36,9 @@ var roomInfo = {
                 $tbody.append(
                     "<tr>" +
                     "<td>" + (e.roomno) + "</td>" +
-                    "<td>" + home.type[e.type - 1] + "</td>" +
+                    "<td>" + home.vars.type[e.type - 1] + "</td>" +
                     "<td>" + (e.price) + "</td>" +
-                    "<td>" + (home.window[e.ifwindow]) + "</td>" +
+                    "<td>" + (home.vars.window[e.ifwindow]) + "</td>" +
                     "<td>" + (home.funcs.spaceFunc(e.comment)) + "</td>" +
                     "<td><a href='#' class='edits' id='edit-" + e.roomno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
                     "<td><a href='#' class='deletes' id='delete-" + e.roomno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
@@ -85,15 +85,15 @@ var roomInfo = {
                             "<div id='addModal' class='popup'>" +
                             "<p>客房编号：<input type='number' id='room-no'/></p>" +
                             "<p>客房类型：<select id='room-type'>" +
-                            "<option value='1'>" + home.type[0] + "</option>" +
-                            "<option value='2'>" + home.type[1] + "</option>" +
-                            "<option value='3'>" + home.type[2] + "</option>" +
-                            "<option value='4'>" + home.type[3] + "</option>" +
+                            "<option value='1'>" + home.vars.type[0] + "</option>" +
+                            "<option value='2'>" + home.vars.type[1] + "</option>" +
+                            "<option value='3'>" + home.vars.type[2] + "</option>" +
+                            "<option value='4'>" + home.vars.type[3] + "</option>" +
                             "</select></p>" +
                             "<p>客房单价：<input type='number' id='room-price'/></p>" +
                             "<p>是否有窗：<select id='ifwindow'>" +
-                            "<option value='0'>" + home.window[0] + "</option>" +
-                            "<option value='1'>" + home.window[1] + "</option>" +
+                            "<option value='0'>" + home.vars.window[0] + "</option>" +
+                            "<option value='1'>" + home.vars.window[1] + "</option>" +
                             "</select></p>" +
                             "<p>客房备注：<input type='text' id='comment'/></p>" +
                             "</div>",
@@ -165,9 +165,9 @@ var roomInfo = {
                             $tbody.append(
                                 "<tr>" +
                                 "<td>" + (data[i].roomno) + "</td>" +
-                                "<td>" + home.type[data[i].type - 1] + "</td>" +
+                                "<td>" + home.vars.type[data[i].type - 1] + "</td>" +
                                 "<td>" + (data[i].price) + "</td>" +
-                                "<td>" + (home.window[data[i].ifwindow]) + "</td>" +
+                                "<td>" + (home.var.window[data[i].ifwindow]) + "</td>" +
                                 "<td>" + (home.funcs.spaceFunc(data[i].comment)) + "</td>" +
                                 "<td><a href='#' class='edits' id='edit-" + data[i].roomno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
                                 "<td><a href='#' class='deletes' id='delete-" + data[i].roomno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
@@ -299,17 +299,17 @@ var roomInfo = {
                 else if (select === 1) {
                     element.innerHTML =
                         "<select id='search-bar' class='search-bar'>" +
-                        "<option value='1'>" + home.type[0] + "</option>" +
-                        "<option value='2'>" + home.type[1] + "</option>" +
-                        "<option value='3'>" + home.type[2] + "</option>" +
-                        "<option value='4'>" + home.type[3] + "</option>" +
+                        "<option value='1'>" + home.vars.type[0] + "</option>" +
+                        "<option value='2'>" + home.vars.type[1] + "</option>" +
+                        "<option value='3'>" + home.vars.type[2] + "</option>" +
+                        "<option value='4'>" + home.vars.type[3] + "</option>" +
                         "</select>";
                 }
                 else {
                     element.innerHTML =
                         "<select id='search-bar' class='search-bar'>" +
-                        "<option value='0'>" + home.window[0] + "</option>" +
-                        "<option value='1'>" + home.window[1] + "</option>" +
+                        "<option value='0'>" + home.vars.window[0] + "</option>" +
+                        "<option value='1'>" + home.vars.window[1] + "</option>" +
                         "</select>";
                 }
             });
@@ -318,10 +318,10 @@ var roomInfo = {
             var str = "";
             for (var i = 1; i <= 4; i++) {
                 if (i === data) {
-                    str += "<option value='" + i + "' selected='selected'>" + home.type[i - 1] + "</option>";
+                    str += "<option value='" + i + "' selected='selected'>" + home.vars.type[i - 1] + "</option>";
                 }
                 else {
-                    str += "<option value='" + i + "'>" + home.type[i - 1] + "</option>";
+                    str += "<option value='" + i + "'>" + home.vars.type[i - 1] + "</option>";
                 }
             }
             return str;
@@ -329,10 +329,10 @@ var roomInfo = {
         selectWindow: function (data) {
             var str = "";
             if (data === 0) {
-                str += "<option value='0' selected='selected'>" + home.window[0] + "</option>" + "<option value='1'>" + home.window[1] + "</option>";
+                str += "<option value='0' selected='selected'>" + home.vars.window[0] + "</option>" + "<option value='1'>" + home.vars.window[1] + "</option>";
             }
             else {
-                str += "<option value='0'>" + home.window[0] + "</option>" + "<option value='1' selected='selected'>" + home.window[1] + "</option>";
+                str += "<option value='0'>" + home.vars.window[0] + "</option>" + "<option value='1' selected='selected'>" + home.vars.window[1] + "</option>";
             }
             return str;
         }

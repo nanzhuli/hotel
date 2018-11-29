@@ -22,26 +22,37 @@
             <i class="layui-icon layui-icon-add-1">增加</i>
         </button>
         &nbsp;&nbsp;&nbsp;
-        <input type='text' id='search-bar'>
+        <span id="sel">
+            <select id="select-bar" class="select-bar">
+                <option value="0">事务编号</option>
+                <option value="1">事务类型</option>
+                <option value="2">房号</option>
+                <option value="3">负责人</option>
+                <option value="4">备注</option>
+            </select>
+        </span>
+        <span id="change">
+            <input type='text' id='search-bar' class='search-bar' placeholder="输入关键字">
+        </span>
         <button class="layui-btn layui-btn-primary layui-btn-xs" id="search">
             <i class="layui-icon layui-icon-search">搜索</i>
         </button>
     </div>
 </blockquote>
 
-<div id="event" class="display-table">
+<div id="event" class="display-table-large">
     <table class="layui-table" id="event-table">
         <thead>
         <tr>
-            <td>事务编号</td>
-            <td>事务类型</td>
-            <td>房号</td>
-            <td>负责人编号</td>
+            <td width="30px">编号</td>
+            <td width="30px">类型</td>
+            <td width="40px">房号</td>
+            <td width="70px">负责人编号</td>
             <td>备注</td>
             <td>产生时间</td>
             <td>完成时间</td>
-            <td>编辑</td>
-            <td>删除</td>
+            <td width="30px">编辑</td>
+            <td width="30px">删除</td>
         </tr>
         </thead>
         <tbody>
