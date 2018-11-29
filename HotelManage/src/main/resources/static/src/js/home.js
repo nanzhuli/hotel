@@ -1,6 +1,6 @@
 var home = {
     // 全局变量
-    type: ["Single Room", "Double Room", "Business Room", "Family Room"],
+    type: ["单人间", "双人间", "商务间", "家庭间"],
     window: ["无", "有"],
     // 请求地址参数
     urls: {

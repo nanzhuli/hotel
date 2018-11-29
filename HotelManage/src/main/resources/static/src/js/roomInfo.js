@@ -85,15 +85,15 @@ var roomInfo = {
                             "<div id='addModal' class='popup'>" +
                             "<p>客房编号：<input type='number' id='room-no'/></p>" +
                             "<p>客房类型：<select id='room-type'>" +
-                            "<option value='1'>单人间</option>" +
-                            "<option value='2'>双人间</option>" +
-                            "<option value='3'>商务间</option>" +
-                            "<option value='4'>家庭间</option>" +
+                            "<option value='1'>" + home.type[0] + "</option>" +
+                            "<option value='2'>" + home.type[1] + "</option>" +
+                            "<option value='3'>" + home.type[2] + "</option>" +
+                            "<option value='4'>" + home.type[3] + "</option>" +
                             "</select></p>" +
                             "<p>客房单价：<input type='number' id='room-price'/></p>" +
                             "<p>是否有窗：<select id='ifwindow'>" +
-                            "<option value='0'>无</option>" +
-                            "<option value='1'>有</option>" +
+                            "<option value='0'>" + home.window[0] + "</option>" +
+                            "<option value='1'>" + home.window[1] + "</option>" +
                             "</select></p>" +
                             "<p>客房备注：<input type='text' id='comment'/></p>" +
                             "</div>",
@@ -299,17 +299,17 @@ var roomInfo = {
                 else if (select === 1) {
                     element.innerHTML =
                         "<select id='search-bar' class='search-bar'>" +
-                        "<option value='1'>Singe Room</option>" +
-                        "<option value='2'>Double Room</option>" +
-                        "<option value='3'>Business Room</option>" +
-                        "<option value='4'>Family Room</option>" +
+                        "<option value='1'>" + home.type[0] + "</option>" +
+                        "<option value='2'>" + home.type[1] + "</option>" +
+                        "<option value='3'>" + home.type[2] + "</option>" +
+                        "<option value='4'>" + home.type[3] + "</option>" +
                         "</select>";
                 }
                 else {
                     element.innerHTML =
                         "<select id='search-bar' class='search-bar'>" +
-                        "<option value='0'>无</option>" +
-                        "<option value='1'>有</option>" +
+                        "<option value='0'>" + home.window[0] + "</option>" +
+                        "<option value='1'>" + home.window[1] + "</option>" +
                         "</select>";
                 }
             });
@@ -329,12 +329,10 @@ var roomInfo = {
         selectWindow: function (data) {
             var str = "";
             if (data === 0) {
-                str += "<option value='0' selected='selected'>无</option>" +
-                    "<option value='1'>有</option>";
+                str += "<option value='0' selected='selected'>" + home.window[0] + "</option>" + "<option value='1'>" + home.window[1] + "</option>";
             }
             else {
-                str += "<option value='0'>无</option>" +
-                    "<option value='1' selected='selected'>有</option>";
+                str += "<option value='0'>" + home.window[0] + "</option>" + "<option value='1' selected='selected'>" + home.window[1] + "</option>";
             }
             return str;
         }
