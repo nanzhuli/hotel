@@ -7,20 +7,24 @@ import com.hotel.other.resultReturn;
 import com.hotel.service.employService;
 import com.hotel.service.eventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
 @RestController
 public class EventController {
     @Autowired
-    eventService eventservice;
-
     employService employservice;
+
+    @Autowired
+    eventService eventservice;
 
     //查看事务列表
     @RequestMapping("/event/allList")
@@ -38,7 +42,6 @@ public class EventController {
         e.setComment(comment);
 
         java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
-        //System.out.println(timestamp);
         e.setStarttime(timestamp);
 
         //需要做employno
@@ -56,10 +59,9 @@ public class EventController {
     @RequestMapping("/event/update/{eventno}")
     public result eventUpdate(@PathVariable("eventno") int eventno, @RequestParam("type") int type,
                               @RequestParam("roomno") int roomno, @RequestParam("comment") String comment) {
-        List<event> e = eventservice.findAllByEventno(eventno);
-        if(e==null)
+        event E = eventservice.findAllByEventno(eventno);
+        if(E==null)
             return resultReturn.error(0,"can't find this eventno");
-        event E = e.get(0);
         E.setType(type);
         E.setRoomno(roomno);
         E.setComment(comment);
@@ -75,10 +77,9 @@ public class EventController {
     //根据eventno删除事务
     @RequestMapping("/event/delete/{eventno}")
     public result eventDelete(@PathVariable("eventno") int eventno) {
-        List<event> e = eventservice.findAllByEventno(eventno);
-        if(e==null)
+        event E = eventservice.findAllByEventno(eventno);
+        if(E==null)
             return resultReturn.error(0,"can't find this eventno");
-        event E = e.get(0);
         eventservice.delete(E);
         return resultReturn.success(E);
     }

@@ -22,13 +22,8 @@ public class eventService {
         return eventrepository.save(e);
     }
 
-    public List<event> findAllByEventno(int eventno) {
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("eventno",
-                ExampleMatcher.GenericPropertyMatchers.contains());
-        event e = new event();
-        e.setEmployno(eventno);
-        Example<event> ex = Example.of(e,exampleMatcher);
-        return eventrepository.findAll(ex);
+    public event findAllByEventno(int eventno) {
+        return eventrepository.findById(eventno).orElse(null);
     }
 
     public void delete(event e){

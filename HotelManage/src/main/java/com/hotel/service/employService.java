@@ -1,20 +1,17 @@
 package com.hotel.service;
 
 import com.hotel.model.employ;
-import com.hotel.model.event;
 import com.hotel.repository.employRepository;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-
+import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class employService {
     @Autowired
     employRepository employrepository;
@@ -39,9 +36,10 @@ public class employService {
         e.setEmployworktime(worktime);
         e.setEmployposition(type);
         e.setEmployno(0);
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("type",
-                ExampleMatcher.GenericPropertyMatchers.contains()).withMatcher("starttime",
-                ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("eventno");
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("employworktime",
+                ExampleMatcher.GenericPropertyMatchers.contains()).withMatcher("employposition",
+                ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("employno","employname",
+                "employsex","employage","employpaymentpermonth","employauthority");
         Example<employ> ex = Example.of(e, exampleMatcher);
         Optional<employ> worker = employrepository.findOne(ex);
         return worker.orElse(e);
