@@ -85,10 +85,10 @@ var roomInfo = {
                             "<div id='addModal' class='popup'>" +
                             "<p>客房编号：<input type='number' id='room-no'/></p>" +
                             "<p>客房类型：<select id='room-type'>" +
-                            "<option value='1'>Single Room</option>" +
-                            "<option value='2'>Double Room</option>" +
-                            "<option value='3'>Business Room</option>" +
-                            "<option value='4'>Family Room</option>" +
+                            "<option value='1'>单人间</option>" +
+                            "<option value='2'>双人间</option>" +
+                            "<option value='3'>商务间</option>" +
+                            "<option value='4'>家庭间</option>" +
                             "</select></p>" +
                             "<p>客房单价：<input type='number' id='room-price'/></p>" +
                             "<p>是否有窗：<select id='ifwindow'>" +
