@@ -6,8 +6,8 @@ import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "order")
-public class order {
+@Table(name = "r_order")
+public class Order {
     @Id
     private int orderno;
     private int roomcount;

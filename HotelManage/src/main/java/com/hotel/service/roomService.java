@@ -31,5 +31,10 @@ public class roomService {
         roomrepository.delete(r);
     }
 
+    public List<room> getEmpty(List<Integer> l) {
+        //for(int i=0;i<l.size())
+        List<room> r =roomrepository.findByRoomnoNotIn(l);
+        return r;
+    }
 
 }

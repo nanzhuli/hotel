@@ -84,7 +84,6 @@ public class RoomInformationController {
         else {
             roomservice.delete(r);
             return resultReturn.success(r);
-            /** 存疑 不知道这里可不可以使用 */
         }
     }
 
