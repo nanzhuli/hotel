@@ -70,7 +70,6 @@ var event = {
             })
         },
         // 要做个输入合法性检测
-        // 对齐的话，改成table会不会好一点？
         bindAddEventListener: function (addBtn) {
             addBtn.off('click');
             addBtn.on('click', function () {

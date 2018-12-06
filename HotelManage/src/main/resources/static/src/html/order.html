@@ -17,31 +17,45 @@
         <button class="layui-btn layui-btn-primary layui-btn-xs" id="refresh">
             <i class="layui-icon layui-icon-refresh">刷新</i>
         </button>
-        <button class="layui-btn layui-btn-primary layui-btn-xs" id="add">
-            <i class="layui-icon layui-icon-add-1">增加</i>
-        </button>
         &nbsp;&nbsp;&nbsp;
-        <input type='text' id='search-bar'>
+        <span id="sel">
+            <select id="select-bar" class="select-bar">
+                <option value="0">订单号</option>
+                <option value="1">姓名</option>
+                <option value="2">联系方式</option>
+                <option value="3">入住时间</option>
+                <option value="4">离开时间</option>
+                <option value="5">是否入住</option>
+            </select>
+        </span>
+        <span id="change">
+            <input type='text' id='search-bar' class='search-bar' placeholder="输入关键字">
+        </span>
         <button class="layui-btn layui-btn-primary layui-btn-xs" id="search">
             <i class="layui-icon layui-icon-search">搜索</i>
         </button>
     </div>
 </blockquote>
 
-<div id="order" class="display-table">
-    <table class="layui-table" id="order_table">
+<div id="order" class="display-table-large">
+    <table class="layui-table" id="order-table">
         <thead>
         <tr>
-            <td>订单号</td>
-            <td>房间数量</td>
-            <td>订单价格</td>
+            <td width="45px">订单号</td>
+            <!--<td>房间数量</td>-->
             <td>姓名</td>
-            <td>身份证</td>
+            <!--<td>身份证</td>-->
             <td>联系方式</td>
             <td>入住时间</td>
             <td>离开时间</td>
-            <td>是否会员</td>
-            <td>是否入住</td>
+            <td width="80px">订单价格</td>
+            <!--<td>离开时间</td>-->
+            <!--<td>是否会员</td>-->
+            <td width="60px">是否入住</td>
+            <td width="30px">详情</td>
+            <td width="30px">编辑</td>
+            <td width="30px">删除</td>
+            <td width="30px">结算</td>
         </tr>
         </thead>
         <tbody>
@@ -49,6 +63,7 @@
     </table>
 </div>
 
+<script src="../js/home.js"></script>
 <script src="../js/order.js"></script>
 <script type="application/javascript">
     // layui 初始化

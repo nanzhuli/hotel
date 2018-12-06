@@ -3,7 +3,8 @@ var home = {
     vars: {
         type: ["单人间", "双人间", "商务间", "家庭间"],
         window: ["无", "有"],
-        typeEvent: ["wrong event type", "1楼", "2楼", "3楼"]
+        typeEvent: ["wrong event type", "1楼", "2楼", "3楼"],
+        enter: ["N", "Y"]
     },
     // 请求地址参数
     urls: {
@@ -15,12 +16,41 @@ var home = {
             update: "/room/update/",     //{}
             delete: "/room/delete/"      //{}
         },
-        event:{
-            getAll:"/event/allList",
-            getOne:"/event/searchOne/",
+        order: {
+            getAll: "/order/orderlist",
+            getOne: "",
+            update: "/order/update/",     // orderno
+            delete: "/order/delete/",
+            // 结算
+            submit: "/order/settle/"    //orderno
+        },
+        room: {
+            // orderroom表查看
+            getOne: "/order/orderroom/",            // orderno
+            // orderroom表更新
+            update: "/order/orderroom/update/"      // rino
+        },
+        roomid: {
+            // roomid表查看
+            getOne: "/order/orderroom/roomid/list/",// roomno
+            // roomid表修改
+            update: "/order/orderroom/roomid/update/",//rino
+            // 获取不在roomid中的roomno
+            getEmpty: "/order/orderroom/roomid/getEmptyRoomno"
+        },
+        employee: {
+            getAll: "/employ/list",
+            getOne: "/employ/list",//
+            add: "/employ/add",
+            update: "/employ/update/",
+            delete: "/employ/delete/"
+        },
+        event: {
+            getAll: "/event/allList",
+            getOne: "/event/searchOne/",
             add: "/event/add",
-            update:"/event/update/",
-            delete:"/event/delete/"
+            update: "/event/update/",
+            delete: "/event/delete/"
         }
     },
     // 功能型函数
@@ -52,6 +82,17 @@ var home = {
                 var arr1 = str.split("T");
                 var arr2 = arr1[1].split(".");
                 str = arr1[0] + " " + arr2[0];
+                return str;
+            }
+        },
+        timeStrDate: function (str) {
+            if (str === null) {
+                return "无"
+            }
+            else {
+                var arr1 = str.split("T");
+                var arr2 = arr1[1].split(".");
+                str = arr1[0];
                 return str;
             }
         }

@@ -9,11 +9,25 @@
 <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
 <link rel="stylesheet" href="../../css/style.css" media="all">
 
-<div id="employeeInfo" class="display-table">
-    <table class="layui-table" id="employeeInfo_table">
+<blockquote class="layui-elem-quote layui-text" style="margin-bottom: 0; height: 20px">
+    <div class="block-left">
+        房间信息
+    </div>
+    <div class="block-right">
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="refresh">
+            <i class="layui-icon layui-icon-refresh">刷新</i>
+        </button>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="add">
+            <i class="layui-icon layui-icon-add-1">增加</i>
+        </button>
+    </div>
+</blockquote>
+
+<div id="employeeInfo" class="display-table-large">
+    <table class="layui-table" id="employee-info-table">
         <thead>
         <tr>
-            <td>工号</td>
+            <td width="20px">工号</td>
             <td>姓名</td>
             <td>性别</td>
             <td>年龄</td>
@@ -21,6 +35,8 @@
             <td>权限</td>
             <td>工资</td>
             <td>工作时间段</td>
+            <td width="20px">编辑</td>
+            <td width="20px">删除</td>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +44,7 @@
     </table>
 </div>
 
+<script src="../js/home.js"></script>
 <script src="../js/employeeInfo.js"></script>
 <script type="application/javascript">
     // layui 初始化
