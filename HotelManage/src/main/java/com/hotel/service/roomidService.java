@@ -25,6 +25,10 @@ public class roomidService {
         return worker;
     }
 
+    public roomid findById(int r) {
+        return roomidrepository.findById(r).orElse(null);
+    }
+
     public List<roomid> findAllWithoutparam() {
         return roomidrepository.findAll();
     }

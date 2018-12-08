@@ -47,6 +47,18 @@ public class orderController {
         return resultReturn.success(orderservice.findAll());
     }
 
+    //order找一个
+    @RequestMapping("/order/searchOne/{orderno}")
+    public result orderSearchOne(@PathVariable("orderno") int orderno) {
+        Order r = orderservice.findById(orderno);
+        if(r == null) {
+            return resultReturn.error(0,"it's not exist, you can't delete!");
+        }
+        else {
+            return resultReturn.success(r);
+        }
+    }
+
     //order表更新
     @RequestMapping("/order/update/{orderno}")
     public result orderUpdate(@PathVariable("orderno") int orderno, @RequestParam("name") String name,
@@ -82,6 +94,18 @@ public class orderController {
         return resultReturn.success(orderroomservice.findAll(orderno));
     }
 
+    //orderroom找一个
+    @RequestMapping("/order/orderroom/orderroomSearchOne/{orno}")
+    public result orderroomSearchOne(@PathVariable("orno") int orno) {
+        orderroom r = orderroomservice.findById(orno);
+        if(r == null) {
+            return resultReturn.error(0,"it's not exist, you can't delete!");
+        }
+        else {
+            return resultReturn.success(r);
+        }
+    }
+
     //orderroom表更新
     @RequestMapping("/order/orderroom/update/{rino}")
     public result orderroomUpdate(@PathVariable("rino")int rino, @RequestParam("brand")String brand) {
@@ -96,6 +120,18 @@ public class orderController {
     @RequestMapping("/order/orderroom/roomid/list/{roomno}")
     public result<List<roomid>> roomidList(@PathVariable("roomno") int roomno) {
         return resultReturn.success(roomidservice.findAll(roomno));
+    }
+
+    //roomid找一个
+    @RequestMapping("/order/orderroom/roomid/roomidSearchOne/{rino}")
+    public result roomidSearchOne(@PathVariable("rino") int rino) {
+        roomid r = roomidservice.findById(rino);
+        if(r == null) {
+            return resultReturn.error(0,"it's not exist, you can't delete!");
+        }
+        else {
+            return resultReturn.success(r);
+        }
     }
 
     //roomid表修改

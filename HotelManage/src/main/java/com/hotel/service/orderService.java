@@ -17,6 +17,10 @@ public class orderService {
 
     public List<Order> findAll() {return orderrepository.findAll();}
 
+    public Order findById(int o) {
+        return orderrepository.findById(o).orElse(null);
+    }
+
     public Order findByOrderno(int orderno) {
         return orderrepository.findById(orderno).orElse(null);
     }

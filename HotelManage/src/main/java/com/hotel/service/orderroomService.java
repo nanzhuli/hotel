@@ -27,6 +27,10 @@ public class orderroomService {
         return worker;
     }
 
+    public orderroom findById(int o) {
+        return orderroomrepository.findById(o).orElse(null);
+    }
+
     public orderroom findOne(int rino) {
         return orderroomrepository.findById(rino).orElse(null);
     }

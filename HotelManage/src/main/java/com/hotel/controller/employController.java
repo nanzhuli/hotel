@@ -21,6 +21,17 @@ public class employController {
         return resultReturn.success(employservice.findAll());
     }
 
+    @RequestMapping("/employ/searchOne/{employno}")
+    public result employSearchOne(@PathVariable("employno") int employno) {
+        employ r = employservice.findByEmployno(employno);
+        if(r == null) {
+            return resultReturn.error(0,"it's not exist, you can't delete!");
+        }
+        else {
+            return resultReturn.success(r);
+        }
+    }
+
     @RequestMapping("/employ/add")
     public result employAdd(@RequestParam("employno")int employno, @RequestParam("employname") String employname,
                             @RequestParam("employsex")int employsex, @RequestParam("employage") int employage,
