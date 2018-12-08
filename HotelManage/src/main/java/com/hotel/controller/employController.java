@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class employController {
+    @Autowired
     employService employservice;
 
     @RequestMapping("/employ/list")
     public result<employ> employList() {
+        System.out.println(employservice.findAll());
         return resultReturn.success(employservice.findAll());
     }
 
@@ -44,7 +46,7 @@ public class employController {
                                @RequestParam("employpaymentpermonth")int employpaymentpermonth,
                                @RequestParam("employworktime") int employworktime) {
         employ e = employservice.findByEmployno(employno);
-        if(e==null) {
+            if(e==null) {
             return resultReturn.error(0,"that employno did not exist");
         }
         else{
