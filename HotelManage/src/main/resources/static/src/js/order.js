@@ -130,6 +130,64 @@ var order = {
             })
         },
         bindMoreEventListener: function (moreBtn) {
+            moreBtn.off('click');
+            moreBtn.on('click', function () {
+                console.log("MORE");
+                var code = this.id.substr(5);
+                console.log(code);
+                // 获取订单信息
+                $.get(home.urls.order.getOne + code, {}, function (result) {
+                    console.log(result);
+                    var res = result.data;
+                    var str = "";
+                    layui.use('layer', function () {
+                        // 使用订单号查找订单所包含的所有房间
+                        $.get(home.urls.room.getAll + res.orderno, {}, function (allRoom) {
+                            console.log(allRoom);
+                            var allRoomData = allRoom.data;
+                            allRoomData.forEach(function (e) {
+                                var singleRino = e.rino;
+                                // 对每个房间 room-id-no 查找房间内人员的信息
+                                $.get(home.urls.roomid.getOne + singleRino, {}, function (roomId) {
+                                    console.log(roomId);
+                                    var roomIdData = roomId.data;
+                                    str += "<tr><td>" + roomIdData.roomno + "</td><td>" + roomIdData.name + "</td><td>" + roomIdData.id + "</td>";
+                                });
+                            });
+                        });
+                        console.log(str);
+                        layer.open({
+                            type: 1,
+                            title: '编辑',
+                            content:
+                                "<div id='addModal' class='popup'>" +
+                                "<table class='pop-table' border='2px'>" +
+                                "<tr><td>订单号</td><td>" + (res.orderno) + "</td></tr>" +
+                                "<tr><td>房间数量</td><td>" + (res.roomcount) + "</td></tr>" +
+                                "<tr><td>订单价格</td><td>" + (res.price) + "</td></tr>" +
+                                "<tr><td>姓名</td><td>" + (res.name) + "</td></tr>" +
+                                "<tr><td>身份证号</td><td>" + (res.id) + "</td></tr>" +
+                                "<tr><td>联系方式</td><td>" + (res.phone) + "</td></tr>" +
+                                "<tr><td>入住时间</td><td>" + home.funcs.timeStrDate(res.starttime) + "</td></tr>" +
+                                "<tr><td>离开时间</td><td>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
+                                "<tr><td>是否会员</td><td>" + (res.ismenber) + "</td></tr>" +
+                                "<tr><td>是否入住</td><td>" + (res.isenter) + "</td></tr>" +
+                                "</table>" +
+                                "<table class='pop-table' border='2px'>" +
+                                "<th><td>房间号</td><td>姓名</td><td>身份证号</td></th>" +
+                                str +
+                                "</table>" +
+                                "</div>",
+                            area: ['350px', '380px'],
+                            btn: ['确认'],
+                            offset: ['30%', '35%'],
+                            yes: function (index) {
+                                layer.close(index)
+                            }
+                        });
+                    });
+                });
+            });
         },
         bindEditEventListener: function (editbtns) {
             editbtns.off('click');
@@ -146,7 +204,7 @@ var order = {
                             title: '编辑',
                             content:
                                 "<div id='addModal' class='popup'>" +
-                                "<p>订单编号：<input type='number' id='room-no' value='" + res. + "' disabled='disabled'/></p>" +
+                                "<p>订单编号：<input type='number' id='room-no' value='" + res.orderno + "' disabled='disabled'/></p>" +
                                 "<p>客房单价：<input type='number' id='room-price' value='" + res.price + "'/></p>" +
                                 "<p>客房备注：<input type='text' id='comment' value='" + home.funcs.spaceFuncEmpty(res.comment) + "'/></p>" +
                                 "</div>",
@@ -244,8 +302,7 @@ var order = {
                         "<option value='0'>" + home.vars.enter[0] + "</option>" +
                         "<option value='1'>" + home.vars.enter[1] + "</option>" +
                         "</select>";
-                }
-                else {
+                } else {
                     element.innerHTML = "<input type='text' id='search-bar' class='search-bar' placeholder='输入关键字'>";
                 }
             });

@@ -91,8 +91,7 @@ var roomInfo = {
                             "</select></p>" +
                             "<p>客房单价：<input type='number' id='room-price'/></p>" +
                             "<p>是否有窗：<select id='ifwindow'>" +
-                            "<option value='0'>" + home.vars.window[0] + "</option>" +
-                            "<option value='1'>" + home.vars.window[1] + "</option>" +
+                            home.funcs.generateSelect(2, home.vars.window) +
                             "</select></p>" +
                             "<p>客房备注：<input type='text' id='comment'/></p>" +
                             "</div>",
@@ -202,7 +201,7 @@ var roomInfo = {
                                 "</select></p>" +
                                 "<p>客房单价：<input type='number' id='room-price' value='" + res.price + "'/></p>" +
                                 "<p>是否有窗：<select id='ifwindow'>" +
-                                roomInfo.funcs.selectWindow(res.ifwindow) +
+                                home.funcs.generateOption(2, home.vars.window, res.ifwindow) +
                                 "</select></p>" +
                                 "<p>客房备注：<input type='text' id='comment' value='" + home.funcs.spaceFuncEmpty(res.comment) + "'/></p>" +
                                 "</div>",
@@ -307,8 +306,7 @@ var roomInfo = {
                 else {
                     element.innerHTML =
                         "<select id='search-bar' class='search-bar'>" +
-                        "<option value='0'>" + home.vars.window[0] + "</option>" +
-                        "<option value='1'>" + home.vars.window[1] + "</option>" +
+                        home.funcs.generateSelect(2, home.vars.window) +
                         "</select>";
                 }
             });
@@ -322,16 +320,6 @@ var roomInfo = {
                 else {
                     str += "<option value='" + i + "'>" + home.vars.type[i - 1] + "</option>";
                 }
-            }
-            return str;
-        },
-        selectWindow: function (data) {
-            var str = "";
-            if (data === 0) {
-                str += "<option value='0' selected='selected'>" + home.vars.window[0] + "</option>" + "<option value='1'>" + home.vars.window[1] + "</option>";
-            }
-            else {
-                str += "<option value='0'>" + home.vars.window[0] + "</option>" + "<option value='1' selected='selected'>" + home.vars.window[1] + "</option>";
             }
             return str;
         }

@@ -57,6 +57,13 @@ iframe {
     /*height: 80px !important;*/
 }
 
+.pop-table {
+    position: relative;
+    align-self: center;
+    border-spacing: 1px;
+    border-collapse: collapse;
+}
+
 .popup {
     text-align: center;
     padding-top: 10px;
@@ -89,7 +96,7 @@ p {
     border-color: #4E5465;
 }
 
-.select-bar{
+.select-bar {
     width: 80px;
     height: 25px;
     border-width: 0 0 0 0;

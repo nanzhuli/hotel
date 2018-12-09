@@ -19,29 +19,28 @@ var employeeInfo = {
                 var data = result.data;        //获取数据
                 var $tbody = $("#employee-info-table").children('tbody');
                 employeeInfo.funcs.renderHandler($tbody, data);
-                var searchBtn = $('#search');
-                employeeInfo.funcs.bindSearchEventListener(searchBtn, $tbody);
             });
             // 数据渲染完毕
             var refreshBtn = $("#refresh");
             employeeInfo.funcs.bindRefreshEventListener(refreshBtn);
             var addBtn = $("#add");
             employeeInfo.funcs.bindAddEventListener(addBtn);
-            var selectBtn = $("#select-bar");
-            employeeInfo.funcs.bindSelectEventListener(selectBtn);
         },
         renderHandler: function ($tbody, data) {
             $tbody.empty();                  //清空表格
             data.forEach(function (e) {
                 $tbody.append(
                     "<tr>" +
-                    "<td>" + (e.roomno) + "</td>" +
-                    "<td>" + home.vars.type[e.type - 1] + "</td>" +
-                    "<td>" + (e.price) + "</td>" +
-                    "<td>" + (home.vars.window[e.ifwindow]) + "</td>" +
-                    "<td>" + (home.funcs.spaceFunc(e.comment)) + "</td>" +
-                    "<td><a href='#' class='edits' id='edit-" + e.roomno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
-                    "<td><a href='#' class='deletes' id='delete-" + e.roomno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
+                    "<td>" + (e.employno) + "</td>" +
+                    "<td>" + (e.employname) + "</td>" +
+                    "<td>" + home.vars.gender[e.employsex] + "</td>" +
+                    "<td>" + (e.employage) + "</td>" +
+                    "<td>" + home.vars.position[e.employposition] + "</td>" +
+                    "<td>" + (e.employauthority) + "</td>" +
+                    "<td>" + (e.employpaymentpermonth) + "</td>" +
+                    "<td>" + home.vars.workTime[e.employworktime] + "</td>" +
+                    "<td><a href='#' class='edits' id='edit-" + e.employno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
+                    "<td><a href='#' class='deletes' id='delete-" + e.employno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
                     "</tr>")
             });
             // 数据渲染完毕
@@ -70,7 +69,6 @@ var employeeInfo = {
             })
         },
         // 要做个输入合法性检测
-        // 对齐的话，改成table会不会好一点？
         bindAddEventListener: function (addBtn) {
             addBtn.off('click');
             addBtn.on('click', function () {
@@ -83,35 +81,46 @@ var employeeInfo = {
                         title: '添加',
                         content:
                             "<div id='addModal' class='popup'>" +
-                            "<p>客房编号：<input type='number' id='room-no'/></p>" +
-                            "<p>客房类型：<select id='room-type'>" +
-                            "<option value='1'>" + home.vars.type[0] + "</option>" +
-                            "<option value='2'>" + home.vars.type[1] + "</option>" +
-                            "<option value='3'>" + home.vars.type[2] + "</option>" +
-                            "<option value='4'>" + home.vars.type[3] + "</option>" +
+                            "<p>工号：<input type='number' id='employee-no'/></p>" +
+                            "<p>姓名：<input type='text' id='employee-name'/></p>" +
+                            "<p>性别：<select id='employee-sex'>" +
+                            home.funcs.generateSelect(2, home.vars.gender) +
                             "</select></p>" +
-                            "<p>客房单价：<input type='number' id='room-price'/></p>" +
-                            "<p>是否有窗：<select id='ifwindow'>" +
-                            "<option value='0'>" + home.vars.window[0] + "</option>" +
-                            "<option value='1'>" + home.vars.window[1] + "</option>" +
+                            "<p>年龄：<input type='number' id='employee-age'/></p>" +
+                            "<p>职位：<select id='employee-position'>" +
+                            home.funcs.generateSelect(4, home.vars.position) +
                             "</select></p>" +
-                            "<p>客房备注：<input type='text' id='comment'/></p>" +
+                            "<p>权限：<select id='employee-authority'>" +
+                            "<option value='0'>" + "Admin" + "</option>" +
+                            "<option value='1'>" + "Worker" + "</option>" +
+                            "<option value='2'>" + "Server" + "</option>" +
+                            "</select></p>" +
+                            "<p>工资：<input type='number' id='employee-salary'/></p>" +
+                            "<p>时段：<select id='employee-time'>" +
+                            home.funcs.generateSelect(3, home.vars.workTime) +
+                            "</select></p>" +
                             "</div>",
                         area: ['350px', '380px'],
                         btn: ['确认', '取消'],
                         offset: ['30%', '35%'],
                         yes: function (index) {
-                            var roomno = $('#room-no').val();
-                            var type = $('#room-type').val();
-                            var price = $('#room-price').val();
-                            var ifwindow = $('#ifwindow').val();
-                            var comment = $('#comment').val();
-                            $.post(home.urls.employeeInfo.add, {
-                                roomno: roomno,
-                                type: type,
-                                price: price,
-                                ifwindow: ifwindow,
-                                comment: comment
+                            var employeeNo = $('#employee-no').val();
+                            var name = $('#employee-name').val();
+                            var sex = $('#employee-sex').val();
+                            var age = $('#employee-age').val();
+                            var position = $('#employee-position').val();
+                            var authority = home.vars.authority[parseInt($('#employee-authority').val())];
+                            var salary = $('#employee-salary').val();
+                            var time = $('#employee-time').val();
+                            $.post(home.urls.employee.add, {
+                                employno: employeeNo,
+                                employname: name,
+                                employsex: sex,
+                                employage: age,
+                                employposition: position,
+                                employauthority: authority,
+                                employpaymentpermonth: salary,
+                                employworktime: time
                             }, function (result) {
                                 console.log(result);
                                 layer.msg(result.msg, {
@@ -134,61 +143,13 @@ var employeeInfo = {
                 });
             })
         },
-        bindSearchEventListener: function (searchBtn, $tbody) {
-            searchBtn.off('click');
-            searchBtn.on('click', function () {
-                var select = $('#select-bar').val();
-                var search = $('#search-bar').val();
-                $.post(home.urls.employeeInfo.getAll, {}, function (result) {
-                    $tbody.empty();
-                    var data = result.data;
-                    for (var i = 0; i < data.length; i++) {
-                        var flag = 0;
-                        switch (parseInt(select)) {
-                            case 0:
-                                flag = (JSON.stringify(data[i].roomno).indexOf(search) !== -1);
-                                break;
-                            case 1:
-                                flag = (parseInt(data[i].type) === parseInt(search));
-                                break;
-                            case 2:
-                                flag = (JSON.stringify(data[i].price).indexOf(search) !== -1);
-                                break;
-                            case 3:
-                                flag = (parseInt(data[i].ifwindow) === parseInt(search));
-                                break;
-                            case 4:
-                                flag = (JSON.stringify(data[i].comment).indexOf(search) !== -1);
-                                break;
-                        }
-                        if (flag) {
-                            $tbody.append(
-                                "<tr>" +
-                                "<td>" + (data[i].roomno) + "</td>" +
-                                "<td>" + home.vars.type[data[i].type - 1] + "</td>" +
-                                "<td>" + (data[i].price) + "</td>" +
-                                "<td>" + (home.var.window[data[i].ifwindow]) + "</td>" +
-                                "<td>" + (home.funcs.spaceFunc(data[i].comment)) + "</td>" +
-                                "<td><a href='#' class='edits' id='edit-" + data[i].roomno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
-                                "<td><a href='#' class='deletes' id='delete-" + data[i].roomno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
-                                "</tr>")
-                        }
-                    }
-                    // 数据渲染完毕
-                    var editBtns = $('.edits');
-                    var deleteBtns = $('.deletes');
-                    employeeInfo.funcs.bindEditEventListener(editBtns);
-                    employeeInfo.funcs.bindDeleteEventListener(deleteBtns);
-                })
-            })
-        },
         bindEditEventListener: function (editbtns) {
             editbtns.off('click');
             editbtns.on('click', function () {
                 console.log("EDIT");
                 var code = this.id.substr(5);
                 console.log(code);
-                $.get(home.urls.employeeInfo.getOne + code, {}, function (result) {
+                $.get(home.urls.employee.getOne + code, {}, function (result) {
                     console.log(result);
                     var res = result.data;
                     layui.use('layer', function () {
@@ -197,36 +158,46 @@ var employeeInfo = {
                             title: '编辑',
                             content:
                                 "<div id='addModal' class='popup'>" +
-                                "<p>客房编号：<input type='number' id='room-no' value='" + res.roomno + "' disabled='disabled'/></p>" +
-                                "<p>客房类型：<select id='room-type'>" +
-                                employeeInfo.funcs.selectType(res.type) +
+                                "<p>工号：<input type='number' id='employee-no' value='" + res.employno + "'/></p>" +
+                                "<p>姓名：<input type='text' id='employee-name' value='" + res.employname + "'/></p>" +
+                                "<p>性别：<select id='employee-sex'>" +
+                                home.funcs.generateOption(2, home.vars.gender, res.employsex) +
                                 "</select></p>" +
-                                "<p>客房单价：<input type='number' id='room-price' value='" + res.price + "'/></p>" +
-                                "<p>是否有窗：<select id='ifwindow'>" +
-                                employeeInfo.funcs.selectWindow(res.ifwindow) +
+                                "<p>年龄：<input type='number' id='employee-age' value='" + res.employage + "'/></p>" +
+                                "<p>职位：<select id='employee-position'>" +
+                                home.funcs.generateOption(4, home.vars.position, res.employposition) +
                                 "</select></p>" +
-                                "<p>客房备注：<input type='text' id='comment' value='" + home.funcs.spaceFuncEmpty(res.comment) + "'/></p>" +
+                                "<p>权限：<select id='employee-authority'>" +
+                                "<option value='0'>" + "Admin" + "</option>" +
+                                "<option value='1'>" + "Worker" + "</option>" +
+                                "<option value='2'>" + "Server" + "</option>" +
+                                "</select></p>" +
+                                "<p>工资：<input type='number' id='employee-salary' value='" + res.employpaymentpermonth + "'/></p>" +
+                                "<p>时段：<select id='employee-time'>" +
+                                home.funcs.generateOption(3, home.vars.workTime, res.employworktime) +
+                                "</select></p>" +
                                 "</div>",
                             area: ['350px', '380px'],
                             btn: ['确认', '取消'],
                             offset: ['30%', '35%'],
                             yes: function (index) {
-                                var roomno = $('#room-no').val();
-                                var type = $('#room-type').val();
-                                var price = $('#room-price').val();
-                                var ifwindow = $('#ifwindow').val();
-                                var comment = $('#comment').val();
-                                console.log(roomno);
-                                console.log(type);
-                                console.log(price);
-                                console.log(ifwindow);
-                                console.log(comment);
-                                $.post(home.urls.employeeInfo.update + roomno, {
-                                    // roomno: roomno,
-                                    type: type,
-                                    price: price,
-                                    ifwindow: ifwindow,
-                                    comment: comment
+                                var employeeNo = $('#employee-no').val();
+                                var name = $('#employee-name').val();
+                                var sex = $('#employee-sex').val();
+                                var age = $('#employee-age').val();
+                                var position = $('#employee-position').val();
+                                var authority = home.vars.authority[parseInt($('#employee-authority').val())];
+                                var salary = $('#employee-salary').val();
+                                var time = $('#employee-time').val();
+                                $.post(home.urls.employee.update + employeeNo, {
+                                    // employno: employeeNo,
+                                    employname: name,
+                                    employsex: sex,
+                                    employage: age,
+                                    employposition: position,
+                                    employauthority: authority,
+                                    employpaymentpermonth: salary,
+                                    employworktime: time
                                 }, function (result) {
                                     console.log(result);
                                     layer.msg(result.msg, {
@@ -266,7 +237,7 @@ var employeeInfo = {
                         offset: ['35%', '40%'],
                         yes: function (index) {
                             console.log(code);
-                            $.post(home.urls.employeeInfo.delete + code, {}, function (result) {
+                            $.post(home.urls.employee.delete + code, {}, function (result) {
                                 layer.msg(result.msg, {
                                     offset: ['50%', '50%'],
                                     time: 700
@@ -286,55 +257,6 @@ var employeeInfo = {
                     })
                 })
             })
-        },
-        bindSelectEventListener: function (selectBtn) {
-            selectBtn.off('click');
-            selectBtn.on('click', function () {
-                var select = parseInt($('#select-bar').val());
-                var element = $('#change')[0];
-                console.log(element);
-                if (select === 0 || select === 2 || select === 4) {
-                    element.innerHTML = "<input type='text' id='search-bar' class='search-bar' placeholder='输入关键字'>";
-                }
-                else if (select === 1) {
-                    element.innerHTML =
-                        "<select id='search-bar' class='search-bar'>" +
-                        "<option value='1'>" + home.vars.type[0] + "</option>" +
-                        "<option value='2'>" + home.vars.type[1] + "</option>" +
-                        "<option value='3'>" + home.vars.type[2] + "</option>" +
-                        "<option value='4'>" + home.vars.type[3] + "</option>" +
-                        "</select>";
-                }
-                else {
-                    element.innerHTML =
-                        "<select id='search-bar' class='search-bar'>" +
-                        "<option value='0'>" + home.vars.window[0] + "</option>" +
-                        "<option value='1'>" + home.vars.window[1] + "</option>" +
-                        "</select>";
-                }
-            });
-        },
-        selectType: function (data) {
-            var str = "";
-            for (var i = 1; i <= 4; i++) {
-                if (i === data) {
-                    str += "<option value='" + i + "' selected='selected'>" + home.vars.type[i - 1] + "</option>";
-                }
-                else {
-                    str += "<option value='" + i + "'>" + home.vars.type[i - 1] + "</option>";
-                }
-            }
-            return str;
-        },
-        selectWindow: function (data) {
-            var str = "";
-            if (data === 0) {
-                str += "<option value='0' selected='selected'>" + home.vars.window[0] + "</option>" + "<option value='1'>" + home.vars.window[1] + "</option>";
-            }
-            else {
-                str += "<option value='0'>" + home.vars.window[0] + "</option>" + "<option value='1' selected='selected'>" + home.vars.window[1] + "</option>";
-            }
-            return str;
         }
     }
 };
