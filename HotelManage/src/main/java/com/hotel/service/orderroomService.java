@@ -20,7 +20,7 @@ public class orderroomService {
         orderroom or = new orderroom();
         or.setOrderno(orderno);
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("orderno",
-                ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("orno","rino",
+                ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("orno","roomno",
                 "brand");
         Example<orderroom> ex = Example.of(or, exampleMatcher);
         List<orderroom> worker = orderroomrepository.findAll(ex);

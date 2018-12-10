@@ -10,7 +10,7 @@ public class orderroom {
     @Id
     private int orno;
     private int orderno;
-    private int rino;
+    private int roomno;
     private String brand;
 
     public int getOrno() {
@@ -29,12 +29,12 @@ public class orderroom {
         this.orderno = orderno;
     }
 
-    public int getRino() {
-        return rino;
+    public int getRoomno() {
+        return roomno;
     }
 
-    public void setRino(int rino) {
-        this.rino = rino;
+    public void setRoomno(int roomno) {
+        this.roomno = roomno;
     }
 
     public String getBrand() {
@@ -50,7 +50,7 @@ public class orderroom {
         return "orderroom{" +
                 "orno=" + orno +
                 ", orderno=" + orderno +
-                ", rino=" + rino +
+                ", roomno=" + roomno +
                 ", brand='" + brand + '\'' +
                 '}';
     }

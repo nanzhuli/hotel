@@ -107,9 +107,9 @@ public class orderController {
     }
 
     //orderroom表更新
-    @RequestMapping("/order/orderroom/update/{rino}")
-    public result orderroomUpdate(@PathVariable("rino")int rino, @RequestParam("brand")String brand) {
-        orderroom o = orderroomservice.findOne(rino);
+    @RequestMapping("/order/orderroom/update/{orno}")
+    public result orderroomUpdate(@PathVariable("orno")int orno, @RequestParam("brand")String brand) {
+        orderroom o = orderroomservice.findOne(orno);
         if(o==null)
             return resultReturn.error(1,"cant't find rino");
         o.setBrand(brand);
@@ -141,15 +141,11 @@ public class orderController {
                                @RequestParam("roomnoBefore")int roomnoBefore,@RequestParam("orderno")int orderno,
                                @RequestParam("name") String name, @RequestParam("id") String id) {
         roomid ri = roomidservice.findByRino(rino);
-        System.out.println("before"+ri);
         ri.setRoomno(roomnoAfter);
         ri.setId(id);
         ri.setName(name);
-        System.out.println("riafter"+ri);
         //修改price
-        System.out.println("order no "+orderno);
         Order o = orderservice.findByOrderno(orderno);
-        System.out.println("o "+o);
         room ra = roomservice.findById(roomnoAfter);
         room rb = roomservice.findById(roomnoBefore);
         o.setPrice(o.getPrice()+ra.getPrice()-rb.getPrice());
