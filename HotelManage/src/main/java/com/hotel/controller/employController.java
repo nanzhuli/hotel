@@ -25,7 +25,7 @@ public class employController {
     public result employSearchOne(@PathVariable("employno") int employno) {
         employ r = employservice.findByEmployno(employno);
         if(r == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             return resultReturn.success(r);
@@ -41,7 +41,7 @@ public class employController {
                             @RequestParam("employworktime") int employworktime) {
         employ e = employservice.findByEmployno(employno);
         if(e!=null)
-            return resultReturn.error(0,"that employno arleady exist");
+            return resultReturn.error(2,"that employno arleady exist");
         else{
             e = saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
                     employpaymentpermonth,  employworktime);
@@ -58,7 +58,7 @@ public class employController {
                                @RequestParam("employworktime") int employworktime) {
         employ e = employservice.findByEmployno(employno);
             if(e==null) {
-            return resultReturn.error(0,"that employno did not exist");
+            return resultReturn.error(1,"that employno did not exist");
         }
         else{
             e = saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
@@ -72,7 +72,7 @@ public class employController {
     public result employDelete(@PathVariable("employno")int employno) {
         employ e = employservice.findByEmployno(employno);
         if (e==null)
-            return resultReturn.error(0,"can't find this employno");
+            return resultReturn.error(1,"can't find this employno");
         employservice.delete(e);
         return resultReturn.success(e);
     }

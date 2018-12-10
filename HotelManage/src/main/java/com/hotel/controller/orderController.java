@@ -52,7 +52,7 @@ public class orderController {
     public result orderSearchOne(@PathVariable("orderno") int orderno) {
         Order r = orderservice.findById(orderno);
         if(r == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             return resultReturn.success(r);
@@ -66,7 +66,7 @@ public class orderController {
                               @RequestParam("isenter") int isenter) {
         Order o = orderservice.findByOrderno(orderno);
         if(o==null)
-            return resultReturn.error(0,"cant't find orderno!");
+            return resultReturn.error(1,"cant't find orderno!");
         o.setName(name);
         o.setId(id);
         o.setPhone(phone);
@@ -80,7 +80,7 @@ public class orderController {
         //需要先查询是否存在
         Order o = orderservice.findByOrderno(orderno);
         if(o == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             orderservice.delete(o);
@@ -99,7 +99,7 @@ public class orderController {
     public result orderroomSearchOne(@PathVariable("orno") int orno) {
         orderroom r = orderroomservice.findById(orno);
         if(r == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             return resultReturn.success(r);
@@ -111,7 +111,7 @@ public class orderController {
     public result orderroomUpdate(@PathVariable("rino")int rino, @RequestParam("brand")String brand) {
         orderroom o = orderroomservice.findOne(rino);
         if(o==null)
-            return resultReturn.error(0,"cant't find rino");
+            return resultReturn.error(1,"cant't find rino");
         o.setBrand(brand);
         return resultReturn.success(orderroomservice.save(o));
     }
@@ -127,7 +127,7 @@ public class orderController {
     public result roomidSearchOne(@PathVariable("rino") int rino) {
         roomid r = roomidservice.findById(rino);
         if(r == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             return resultReturn.success(r);
@@ -183,7 +183,7 @@ public class orderController {
             return resultReturn.success(o);
         }
         else {
-            return resultReturn.error(0,"还未入住");
+            return resultReturn.error(1,"还未入住");
         }
 
     }

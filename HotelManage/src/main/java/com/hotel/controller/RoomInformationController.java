@@ -44,7 +44,7 @@ public class RoomInformationController {
             return resultReturn.success(roomservice.save(r));
         }
         else
-            return resultReturn.error(0,"roomno already exist!");
+            return resultReturn.error(2,"roomno already exist!");
     }
 
     //更新已有信息
@@ -54,7 +54,7 @@ public class RoomInformationController {
                              @RequestParam("comment") String comment) {
         //需要先查询是否存在
         if(roomservice.findById(roomno)==null) {
-            return resultReturn.error(0,"cant't find roomno!");
+            return resultReturn.error(1,"cant't find roomno!");
         }
         else {
             room r = saveRoom(roomno, type, price, ifwindow, comment);
@@ -66,7 +66,7 @@ public class RoomInformationController {
     public result roomSerchOne(@PathVariable("roomno") int roomno) {
         room r = roomservice.findById(roomno);
         if(r == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             return resultReturn.success(r);
@@ -79,7 +79,7 @@ public class RoomInformationController {
         //需要先查询是否存在
         room r = roomservice.findById(roomno);
         if(r == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             roomservice.delete(r);
