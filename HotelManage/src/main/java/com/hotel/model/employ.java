@@ -14,7 +14,7 @@ public class employ {
     private int employsex;
     private int employage;
     private int employposition;
-    private String employauthority;
+    private int employauthority;
     private int employpaymentpermonth;
     private int employworktime;
 
@@ -58,11 +58,11 @@ public class employ {
         this.employposition = employposition;
     }
 
-    public String getEmployauthority() {
+    public int getEmployauthority() {
         return employauthority;
     }
 
-    public void setEmployauthority(String employauthority) {
+    public void setEmployauthority(int employauthority) {
         this.employauthority = employauthority;
     }
 

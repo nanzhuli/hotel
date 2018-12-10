@@ -36,14 +36,14 @@ public class employController {
     public result employAdd(@RequestParam("employno")int employno, @RequestParam("employname") String employname,
                             @RequestParam("employsex")int employsex, @RequestParam("employage") int employage,
                             @RequestParam("employposition")int employposition,
-                            @RequestParam("employauthority") String employauthority,
+                            @RequestParam("employauthority") int employauthority,
                             @RequestParam("employpaymentpermonth")int employpaymentpermonth,
                             @RequestParam("employworktime") int employworktime) {
         employ e = employservice.findByEmployno(employno);
         if(e!=null)
             return resultReturn.error(0,"that employno arleady exist");
         else{
-            saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
+            e = saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
                     employpaymentpermonth,  employworktime);
             return resultReturn.success(employservice.save(e));
         }
@@ -53,7 +53,7 @@ public class employController {
     public result employUpdate(@PathVariable("employno")int employno, @RequestParam("employname") String employname,
                                @RequestParam("employsex")int employsex, @RequestParam("employage") int employage,
                                @RequestParam("employposition")int employposition,
-                               @RequestParam("employauthority") String employauthority,
+                               @RequestParam("employauthority") int employauthority,
                                @RequestParam("employpaymentpermonth")int employpaymentpermonth,
                                @RequestParam("employworktime") int employworktime) {
         employ e = employservice.findByEmployno(employno);
@@ -61,7 +61,7 @@ public class employController {
             return resultReturn.error(0,"that employno did not exist");
         }
         else{
-            saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
+            e = saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
                     employpaymentpermonth,  employworktime);
             return resultReturn.success(employservice.save(e));
         }
@@ -78,7 +78,7 @@ public class employController {
     }
 
     public employ saveEmploy(int employno, String employname, int employsex, int employage,
-                           int employposition, String employauthority,
+                           int employposition, int employauthority,
                            int employpaymentpermonth, int employworktime) {
         employ e = new employ();
         e.setEmployno(employno);

@@ -63,7 +63,7 @@ public class orderController {
     @RequestMapping("/order/update/{orderno}")
     public result orderUpdate(@PathVariable("orderno") int orderno, @RequestParam("name") String name,
                               @RequestParam("id") String id, @RequestParam("phone") String phone,
-                              @RequestParam("isenter") String isenter) {
+                              @RequestParam("isenter") int isenter) {
         Order o = orderservice.findByOrderno(orderno);
         if(o==null)
             return resultReturn.error(0,"cant't find orderno!");
@@ -177,7 +177,7 @@ public class orderController {
     @RequestMapping("/order/settle/{orderno}")
     public result orderSettle(@PathVariable("orderno")int orderno) {
         Order o = orderservice.findByOrderno(orderno);
-        if(o.getIsenter()=="Y"){
+        if(o.getIsenter()==1){
             orderservice.delete(o);
             /**这里需要把o转移到历史去 ！未完成*/
             return resultReturn.success(o);

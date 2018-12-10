@@ -17,8 +17,8 @@ public class Order {
     private String phone;
     private Timestamp starttime;
     private Timestamp endtime;
-    private String ismenber;
-    private String isenter;
+    private int ismenber;
+    private int isenter;
 
     public int getOrderno() {
         return orderno;
@@ -84,19 +84,19 @@ public class Order {
         this.endtime = endtime;
     }
 
-    public String getIsmenber() {
+    public int getIsmenber() {
         return ismenber;
     }
 
-    public void setIsmenber(String ismenber) {
+    public void setIsmenber(int ismenber) {
         this.ismenber = ismenber;
     }
 
-    public String getIsenter() {
+    public int getIsenter() {
         return isenter;
     }
 
-    public void setIsenter(String isenter) {
+    public void setIsenter(int isenter) {
         this.isenter = isenter;
     }
 
