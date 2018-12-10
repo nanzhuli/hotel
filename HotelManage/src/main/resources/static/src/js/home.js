@@ -4,11 +4,12 @@ var home = {
         type: ["单人间", "双人间", "商务间", "家庭间"],
         window: ["无", "有"],
         typeEvent: ["wrong event type", "1楼", "2楼", "3楼"],
-        enter: ["N", "Y"],
+        enter: ["否", "是"],
+        member: ["否", "是"],
         gender: ["女", "男"],
-        position: ["职位0", "职位1", "职位2", "职位3"],
+        position: ["无", "楼层1", "楼层2", "楼层3"],
         authority: ["Admin", "Worker", "Server"],
-        workTime: ["时间0", "时间1", "时间2"]
+        workTime: ["全天", "00:00-11:59", "12:00-23:59"]
     },
     // 请求地址参数
     urls: {
@@ -32,7 +33,7 @@ var home = {
             // orderroom表查看
             getAll: "/order/orderroom/",            // orderno
             //
-            getOne:"/order/orderroom/orderroomSearchOne/", //orno
+            getOne: "/order/orderroom/orderroomSearchOne/", //orno
             // orderroom表更新
             update: "/order/orderroom/update/"      // rino
         },

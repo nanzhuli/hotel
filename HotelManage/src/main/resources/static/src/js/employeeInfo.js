@@ -36,7 +36,7 @@ var employeeInfo = {
                     "<td>" + home.vars.gender[e.employsex] + "</td>" +
                     "<td>" + (e.employage) + "</td>" +
                     "<td>" + home.vars.position[e.employposition] + "</td>" +
-                    "<td>" + (e.employauthority) + "</td>" +
+                    "<td>" + home.vars.authority[e.employauthority] + "</td>" +
                     "<td>" + (e.employpaymentpermonth) + "</td>" +
                     "<td>" + home.vars.workTime[e.employworktime] + "</td>" +
                     "<td><a href='#' class='edits' id='edit-" + e.employno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
@@ -91,9 +91,7 @@ var employeeInfo = {
                             home.funcs.generateSelect(4, home.vars.position) +
                             "</select></p>" +
                             "<p>权限：<select id='employee-authority'>" +
-                            "<option value='0'>" + "Admin" + "</option>" +
-                            "<option value='1'>" + "Worker" + "</option>" +
-                            "<option value='2'>" + "Server" + "</option>" +
+                            home.funcs.generateSelect(3,home.vars.authority)+
                             "</select></p>" +
                             "<p>工资：<input type='number' id='employee-salary'/></p>" +
                             "<p>时段：<select id='employee-time'>" +
@@ -109,7 +107,7 @@ var employeeInfo = {
                             var sex = $('#employee-sex').val();
                             var age = $('#employee-age').val();
                             var position = $('#employee-position').val();
-                            var authority = home.vars.authority[parseInt($('#employee-authority').val())];
+                            var authority = $('#employee-authority').val();
                             var salary = $('#employee-salary').val();
                             var time = $('#employee-time').val();
                             $.post(home.urls.employee.add, {
@@ -168,9 +166,7 @@ var employeeInfo = {
                                 home.funcs.generateOption(4, home.vars.position, res.employposition) +
                                 "</select></p>" +
                                 "<p>权限：<select id='employee-authority'>" +
-                                "<option value='0'>" + "Admin" + "</option>" +
-                                "<option value='1'>" + "Worker" + "</option>" +
-                                "<option value='2'>" + "Server" + "</option>" +
+                                home.funcs.generateOption(3,home.vars.authority, res.employauthority)+
                                 "</select></p>" +
                                 "<p>工资：<input type='number' id='employee-salary' value='" + res.employpaymentpermonth + "'/></p>" +
                                 "<p>时段：<select id='employee-time'>" +
@@ -186,7 +182,7 @@ var employeeInfo = {
                                 var sex = $('#employee-sex').val();
                                 var age = $('#employee-age').val();
                                 var position = $('#employee-position').val();
-                                var authority = home.vars.authority[parseInt($('#employee-authority').val())];
+                                var authority = $('#employee-authority').val();
                                 var salary = $('#employee-salary').val();
                                 var time = $('#employee-time').val();
                                 $.post(home.urls.employee.update + employeeNo, {

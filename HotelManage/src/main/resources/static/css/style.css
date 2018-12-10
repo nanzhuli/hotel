@@ -19,6 +19,13 @@
     text-align: right;
 }
 
+.block-login{
+    position: relative;
+    width: 600px;
+    height: 600px;
+    top: 50%;
+}
+
 iframe {
     border: 0;
 }

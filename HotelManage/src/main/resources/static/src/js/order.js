@@ -38,7 +38,7 @@ var order = {
                     "<td>" + home.funcs.timeStrDate(e.starttime) + "</td>" +
                     "<td>" + home.funcs.timeStrDate(e.endtime) + "</td>" +
                     "<td>" + (e.price) + "</td>" +
-                    "<td>" + (e.isenter) + "</td>" +
+                    "<td>" + home.vars.enter[e.isenter] + "</td>" +
                     "<td><a href='#' class='mores' id='more-" + e.orderno + "'><i class=\"layui-icon layui-icon-list\"></i></a></td>" +
                     "<td><a href='#' class='edits' id='edit-" + e.orderno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
                     "<td><a href='#' class='deletes' id='delete-" + e.orderno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
@@ -101,7 +101,7 @@ var order = {
                                 flag = (JSON.stringify(data[i].endtime).indexOf(search) !== -1);
                                 break;
                             case 5:
-                                flag = (data[i].isenter === home.vars.enter[parseInt(search)]);
+                                flag = (JSON.stringify(data[i].isenter).indexOf(search) !== -1);
                                 break;
                         }
                         if (flag) {
@@ -113,7 +113,7 @@ var order = {
                                 "<td>" + home.funcs.timeStrDate(data[i].starttime) + "</td>" +
                                 "<td>" + home.funcs.timeStrDate(data[i].endtime) + "</td>" +
                                 "<td>" + (data[i].price) + "</td>" +
-                                "<td>" + (data[i].isenter) + "</td>" +
+                                "<td>" + home.vars.enter[data[i].isenter] + "</td>" +
                                 "<td><a href='#' class='mores' id='more-" + data[i].orderno + "'><i class=\"layui-icon layui-icon-list\"></i></a></td>" +
                                 "<td><a href='#' class='edits' id='edit-" + data[i].orderno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
                                 "<td><a href='#' class='deletes' id='delete-" + data[i].orderno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
@@ -139,7 +139,7 @@ var order = {
                 $.get(home.urls.order.getOne + code, {}, function (result) {
                     console.log(result);
                     var res = result.data;
-                    var str = "";
+                    // var str = "";
                     layui.use('layer', function () {
                         // 使用订单号查找订单所包含的所有房间
                         $.get(home.urls.room.getAll + res.orderno, {}, function (allRoom) {
@@ -151,14 +151,15 @@ var order = {
                                 $.get(home.urls.roomid.getOne + singleRino, {}, function (roomId) {
                                     console.log(roomId);
                                     var roomIdData = roomId.data;
-                                    str += "<tr><td>" + roomIdData.roomno + "</td><td>" + roomIdData.name + "</td><td>" + roomIdData.id + "</td>";
+                                    var str = "<tr><td>" + roomIdData.roomno + "</td><td>" + roomIdData.name + "</td><td>" + roomIdData.id + "</td>";
+                                    order.funcs.detailHandler(str);
                                 });
                             });
                         });
-                        console.log(str);
+                        // console.log(str);
                         layer.open({
                             type: 1,
-                            title: '编辑',
+                            title: '查看',
                             content:
                                 "<div id='addModal' class='popup'>" +
                                 "<table class='pop-table' border='2px'>" +
@@ -170,17 +171,16 @@ var order = {
                                 "<tr><td>联系方式</td><td>" + (res.phone) + "</td></tr>" +
                                 "<tr><td>入住时间</td><td>" + home.funcs.timeStrDate(res.starttime) + "</td></tr>" +
                                 "<tr><td>离开时间</td><td>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
-                                "<tr><td>是否会员</td><td>" + (res.ismenber) + "</td></tr>" +
-                                "<tr><td>是否入住</td><td>" + (res.isenter) + "</td></tr>" +
+                                "<tr><td>是否会员</td><td>" + home.vars.member[res.ismenber] + "</td></tr>" +
+                                "<tr><td>是否入住</td><td>" + home.vars.enter[res.isenter] + "</td></tr>" +
                                 "</table>" +
-                                "<table class='pop-table' border='2px'>" +
-                                "<th><td>房间号</td><td>姓名</td><td>身份证号</td></th>" +
-                                str +
+                                "<table id='detail-table' class='pop-table' border='2px'>" +
+                                "<tr><td>房间号</td><td>姓名</td><td>身份证号</td></tr>" +
                                 "</table>" +
                                 "</div>",
-                            area: ['350px', '380px'],
+                            area: ['400px', '600px'],
                             btn: ['确认'],
-                            offset: ['30%', '35%'],
+                            offset: ['5%', '35%'],
                             yes: function (index) {
                                 layer.close(index)
                             }
@@ -306,6 +306,10 @@ var order = {
                     element.innerHTML = "<input type='text' id='search-bar' class='search-bar' placeholder='输入关键字'>";
                 }
             });
+        },
+        detailHandler: function (addStr) {
+            var $tbody = $("#detail-table").children('tbody');
+            $tbody.append(addStr);
         }
     }
 };
