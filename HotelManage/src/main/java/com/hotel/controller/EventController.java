@@ -51,11 +51,11 @@ public class EventController {
 
         room r = roomservice.findById(roomno);
         if(r==null)
-            return resultReturn.error(0,"roomno is not exist");
+            return resultReturn.error(1,"roomno is not exist");
         //需要做employno
         employ em = employservice.eventMatch(type, timestamp);
         if(em.getEmployno()==0){
-            return resultReturn.error(0,"can't match worker in that time");
+            return resultReturn.error(1,"can't match worker in that time");
         }
         else{
             e.setEmployno(em.getEmployno());
@@ -69,17 +69,17 @@ public class EventController {
                               @RequestParam("roomno") int roomno, @RequestParam("comment") String comment) {
         event E = eventservice.findAllByEventno(eventno);
         if(E==null)
-            return resultReturn.error(0,"can't find this eventno");
+            return resultReturn.error(1,"can't find this eventno");
         //更新时房间号确认
         E.setType(type);
         room r = roomservice.findById(roomno);
         if(r==null)
-            return resultReturn.error(0,"roomno is not exist");
+            return resultReturn.error(1,"roomno is not exist");
         E.setRoomno(roomno);
         E.setComment(comment);
         employ em = employservice.eventMatch(type, E.getStarttime());
         if(em.getEmployno()==0){
-            return resultReturn.error(0,"can't match worker in that time");
+            return resultReturn.error(1,"can't match worker in that time");
         }
         else{
             E.setEmployno(em.getEmployno());
@@ -92,7 +92,7 @@ public class EventController {
     public result eventDelete(@PathVariable("eventno") int eventno) {
         event E = eventservice.findAllByEventno(eventno);
         if(E==null)
-            return resultReturn.error(0,"can't find this eventno");
+            return resultReturn.error(1,"can't find this eventno");
         eventservice.delete(E);
         return resultReturn.success(E);
     }
@@ -101,7 +101,7 @@ public class EventController {
     public result evenSerchOne(@PathVariable("eventno") int eventno) {
         event e = eventservice.findById(eventno);
         if(e == null) {
-            return resultReturn.error(0,"it's not exist, you can't delete!");
+            return resultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             return resultReturn.success(e);
