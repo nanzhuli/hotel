@@ -145,15 +145,14 @@ var order = {
                         $.get(home.urls.room.getAll + res.orderno, {}, function (allRoom) {
                             console.log(allRoom);
                             var allRoomData = allRoom.data;
-                            allRoomData.forEach(function (e) {
-                                var singleRino = e.rino;
-                                // 对每个房间 room-id-no 查找房间内人员的信息
-                                $.get(home.urls.roomid.getOne + singleRino, {}, function (roomId) {
-                                    console.log(roomId);
-                                    var roomIdData = roomId.data;
-                                    var str = "<tr><td>" + roomIdData.roomno + "</td><td>" + roomIdData.name + "</td><td>" + roomIdData.id + "</td>";
-                                    order.funcs.detailHandler(str);
-                                });
+                            allRoomData.forEach(function (each) {
+                                // 插一行房间信息和查看按钮
+                                var str = "<tr><td>" + each.roomno + "</td><td>" + home.funcs.spaceFunc(each.brand) + "</td>" +
+                                    "<td><a href='#' class='rooms' id='room-" + each.roomno + "'><i class=\"layui-icon layui-icon-list\"></i></a></td>";
+                                order.funcs.detailHandler(str);
+                                // 绑定查看按钮事件
+                                var roomBtns = $(".rooms");
+                                order.funcs.bindRoomsEventListener(roomBtns);
                             });
                         });
                         // console.log(str);
@@ -161,7 +160,7 @@ var order = {
                             type: 1,
                             title: '查看',
                             content:
-                                "<div id='addModal' class='popup'>" +
+                                "<div id='orderDetail' class='popup'>" +
                                 "<table class='pop-table' border='2px'>" +
                                 "<tr><td>订单号</td><td>" + (res.orderno) + "</td></tr>" +
                                 "<tr><td>房间数量</td><td>" + (res.roomcount) + "</td></tr>" +
@@ -175,7 +174,7 @@ var order = {
                                 "<tr><td>是否入住</td><td>" + home.vars.enter[res.isenter] + "</td></tr>" +
                                 "</table>" +
                                 "<table id='detail-table' class='pop-table' border='2px'>" +
-                                "<tr><td>房间号</td><td>姓名</td><td>身份证号</td></tr>" +
+                                "<tr><td>房间号</td><td>绑定车牌</td><td>查看房间信息</td></tr>" +
                                 "</table>" +
                                 "</div>",
                             area: ['400px', '600px'],
@@ -307,8 +306,47 @@ var order = {
                 }
             });
         },
+        bindRoomsEventListener: function (roomBtn) {
+            roomBtn.off('click');
+            roomBtn.on('click', function () {
+                console.log("ROOM");
+                var code = this.id.substr(5);
+                console.log(code);
+                layui.use('layer', function () {
+                    // 使用code (roomno) 检索 room-id 表中的信息
+                    $.get(home.urls.roomid.getAll + code, {}, function (allRoomId) {
+                        console.log(allRoomId);
+                        var allRoomIdData = allRoomId.data;
+                        allRoomIdData.forEach(function (each) {
+                            // 插一行用户信息
+                            var str = "<tr><td>" + each.roomno + "</td><td>" + each.name + "</td><td>" + each.id + "</td>";
+                            order.funcs.detailRoomHandler(str);
+                        });
+                    });
+                    layer.open({
+                        type: 1,
+                        title: '房间' + code,
+                        content:
+                            "<table id='room-detail-table' class='pop-table' border='2px'>" +
+                            "<tr><td>房间号</td><td>姓名</td><td>身份证号</td></tr>" +
+                            "</table>" +
+                            "</div>",
+                        area: ['400px', '600px'],
+                        btn: ['确认'],
+                        offset: ['5%', '35%'],
+                        yes: function (index) {
+                            layer.close(index)
+                        }
+                    })
+                })
+            })
+        },
         detailHandler: function (addStr) {
             var $tbody = $("#detail-table").children('tbody');
+            $tbody.append(addStr);
+        },
+        detailRoomHandler: function (addStr) {
+            var $tbody = $("#room-detail-table").children('tbody');
             $tbody.append(addStr);
         }
     }
