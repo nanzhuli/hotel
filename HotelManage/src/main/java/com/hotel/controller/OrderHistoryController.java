@@ -31,6 +31,9 @@ public class OrderHistoryController
 	public result orderHistorySearchOne(@PathVariable("orderno") int orderNo)
 	{
 		OrderHistory orderHistory=orderHistoryService.findByOrderNo(orderNo);
-
+		if (orderHistory==null)
+			return resultReturn.error(1,"订单历史搜索失败");
+		else
+			return resultReturn.success(orderHistory);
 	}
 }
