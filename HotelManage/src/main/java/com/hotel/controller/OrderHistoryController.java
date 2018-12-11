@@ -3,15 +3,13 @@ package com.hotel.controller;
 import com.hotel.exception.ExceptionType;
 import com.hotel.exception.HotelException;
 import com.hotel.model.OrderHistory;
-import com.hotel.model.result;
+import com.hotel.model.Result;
 import com.hotel.other.resultReturn;
 import com.hotel.service.OrderHistoryService;
 import com.hotel.model.Order;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class OrderHistoryController
 	 * @return 返回订单历史集合
 	 */
 	@RequestMapping("/orderhistory/getall")
-	public result<List<OrderHistory>> orderHistoryList()
+	public Result<List<OrderHistory>> orderHistoryList()
 	{
 		return resultReturn.success(orderHistoryService.findAll());
 	}
@@ -41,7 +39,7 @@ public class OrderHistoryController
 	 * @throws HotelException 因主键不存在而抛出的异常
 	 */
 	@RequestMapping("/orderhistory/getone/{orderno}")
-	public result orderHistorySearchOne(@PathVariable("orderno") int orderNo) throws HotelException
+	public Result orderHistorySearchOne(@PathVariable("orderno") int orderNo) throws HotelException
 	{
 		OrderHistory orderHistory=orderHistoryService.findByOrderNo(orderNo);
 		if(orderHistory==null)
@@ -67,7 +65,7 @@ public class OrderHistoryController
 	 * @return 返回插入新的订单记录的结果
 	 */
 	@RequestMapping("/orderhistory/insert")
-	public result orderHistoryInsert(@RequestParam("roomcount") int roomCount,
+	public Result orderHistoryInsert(@RequestParam("roomcount") int roomCount,
 									 @RequestParam("price") int price,
 									 @RequestParam("name") String name,
 									 @RequestParam("id") String id,
@@ -136,7 +134,7 @@ public class OrderHistoryController
 	 * @param order 结算完成的订单
 	 * @return 返回插入新的订单记录的结果
 	 */
-	public result orderHistoryInsert(Order order)
+	public Result orderHistoryInsert(Order order)
 	{
 		OrderHistory orderHistory=saveOrderHistory(order);
 

@@ -1,7 +1,7 @@
 package com.hotel.controller;
 
+import com.hotel.model.Result;
 import com.hotel.model.employ;
-import com.hotel.model.result;
 import com.hotel.other.resultReturn;
 import com.hotel.service.employService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ public class employController {
     employService employservice;
 
     @RequestMapping("/employ/list")
-    public result<employ> employList() {
+    public Result<employ> employList() {
         return resultReturn.success(employservice.findAll());
     }
 
     @RequestMapping("/employ/searchOne/{employno}")
-    public result employSearchOne(@PathVariable("employno") int employno) {
+    public Result employSearchOne(@PathVariable("employno") int employno) {
         employ r = employservice.findByEmployno(employno);
         if(r == null) {
             return resultReturn.error(1,"it's not exist, you can't delete!");
@@ -32,8 +32,8 @@ public class employController {
     }
 
     @RequestMapping("/employ/add")
-    public result employAdd(@RequestParam("employno")int employno, @RequestParam("employname") String employname,
-                            @RequestParam("employsex")int employsex, @RequestParam("employage") int employage,
+    public Result employAdd(@RequestParam("employno")int employno,@RequestParam("employname") String employname,
+                            @RequestParam("employsex")int employsex,@RequestParam("employage") int employage,
                             @RequestParam("employposition")int employposition,
                             @RequestParam("employauthority") int employauthority,
                             @RequestParam("employpaymentpermonth")int employpaymentpermonth,
@@ -51,8 +51,8 @@ public class employController {
     }
 
     @RequestMapping("/employ/update/{employno}")
-    public result employUpdate(@PathVariable("employno")int employno, @RequestParam("employname") String employname,
-                               @RequestParam("employsex")int employsex, @RequestParam("employage") int employage,
+    public Result employUpdate(@PathVariable("employno")int employno,@RequestParam("employname") String employname,
+                               @RequestParam("employsex")int employsex,@RequestParam("employage") int employage,
                                @RequestParam("employposition")int employposition,
                                @RequestParam("employauthority") int employauthority,
                                @RequestParam("employpaymentpermonth")int employpaymentpermonth,
@@ -72,7 +72,7 @@ public class employController {
     }
 
     @RequestMapping("/employ/delete/{employno}")
-    public result employDelete(@PathVariable("employno")int employno) {
+    public Result employDelete(@PathVariable("employno")int employno) {
         employ e = employservice.findByEmployno(employno);
         if (e==null)
             return resultReturn.error(1,"can't find this employno");

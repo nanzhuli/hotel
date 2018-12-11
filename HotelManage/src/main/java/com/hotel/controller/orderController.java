@@ -47,13 +47,13 @@ public class orderController {
 
     //order表的查
     @RequestMapping("/order/orderlist")
-    public result<List<Order>> orderList() {
+    public Result<List<Order>> orderList() {
         return resultReturn.success(orderservice.findAll());
     }
 
     //order找一个
     @RequestMapping("/order/searchOne/{orderno}")
-    public result orderSearchOne(@PathVariable("orderno") int orderno) {
+    public Result orderSearchOne(@PathVariable("orderno") int orderno) {
         Order r = orderservice.findById(orderno);
         if(r == null) {
             return resultReturn.error(1,"it's not exist, you can't delete!");
@@ -65,8 +65,8 @@ public class orderController {
 
     //order表更新
     @RequestMapping("/order/update/{orderno}")
-    public result orderUpdate(@PathVariable("orderno") int orderno, @RequestParam("name") String name,
-                              @RequestParam("id") String id, @RequestParam("phone") String phone,
+    public Result orderUpdate(@PathVariable("orderno") int orderno,@RequestParam("name") String name,
+                              @RequestParam("id") String id,@RequestParam("phone") String phone,
                               @RequestParam("isenter") int isenter) {
         Order o = orderservice.findByOrderno(orderno);
         if(o==null)
@@ -80,7 +80,7 @@ public class orderController {
 
     //order表删除
     @RequestMapping("/order/delete/{orderno}")
-    public result orderDelete(@PathVariable("orderno") int orderno) {
+    public Result orderDelete(@PathVariable("orderno") int orderno) {
         //需要先查询是否存在
         Order o = orderservice.findByOrderno(orderno);
         if(o == null) {
@@ -94,13 +94,13 @@ public class orderController {
 
     //orderroom表查看
     @RequestMapping("/order/orderroom/{orderno}")
-    public result<List<orderroom>> orderroomList(@PathVariable("orderno") int orderno) {
+    public Result<List<orderroom>> orderroomList(@PathVariable("orderno") int orderno) {
         return resultReturn.success(orderroomservice.findAll(orderno));
     }
 
     //orderroom找一个
     @RequestMapping("/order/orderroom/orderroomSearchOne/{orno}")
-    public result orderroomSearchOne(@PathVariable("orno") int orno) {
+    public Result orderroomSearchOne(@PathVariable("orno") int orno) {
         orderroom r = orderroomservice.findById(orno);
         if(r == null) {
             return resultReturn.error(1,"it's not exist, you can't delete!");
@@ -112,7 +112,7 @@ public class orderController {
 
     //orderroom表更新
     @RequestMapping("/order/orderroom/update/{orno}")
-    public result orderroomUpdate(@PathVariable("orno")int orno, @RequestParam("brand")String brand) {
+    public Result orderroomUpdate(@PathVariable("orno")int orno,@RequestParam("brand")String brand) {
         orderroom o = orderroomservice.findOne(orno);
         if(o==null)
             return resultReturn.error(1,"cant't find rino");
@@ -122,13 +122,13 @@ public class orderController {
 
     //roomid表查看
     @RequestMapping("/order/orderroom/roomid/list/{roomno}")
-    public result<List<roomid>> roomidList(@PathVariable("roomno") int roomno) {
+    public Result<List<roomid>> roomidList(@PathVariable("roomno") int roomno) {
         return resultReturn.success(roomidservice.findAll(roomno));
     }
 
     //roomid找一个
     @RequestMapping("/order/orderroom/roomid/roomidSearchOne/{rino}")
-    public result roomidSearchOne(@PathVariable("rino") int rino) {
+    public Result roomidSearchOne(@PathVariable("rino") int rino) {
         roomid r = roomidservice.findById(rino);
         if(r == null) {
             return resultReturn.error(1,"it's not exist, you can't delete!");
@@ -141,9 +141,9 @@ public class orderController {
     //roomid表修改
     /**在进入更改操作之前需要先获取可以更换的roomno号 调用 函数*/
     @RequestMapping("/order/orderroom/roomid/update/{rino}")
-    public result roomidUpdate(@PathVariable("rino")int rino, @RequestParam("roomnoAfter")int roomnoAfter,
+    public Result roomidUpdate(@PathVariable("rino")int rino,@RequestParam("roomnoAfter")int roomnoAfter,
                                @RequestParam("roomnoBefore")int roomnoBefore,@RequestParam("orderno")int orderno,
-                               @RequestParam("name") String name, @RequestParam("id") String id) {
+                               @RequestParam("name") String name,@RequestParam("id") String id) {
         roomid ri = roomidservice.findByRino(rino);
         ri.setRoomno(roomnoAfter);
         ri.setId(id);
@@ -159,7 +159,7 @@ public class orderController {
 
     //获取不在roomid中的roomno
     @RequestMapping("/order/orderroom/roomid/getEmptyRoomno")
-    public result<List<Integer>> getEmptyRoomno() {
+    public Result<List<Integer>> getEmptyRoomno() {
         List<roomid> ri = roomidservice.findAllWithoutparam();
         List<Integer> q = new ArrayList<>(ri.size());
         for(int i=0; i<ri.size(); i++) {
@@ -175,7 +175,7 @@ public class orderController {
 
     //结算功能
     @RequestMapping("/order/settle/{orderno}")
-    public result orderSettle(@PathVariable("orderno")int orderno) {
+    public Result orderSettle(@PathVariable("orderno")int orderno) {
         Order o = orderservice.findByOrderno(orderno);
         if(o.getIsenter()==1){
             orderservice.delete(o);

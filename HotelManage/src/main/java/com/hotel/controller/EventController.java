@@ -1,23 +1,18 @@
 package com.hotel.controller;
 
+import com.hotel.model.Result;
 import com.hotel.model.employ;
 import com.hotel.model.event;
-import com.hotel.model.result;
 import com.hotel.model.room;
 import com.hotel.other.resultReturn;
 import com.hotel.service.employService;
 import com.hotel.service.eventService;
 import com.hotel.service.roomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 
 @RestController
@@ -33,14 +28,14 @@ public class EventController {
 
     //查看事务列表
     @RequestMapping("/event/allList")
-    public result<event> eventList() {
+    public Result<event> eventList() {
         return resultReturn.success(eventservice.findAll());
     }
 
     //添加新的事务
     @RequestMapping("/event/add")
-    public result evenAdd(@RequestParam("type") int type, @RequestParam("roomno") int roomno,
-                          @RequestParam("comment") String comment) {
+    public Result evenAdd(@RequestParam("type") int type,@RequestParam("roomno") int roomno,
+						  @RequestParam("comment") String comment) {
         event e = new event();
         e.setType(type);
         e.setRoomno(roomno);
@@ -65,8 +60,8 @@ public class EventController {
 
     //更新事务
     @RequestMapping("/event/update/{eventno}")
-    public result eventUpdate(@PathVariable("eventno") int eventno, @RequestParam("type") int type,
-                              @RequestParam("roomno") int roomno, @RequestParam("comment") String comment) {
+    public Result eventUpdate(@PathVariable("eventno") int eventno,@RequestParam("type") int type,
+							  @RequestParam("roomno") int roomno,@RequestParam("comment") String comment) {
         event E = eventservice.findAllByEventno(eventno);
         if(E==null)
             return resultReturn.error(1,"can't find this eventno");
@@ -89,7 +84,7 @@ public class EventController {
 
     //根据eventno删除事务
     @RequestMapping("/event/delete/{eventno}")
-    public result eventDelete(@PathVariable("eventno") int eventno) {
+    public Result eventDelete(@PathVariable("eventno") int eventno) {
         event E = eventservice.findAllByEventno(eventno);
         if(E==null)
             return resultReturn.error(1,"can't find this eventno");
@@ -98,7 +93,7 @@ public class EventController {
     }
 
     @RequestMapping("/event/searchOne/{eventno}")
-    public result evenSerchOne(@PathVariable("eventno") int eventno) {
+    public Result evenSerchOne(@PathVariable("eventno") int eventno) {
         event e = eventservice.findById(eventno);
         if(e == null) {
             return resultReturn.error(1,"it's not exist, you can't delete!");

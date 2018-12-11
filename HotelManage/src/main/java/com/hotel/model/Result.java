@@ -1,6 +1,6 @@
 package com.hotel.model;
 
-public class result<T> {
+public class Result<T> {
     /** 错误码. */
     private Integer code;//0=success -1=fail
 
@@ -36,7 +36,7 @@ public class result<T> {
 
     @Override
     public String toString() {
-        return "result{" +
+        return "Result{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +

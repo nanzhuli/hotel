@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hotel.model.result;
+import com.hotel.model.Result;
 import com.hotel.other.resultReturn;
 import com.hotel.exception.ExceptionType;
 
@@ -14,7 +14,7 @@ public class ExceptionHandle
 {
 	@ExceptionHandler(value=Exception.class)
 	@ResponseBody
-	public result handel(Exception e)
+	public Result handel(Exception e)
 	{
 		if(e instanceof HotelException)
 		{

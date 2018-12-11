@@ -174,8 +174,8 @@
         $("#register1").on('click', function () {
             var username = $("#code").val()
             var password = $("#password").val()
-            // $.post(servers.backup() + "student/login", {code: username, password: password}, function (result) {
-                // var resCode = result.code
+            // $.post(servers.backup() + "student/login", {code: username, password: password}, function (Result) {
+                // var resCode = Result.code
                 var resCode = 0;
                 console.log(resCode)
                 if (resCode == 0) {
@@ -232,17 +232,17 @@
         })
 
 //        /** 获取所有的权限 */
-//        $.get(servers.backup() + 'modelOperation/getAll', {}, function (result) {
-//            var modelOperations = result.data
+//        $.get(servers.backup() + 'modelOperation/getAll', {}, function (Result) {
+//            var modelOperations = Result.data
 //            window.localStorage.setItem('modelOperations', JSON.stringify(modelOperations))
 //        })
-//        $.get(servers.backup() + 'role/getAllRoleModelOperation', {}, function (result) {
-//            var roleModelOperation = result.data
+//        $.get(servers.backup() + 'role/getAllRoleModelOperation', {}, function (Result) {
+//            var roleModelOperation = Result.data
 //            window.localStorage.setItem('roleModelOperation', JSON.stringify(roleModelOperation))
 //        })
 //        /** 获取所有的operations并用远足存储起来 */
-//        $.get(servers.backup() + 'operation/getAll', {}, function (result) {
-//            var operations = result.data.sort(function (a, b) {
+//        $.get(servers.backup() + 'operation/getAll', {}, function (Result) {
+//            var operations = Result.data.sort(function (a, b) {
 //                return a.code - b.code
 //            })
 //            window.localStorage.setItem('operations', JSON.stringify(operations))
