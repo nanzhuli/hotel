@@ -1,5 +1,6 @@
 package com.hotel.util;
 
+import com.hotel.exception.ExceptionType;
 import com.hotel.model.Result;
 
 public class ResultReturn
@@ -7,8 +8,8 @@ public class ResultReturn
 
     public static Result success(Object object) {
         Result result = new Result();
-        result.setCode(0);
-        result.setMsg("成功");
+        result.setCode(ExceptionType.DONE.getCode());
+        result.setMsg(ExceptionType.DONE.getMsg());
         result.setData(object);
         return result;
     }
