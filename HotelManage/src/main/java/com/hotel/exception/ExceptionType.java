@@ -1,15 +1,16 @@
-package com.hotel.handle;
+package com.hotel.exception;
 
-public enum  handle
+public enum ExceptionType
 {
-	DONE(1,"成功"),
+	DONE(0,"成功"),
 	ORDER_HISTORY_FINDING_ERROR(500,"订单历史搜索失败"),
+	UNKNOWN_ERROR(-1,"未知错误"),
 	;
 
 	private int code;
 	private String msg;
 
-	handle(int code,String msg)
+	ExceptionType(int code,String msg)
 	{
 		this.code=code;
 		this.msg=msg;
