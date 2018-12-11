@@ -45,7 +45,6 @@ iframe {
 .display-table tr, td {
     font-size: 12px;
     text-align: center;
-    padding: 5px 0px 5px 0px;
 }
 
 .display-table-large table {
@@ -57,18 +56,39 @@ iframe {
 .display-table-large tr, td {
     font-size: 12px;
     text-align: center;
-    padding: 5px 0px 5px 0px;
+}
+
+.frame-room-id {
+    position: relative;
+    top: 50%;
+    text-align: center;
+    align-self: center;
+    display: table-cell;
 }
 
 .layui-layer-content {
     /*height: 80px !important;*/
 }
 
+.layui-table th {
+    text-align: center;
+    font-weight: bold;
+}
+
 .pop-table {
     position: relative;
-    align-self: center;
-    border-spacing: 1px;
     border-collapse: collapse;
+    margin: 40px auto auto;
+}
+
+.pop-table th{
+    padding: 9px 15px 9px 15px;
+    font-size: 16px;
+}
+
+.pop-table td{
+    padding: 9px 15px 9px 15px;
+    font-size: 12px;
 }
 
 .popup {
@@ -85,11 +105,11 @@ iframe {
     height: 30px;
 }
 
-tr, td {
-    font-size: 12px;
-    text-align: center;
-    padding: 5px 0px 5px 0px;
-}
+/*tr, td {*/
+    /*font-size: 12px;*/
+    /*text-align: center;*/
+    /*padding: 5px 0px 5px 0px;*/
+/*}*/
 
 p {
     padding: 5px 0px 5px 0px;
