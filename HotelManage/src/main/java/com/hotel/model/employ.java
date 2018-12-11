@@ -17,6 +17,24 @@ public class employ {
     private int employauthority;
     private int employpaymentpermonth;
     private int employworktime;
+    private String loginname;
+    private String password;
+
+    public String getLoginname() {
+        return loginname;
+    }
+
+    public void setLoginname(String loginname) {
+        this.loginname = loginname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public int getEmployno() {
         return employno;
@@ -90,9 +108,11 @@ public class employ {
                 ", employsex=" + employsex +
                 ", employage=" + employage +
                 ", employposition=" + employposition +
-                ", employauthority='" + employauthority + '\'' +
+                ", employauthority=" + employauthority +
                 ", employpaymentpermonth=" + employpaymentpermonth +
                 ", employworktime=" + employworktime +
+                ", loginname='" + loginname + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

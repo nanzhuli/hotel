@@ -39,7 +39,7 @@ public class employService {
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("employworktime",
                 ExampleMatcher.GenericPropertyMatchers.contains()).withMatcher("employposition",
                 ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("employno","employname",
-                "employsex","employage","employpaymentpermonth","employauthority");
+                "employsex","employage","employpaymentpermonth","employauthority","loginname","password");
         Example<employ> ex = Example.of(e, exampleMatcher);
         Optional<employ> worker = employrepository.findOne(ex);
         return worker.orElse(e);
