@@ -11,14 +11,14 @@ public class OrderHistory
 {
 	@Id
 	private int orderNo;
-	private int count;
+	private int roomCount;
 	private int price;
 	private String name;
 	private String id;
 	private String phone;
 	private Timestamp startTime;
 	private Timestamp endTime;
-	private int isMember;
+	private String isMember;
 
 	public int getOrderNo()
 	{
@@ -30,14 +30,14 @@ public class OrderHistory
 		this.orderNo=orderNo;
 	}
 
-	public int getCount()
+	public int getRoomCount()
 	{
-		return count;
+		return roomCount;
 	}
 
-	public void setCount(int count)
+	public void setRoomCount(int roomCount)
 	{
-		this.count=count;
+		this.roomCount=roomCount;
 	}
 
 	public int getPrice()
@@ -100,12 +100,12 @@ public class OrderHistory
 		this.endTime=endTime;
 	}
 
-	public int getMember()
+	public String getMember()
 	{
 		return isMember;
 	}
 
-	public void setMember(int member)
+	public void setMember(String member)
 	{
 		isMember=member;
 	}
@@ -115,13 +115,13 @@ public class OrderHistory
 	{
 		return "orderhistory{"+
 				"orderno="+orderNo+
-				",count="+count+
+				",roomCount="+roomCount+
 				",price="+price+
 				",name='"+name+"'"+
 				",id='"+id+"'"+
 				",phone='"+phone+"'"+
 				",starttime="+startTime+
 				",endtime="+endTime+
-				",ismember="+isMember+"}";
+				",ismember='"+isMember+"'}";
 	}
 }
