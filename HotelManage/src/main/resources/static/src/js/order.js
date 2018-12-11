@@ -206,15 +206,20 @@ var order = {
                             console.log(allRoom);
                             var allRoomData = allRoom.data;
                             allRoomData.forEach(function (each) {
-                                // 插一行房间信息和查看按钮
-                                var str = "<tr><td>" + each.roomno + "</td>" +
-                                    "<td><input type='text' style='width:66px' id='brand' value='" + home.funcs.spaceFunc(each.brand) + "'><button class=\"layui-btn\">保存</button></td>" +
-                                    "<td><a href='#' class='rooms' id='room-edit-" + each.roomno + "'><i class=\"layui-icon layui-icon-list\"></i></a></td>" +
+                                // 插一行房间信息和编辑按钮
+                                var str = "<tr>" +
+                                    "<td id='roomno-" + each.orno + "'>" + order.funcs.getEmptyRoom(each.roomno ,each.orno) + "</td>" +
+                                    "<td><input type='text' style='width:66px' id='brand-" + each.orno + "' maxlength='7' value='" + home.funcs.spaceFunc(each.brand) + "'></td>" +
+                                    // "<td><button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='room-update' id='room-update-" + each.roomno + "'>保存</lable></td></button>" +
+                                    "<td><a href='#' class='room-update' id='room-update-" + each.orno + "'><i class='layui-icon layui-icon-ok'></i></a></td>" +
+                                    "<td><a href='#' class='edit-rooms' id='room-edit-" + each.roomno + "'><i class='layui-icon layui-icon-edit'></i></a></td>" +
                                     "</tr>";
                                 order.funcs.detailHandler(str);
                                 // 绑定查看按钮事件
-                                var roomBtns = $(".rooms");
-                                order.funcs.bindRoomsEventListener(roomBtns);
+                                var roomBtns = $(".edit-rooms");
+                                order.funcs.bindEditRoomEventListener(roomBtns);
+                                var roomUpdate = $(".room-update");
+                                order.funcs.bindRoomUpdateEventListener(roomUpdate);
                             });
                         });
                         // console.log(str);
@@ -224,19 +229,23 @@ var order = {
                             content:
                                 "<div id='pop-div-room' class='display-table'>" +
                                 "<table id='detail-table' class='layui-table' border='1px'>" +
-                                "<tr><th colspan='3'>订单详情</th></tr>" +
-                                "<tr><td>订单号</td><td colspan='2'>" + (res.orderno) + "</td></tr>" +
-                                "<tr><td>房间数量</td><td colspan='2'>" + (res.roomcount) + "</td></tr>" +
-                                "<tr><td>订单价格</td><td colspan='2'>" + (res.price) + "</td></tr>" +
-                                "<tr><td>姓名</td><td colspan='2'><input id='name' style='width: 145px' type='text' value='" + (res.name) + "'></td></tr>" +
-                                "<tr><td>身份证号</td><td colspan='2'><input id='id' style='width: 145px' type='number' value='" + (res.id) + "'></td></tr>" +
-                                "<tr><td>联系方式</td><td colspan='2'><input id='phone' style='width: 145px' type='number' value='" + (res.phone) + "'></td></tr>" +
-                                "<tr><td>入住时间</td><td colspan='2'>" + home.funcs.timeStrDate(res.starttime) + "</td></tr>" +
-                                "<tr><td>离开时间</td><td colspan='2'>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
-                                "<tr><td>是否会员</td><td colspan='2'>" + home.vars.member[res.ismenber] + "</td></tr>" +
-                                "<tr><td>是否入住</td><td colspan='2'>" + home.vars.enter[res.isenter] + "</td></tr>" +
-                                "<tr><th colspan='3'>房间详情</th></tr>" +
-                                "<tr><td>房间号</td><td>绑定车牌</td><td>编辑</td></tr>" +
+                                "<tr><th colspan='4'>订单详情</th></tr>" +
+                                "<tr><td>订单号</td><td colspan='3' id='orderno'>" + (res.orderno) + "</td></tr>" +
+                                "<tr><td>房间数量</td><td colspan='3' id='roomcount'>" + (res.roomcount) + "</td></tr>" +
+                                "<tr><td>订单价格</td><td colspan='3' id='price'>" + (res.price) + "</td></tr>" +
+                                "<tr><td>姓名</td><td colspan='3'><input id='name' style='width: 145px' type='text' value='" + (res.name) + "'>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "<tr><td>身份证号</td><td colspan='3'><input id='id' style='width: 145px' type='text' maxlength='18' value='" + (res.id) + "'>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "<tr><td>联系方式</td><td colspan='3'><input id='phone' style='width: 145px' type='number' oninput='if(value.length>11)value=value.slice(0,11)' value='" + (res.phone) + "'>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "<tr><td>入住时间</td><td colspan='3' id='starttime'>" + home.funcs.timeStrDate(res.starttime) + "</td></tr>" +
+                                "<tr><td>离开时间</td><td colspan='3' id='endtime'>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
+                                "<tr><td>是否会员</td><td colspan='3' id='ismenber'>" + home.vars.member[res.ismenber] + "</td></tr>" +
+                                "<tr><td>是否入住</td><td colspan='3'><select id='isenter' style='width: 145px; height: 22px'>" + home.funcs.generateOption(2, home.vars.enter, res.isenter) + "</select>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "<tr><th colspan='4'>房间详情</th></tr>" +
+                                "<tr><td>房间号</td><td>绑定车牌</td><td>保存</td><td>编辑房客</td></tr>" +
                                 "</table>" +
                                 "</div>",
                             area: ['600px', '600px'],
@@ -244,69 +253,62 @@ var order = {
                             offset: 'auto',// ['5%', '35%'],
                             zIndex: 5,
                             btnAlign: 'c',
+                            success: function () {
+                                var updateBtn = $(".order-update");
+                                order.funcs.bindOrderUpdateEventListener(updateBtn);
+                            },
                             yes: function (index) {
                                 layer.close(index)
                             }
                         });
                     });
                 });
-
-                // var code = this.id.substr(5);
-                // console.log(code);
-                // $.get(home.urls.order.getOne + code, {}, function (result) {
-                //     console.log(result);
-                //     var res = result.data;
-                //     layui.use('layer', function () {
-                //         layer.open({
-                //             type: 1,
-                //             title: '编辑',
-                //             content:
-                //                 "<div id='addModal' class='popup'>" +
-                //                 "<p>订单编号：<input type='number' id='room-no' value='" + res.orderno + "' disabled='disabled'/></p>" +
-                //                 "<p>客房单价：<input type='number' id='room-price' value='" + res.price + "'/></p>" +
-                //                 "<p>客房备注：<input type='text' id='comment' value='" + home.funcs.spaceFuncEmpty(res.comment) + "'/></p>" +
-                //                 "</div>",
-                //             area: ['350px', '380px'],
-                //             btn: ['确认', '取消'],
-                //             offset: auto,//: ['30%', '35%'],
-                //             yes: function (index) {
-                //                 var roomno = $('#room-no').val();
-                //                 var type = $('#room-type').val();
-                //                 var price = $('#room-price').val();
-                //                 var ifwindow = $('#ifwindow').val();
-                //                 var comment = $('#comment').val();
-                //                 console.log(roomno);
-                //                 console.log(type);
-                //                 console.log(price);
-                //                 console.log(ifwindow);
-                //                 console.log(comment);
-                //                 $.post(home.urls.order.update + roomno, {
-                //                     // roomno: roomno,
-                //                     type: type,
-                //                     price: price,
-                //                     ifwindow: ifwindow,
-                //                     comment: comment
-                //                 }, function (result) {
-                //                     console.log(result);
-                //                     layer.msg(result.msg, {
-                //                         offset: ['50%', '50%'],
-                //                         time: 700
-                //                     });
-                //                     if (result.code === 0) {
-                //                         var time = setTimeout(function () {
-                //                             order.init();
-                //                             clearTimeout(time);
-                //                         }, 500)
-                //                     }
-                //                     layer.close(index)
-                //                 })
-                //             },
-                //             btn2: function (index) {
-                //                 layer.close(index)
-                //             }
-                //         });
-                //     })
-                // });
+            })
+        },
+        bindEditRoomEventListener: function (roomBtn) {
+            roomBtn.off('click');
+            roomBtn.on('click', function () {
+                console.log("EDIT-ROOM");
+                var code = this.id.substr(10);
+                console.log(code);
+                layui.use('layer', function () {
+                    // 使用code (roomno) 检索 room-id 表中的信息
+                    $.get(home.urls.roomid.getAll + code, {}, function (allRoomId) {
+                        console.log(allRoomId);
+                        var allRoomIdData = allRoomId.data;
+                        allRoomIdData.forEach(function (each) {
+                            // 插一行用户信息
+                            var str = "<tr><td>" + each.roomno + "</td>" +
+                                "<td><input id='name' style='width: 80px' type='text' value='" + each.name + "'>" +
+                                "<br><button class='layui-btn layui-btn-primary layui-btn-xs' style='margin-top: 5px'>保存</button></td>" +
+                                "<td><input id='id' style='width: 145px' type='text' maxlength='18' value='" + each.id + "'>" +
+                                "<br><button class='layui-btn layui-btn-primary layui-btn-xs' style='margin-top: 5px'>保存</button></td>" +
+                                "</tr>";
+                            order.funcs.detailRoomHandler(str);
+                        });
+                    });
+                    layer.open({
+                        type: 1,
+                        title: '编辑房间' + code,
+                        content:
+                            "<div id='pop-div-roomid' class='display-table'>" +
+                            "<table id='room-detail-table' class='layui-table' border='1px' width='70%'>" +
+                            "<tr><td>房间号</td><td>姓名</td><td>身份证号</td></tr>" +
+                            "</table>" +
+                            "</div>",
+                        area: ['600px', '400px'],
+                        btn: ['确认'],
+                        offset: 'auto', //['5%', '35%'],
+                        zIndex: 10,
+                        btnAlign: 'c',
+                        success: function () {
+                            layer.setTop(layero); //重点2
+                        },
+                        yes: function (index) {
+                            layer.close(index)
+                        }
+                    })
+                })
             })
         },
         bindDeleteEventListener: function (deleteBtns) {
@@ -360,7 +362,8 @@ var order = {
                         "<option value='0'>" + home.vars.enter[0] + "</option>" +
                         "<option value='1'>" + home.vars.enter[1] + "</option>" +
                         "</select>";
-                } else {
+                }
+                else {
                     element.innerHTML = "<input type='text' id='search-bar' class='search-bar' placeholder='输入关键字'>";
                 }
             });
@@ -413,6 +416,79 @@ var order = {
         detailRoomHandler: function (addStr) {
             var $tbody = $("#room-detail-table").children('tbody');
             $tbody.append(addStr);
+        },
+        getEmptyRoom: function (originRoom, orno) {
+            $.get(home.urls.roomid.getEmpty, {}, function (emptyRooms) {
+                console.log(emptyRooms);
+                var emptyRoomsData = emptyRooms.data;
+                var str = "<select id='empty-room'>";
+                // 增加选项、默认初始和可用的空房间
+                str += "<option selected='selected' value='" + originRoom + "'>" + originRoom + "</option>";
+                emptyRoomsData.forEach(function (emptyRoom) {
+                    str += "<option value='" + emptyRoom + "'>" + emptyRoom + "</option>";
+                });
+                // 保存按钮，绑定房间号
+                str += "</select>";
+                var element = $("#roomno-" + orno)[0];
+                element.innerHTML = str;
+            })
+        },
+        bindOrderUpdateEventListener: function (updateBtn) {
+            updateBtn.off('click');
+            updateBtn.on('click', function () {
+                console.log("OrderUpdate");
+                var roomno = $("#orderno")[0].innerHTML;
+                var roomcount = $("#roomcount")[0].innerHTML;
+                var price = $("#price")[0].innerHTML;
+                var name = $("#name").val();
+                var id = $("#id").val();
+                var phone = $("#phone").val();
+                var starttime = $("#starttime")[0].innerHTML;
+                var endtime = $("#endtime")[0].innerHTML;
+                var ismenber = home.funcs.indexOf(home.vars.member, $("#ismenber")[0].innerHTML);
+                var isenter = $("#isenter").val();
+                // console.log(roomno);
+                // console.log(roomcount);
+                // console.log(price);
+                // console.log(name);
+                // console.log(id);
+                // console.log(phone);
+                // console.log(starttime);
+                // console.log(endtime);
+                // console.log(ismenber);
+                // console.log(isenter);
+                $.post(home.urls.order.update + roomno, {
+                    name: name,
+                    id: id,
+                    phone: phone,
+                    isenter: isenter
+                }, function (result) {
+                    console.log(result);
+                    layer.msg(result.msg, {
+                        offset: ['50%', '50%'],
+                        time: 700
+                    });
+                    if (result.code === 0) {
+                        var time = setTimeout(function () {
+                            order.init();
+                            clearTimeout(time);
+                        }, 500)
+                    }
+                    layer.closeAll();
+                })
+            });
+        },
+        bindRoomUpdateEventListener: function (updateBtn) {
+            updateBtn.off('click');
+            updateBtn.on('click', function () {
+                console.log("RoomUpdate");
+                var orno = this.id.substr(12);
+                // console.log(orno);
+                var roomno = $("#roomno-"+orno).children("select").val();
+                var roomcount = $("#brand-"+orno).val();
+                console.log(roomno);
+                console.log(roomcount);
+            });
         }
     }
 };

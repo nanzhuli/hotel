@@ -76,7 +76,8 @@ var home = {
         timeStr: function (str) {
             if (str === null) {
                 return "无"
-            } else {
+            }
+            else {
                 var arr1 = str.split("T");
                 var arr2 = arr1[1].split(".");
                 str = arr1[0] + " " + arr2[0];
@@ -86,7 +87,8 @@ var home = {
         timeStrDate: function (str) {
             if (str === null) {
                 return "无"
-            } else {
+            }
+            else {
                 var arr1 = str.split("T");
                 var arr2 = arr1[1].split(".");
                 str = arr1[0];
@@ -122,6 +124,14 @@ var home = {
                 str += "</option>";
             }
             return str;
+        },
+        indexOf: function (array, element) {
+            for (var i = 0; i < array.length; i++) {
+                if(array[i] === element){
+                    return i;
+                }
+            }
+            return -1;
         }
     },
     // Get数据型函数
