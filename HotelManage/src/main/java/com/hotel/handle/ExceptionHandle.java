@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hotel.model.Result;
-import com.hotel.other.resultReturn;
+import com.hotel.util.ResultReturn;
 import com.hotel.exception.ExceptionType;
 
 @ControllerAdvice
@@ -19,14 +19,14 @@ public class ExceptionHandle
 		if(e instanceof HotelException)
 		{
 			HotelException hotelException=(HotelException)e;
-			return resultReturn.error(
+			return ResultReturn.error(
 					hotelException.getCode(),
 					hotelException.getMessage()
 			);
 		}
 		else
 		{
-			return resultReturn.error(
+			return ResultReturn.error(
 					ExceptionType.UNKNOWN_ERROR.getCode(),
 					ExceptionType.UNKNOWN_ERROR.getMsg()
 			);

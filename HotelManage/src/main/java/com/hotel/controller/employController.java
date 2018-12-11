@@ -2,7 +2,7 @@ package com.hotel.controller;
 
 import com.hotel.model.Result;
 import com.hotel.model.employ;
-import com.hotel.other.resultReturn;
+import com.hotel.util.ResultReturn;
 import com.hotel.service.employService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,17 +17,17 @@ public class employController {
 
     @RequestMapping("/employ/list")
     public Result<employ> employList() {
-        return resultReturn.success(employservice.findAll());
+        return ResultReturn.success(employservice.findAll());
     }
 
     @RequestMapping("/employ/searchOne/{employno}")
     public Result employSearchOne(@PathVariable("employno") int employno) {
         employ r = employservice.findByEmployno(employno);
         if(r == null) {
-            return resultReturn.error(1,"it's not exist, you can't delete!");
+            return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
-            return resultReturn.success(r);
+            return ResultReturn.success(r);
         }
     }
 
@@ -42,11 +42,11 @@ public class employController {
                             @RequestParam("password") String password) {
         employ e = employservice.findByEmployno(employno);
         if(e!=null)
-            return resultReturn.error(2,"that employno arleady exist");
+            return ResultReturn.error(2,"that employno arleady exist");
         else{
             e = saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
                     employpaymentpermonth,employworktime,loginname,password);
-            return resultReturn.success(employservice.save(e));
+            return ResultReturn.success(employservice.save(e));
         }
     }
 
@@ -61,12 +61,12 @@ public class employController {
                                @RequestParam("password") String password) {
         employ e = employservice.findByEmployno(employno);
             if(e==null) {
-            return resultReturn.error(1,"that employno did not exist");
+            return ResultReturn.error(1,"that employno did not exist");
         }
         else{
             e = saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
                     employpaymentpermonth,  employworktime,loginname,password);
-            return resultReturn.success(employservice.save(e));
+            return ResultReturn.success(employservice.save(e));
         }
 
     }
@@ -75,9 +75,9 @@ public class employController {
     public Result employDelete(@PathVariable("employno")int employno) {
         employ e = employservice.findByEmployno(employno);
         if (e==null)
-            return resultReturn.error(1,"can't find this employno");
+            return ResultReturn.error(1,"can't find this employno");
         employservice.delete(e);
-        return resultReturn.success(e);
+        return ResultReturn.success(e);
     }
 
     public employ saveEmploy(int employno, String employname, int employsex, int employage,

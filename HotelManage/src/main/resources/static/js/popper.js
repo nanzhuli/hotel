@@ -522,7 +522,7 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   // Subtract margins of documentElement in case it's being used as parent
   // we do this only on HTML because it's the only element that behaves
   // differently when margins are applied to it. The margins are included in
-  // the box of the documentElement, in the other cases not.
+  // the box of the documentElement, in the util cases not.
   if (!isIE10 && isHTML) {
     var marginTop = parseFloat(styles.marginTop, 10);
     var marginLeft = parseFloat(styles.marginLeft, 10);
@@ -627,7 +627,7 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
   if (boundariesElement === 'viewport') {
     boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);
   } else {
-    // Handle other cases based on DOM element used as boundaries
+    // Handle util cases based on DOM element used as boundaries
     var boundariesNode = void 0;
     if (boundariesElement === 'scrollParent') {
       boundariesNode = getScrollParent(getParentNode(reference));
@@ -653,7 +653,7 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
       boundaries.left += offsets.left - offsets.marginLeft;
       boundaries.right = width + offsets.left;
     } else {
-      // for all the other DOM elements, this one is good
+      // for all the util DOM elements, this one is good
       boundaries = offsets;
     }
   }
@@ -941,7 +941,7 @@ function update() {
   data = runModifiers(this.modifiers, data);
 
   // the first `update` will call `onCreate` callback
-  // the other ones will call `onUpdate` callback
+  // the util ones will call `onUpdate` callback
   if (!this.state.isCreated) {
     this.state.isCreated = true;
     this.options.onCreate(data);
@@ -1678,7 +1678,7 @@ function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
 
   // Use height if placement is left or right and index is 0 otherwise use width
   // in this way the first offset will use an axis and the second one
-  // will use the other one
+  // will use the util one
   var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1;
 
   // Split the offset string to obtain a list of values and operands
@@ -1949,7 +1949,7 @@ function inner(data) {
  * needed by the library.
  *
  * Usually you don't want to override the `order`, `fn` and `onLoad` props.
- * All the other properties are configurations that could be tweaked.
+ * All the util properties are configurations that could be tweaked.
  * @namespace modifiers
  */
 var modifiers = {

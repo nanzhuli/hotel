@@ -3,7 +3,7 @@ package com.hotel.controller;
 import com.hotel.model.Garage;
 import com.hotel.service.GarageService;
 import com.hotel.model.Result;
-import com.hotel.other.resultReturn;
+import com.hotel.util.ResultReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ public class GarageController
 	@RequestMapping("/garage/getall")
 	public Result<List<Garage>> garageList()
 	{
-		return resultReturn.success(garageService.findAll());
+		return ResultReturn.success(garageService.findAll());
 	}
 
 	/**
@@ -36,6 +36,6 @@ public class GarageController
 	public Result garageFindByBrand(@PathVariable("brand") String brand)
 	{
 		Garage garage=garageService.findByBrand(brand);
-		return resultReturn.success(garage);
+		return ResultReturn.success(garage);
 	}
 }

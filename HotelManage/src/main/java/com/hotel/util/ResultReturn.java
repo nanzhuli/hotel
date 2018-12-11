@@ -1,8 +1,9 @@
-package com.hotel.other;
+package com.hotel.util;
 
 import com.hotel.model.Result;
 
-public class resultReturn {
+public class ResultReturn
+{
 
     public static Result success(Object object) {
         Result result = new Result();

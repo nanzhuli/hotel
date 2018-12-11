@@ -669,7 +669,7 @@ Color.prototype.setValues = function (space, vals) {
 		values[space][i] = Math.round(capped);
 	}
 
-	// convert to all the other color spaces
+	// convert to all the util color spaces
 	for (var sname in spaces) {
 		if (sname !== space) {
 			values[sname] = convert[space][sname](values[space]);
@@ -13681,7 +13681,7 @@ function arrayUnique(items) {
 /**
  * Returns an array of {time, pos} objects used to interpolate a specific `time` or position
  * (`pos`) on the scale, by searching entries before and after the requested value. `pos` is
- * a decimal between 0 and 1: 0 being the start of the scale (left or top) and 1 the other
+ * a decimal between 0 and 1: 0 being the start of the scale (left or top) and 1 the util
  * extremity (left + width or top + height). Note that it would be more optimized to directly
  * store pre-computed pixels, but the scale dimensions are not guaranteed at the time we need
  * to create the lookup table. The table ALWAYS contains at least two items: min and max.
@@ -13689,7 +13689,7 @@ function arrayUnique(items) {
  * @param {Number[]} timestamps - timestamps sorted from lowest to highest.
  * @param {String} distribution - If 'linear', timestamps will be spread linearly along the min
  * and max range, so basically, the table will contains only two items: {min, 0} and {max, 1}.
- * If 'series', timestamps will be positioned at the same distance from each other. In this
+ * If 'series', timestamps will be positioned at the same distance from each util. In this
  * case, only timestamps that break the time linearity are registered, meaning that in the
  * best case, all timestamps are linear, the table contains only min and max.
  */
@@ -14030,7 +14030,7 @@ module.exports = function(Chart) {
 		/**
 		 * Data distribution along the scale:
 		 * - 'linear': data are spread according to their time (distances can vary),
-		 * - 'series': data are spread at the same distance from each other.
+		 * - 'series': data are spread at the same distance from each util.
 		 * @see https://github.com/chartjs/Chart.js/pull/4507
 		 * @since 2.7.0
 		 */

@@ -3,7 +3,7 @@ package com.hotel.controller;
 import com.hotel.model.Result;
 import com.hotel.model.room;
 import com.hotel.model.standard;
-import com.hotel.other.resultReturn;
+import com.hotel.util.ResultReturn;
 import com.hotel.service.roomService;
 import com.hotel.service.standardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class RoomInformationController {
     //查询房间标准列表
     @RequestMapping("/standard")
     public Result<List<standard>> standardList() {
-        return resultReturn.success(standservice.getAll());
+        return ResultReturn.success(standservice.getAll());
     }
 
     //查询客房信息列表
     @RequestMapping("/room/roomlist")
     public Result<List<room>> roomList() {
-        return resultReturn.success(roomservice.getAll()) ;
+        return ResultReturn.success(roomservice.getAll()) ;
     }
 
     //添加客房信息
@@ -41,10 +41,10 @@ public class RoomInformationController {
         if(roomservice.findById(roomno)==null) {
             System.out.println(roomno);
             room r = saveRoom(roomno, type, price, ifwindow, comment);
-            return resultReturn.success(roomservice.save(r));
+            return ResultReturn.success(roomservice.save(r));
         }
         else
-            return resultReturn.error(2,"roomno already exist!");
+            return ResultReturn.error(2,"roomno already exist!");
     }
 
     //更新已有信息
@@ -54,11 +54,11 @@ public class RoomInformationController {
 							 @RequestParam("comment") String comment) {
         //需要先查询是否存在
         if(roomservice.findById(roomno)==null) {
-            return resultReturn.error(1,"cant't find roomno!");
+            return ResultReturn.error(1,"cant't find roomno!");
         }
         else {
             room r = saveRoom(roomno, type, price, ifwindow, comment);
-            return resultReturn.success(roomservice.save(r));
+            return ResultReturn.success(roomservice.save(r));
         }
     }
 
@@ -66,10 +66,10 @@ public class RoomInformationController {
     public Result roomSerchOne(@PathVariable("roomno") int roomno) {
         room r = roomservice.findById(roomno);
         if(r == null) {
-            return resultReturn.error(1,"it's not exist, you can't delete!");
+            return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
-            return resultReturn.success(r);
+            return ResultReturn.success(r);
         }
     }
 
@@ -79,11 +79,11 @@ public class RoomInformationController {
         //需要先查询是否存在
         room r = roomservice.findById(roomno);
         if(r == null) {
-            return resultReturn.error(1,"it's not exist, you can't delete!");
+            return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             roomservice.delete(r);
-            return resultReturn.success(r);
+            return ResultReturn.success(r);
         }
     }
 

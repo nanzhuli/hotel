@@ -5,7 +5,7 @@
  * Includes Sizzle.js
  * https://sizzlejs.com/
  *
- * Copyright JS Foundation and other contributors
+ * Copyright JS Foundation and util contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
@@ -465,7 +465,7 @@ jQuery.extend( {
 	// A global GUID counter for objects
 	guid: 1,
 
-	// jQuery.support is not used in Core but other projects attach their
+	// jQuery.support is not used in Core but util projects attach their
 	// properties to it so it needs to exist.
 	support: support
 } );
@@ -501,7 +501,7 @@ var Sizzle =
  * Sizzle CSS Selector Engine v2.3.3
  * https://sizzlejs.com/
  *
- * Copyright jQuery Foundation and other contributors
+ * Copyright jQuery Foundation and util contributors
  * Released under the MIT license
  * http://jquery.org/license
  *
@@ -1667,7 +1667,7 @@ Expr = Sizzle.selectors = {
 				match[4] = +( match[4] ? match[5] + (match[6] || 1) : 2 * ( match[3] === "even" || match[3] === "odd" ) );
 				match[5] = +( ( match[7] + match[8] ) || match[3] === "odd" );
 
-			// other types prohibit arguments
+			// util types prohibit arguments
 			} else if ( match[3] ) {
 				Sizzle.error( match[0] );
 			}
@@ -2697,7 +2697,7 @@ support.detectDuplicates = !!hasDuplicate;
 setDocument();
 
 // Support: Webkit<537.32 - Safari 6.0.3/Chrome 25 (fixed in Chrome 27)
-// Detached nodes confoundingly follow *each other*
+// Detached nodes confoundingly follow *each util*
 support.sortDetached = assert(function( el ) {
 	// Should return 1, but returns 4 (following)
 	return el.compareDocumentPosition( document.createElement("fieldset") ) & 1;
@@ -3578,7 +3578,7 @@ jQuery.extend( {
 											);
 										}
 
-									// Handle all other returned values
+									// Handle all util returned values
 									} else {
 
 										// Only substitute handlers pass on context
@@ -4683,7 +4683,7 @@ var wrapMap = {
 
 	// XHTML parsers do not magically insert elements in the
 	// same way that tag soup parsers do. So we cannot shorten
-	// this by omitting <tbody> or other required elements.
+	// this by omitting <tbody> or util required elements.
 	thead: [ 1, "<table>", "</table>" ],
 	col: [ 2, "<table><colgroup>", "</colgroup></table>" ],
 	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
@@ -6905,7 +6905,7 @@ function defaultPrefilter( elem, props, opts ) {
 				if ( value === "show" && dataShow && dataShow[ prop ] !== undefined ) {
 					hidden = true;
 
-				// Ignore all other no-op show/hide data
+				// Ignore all util no-op show/hide data
 				} else {
 					continue;
 				}
@@ -10308,7 +10308,7 @@ jQuery.isNumeric = function( obj ) {
 
 
 
-// Register as a named AMD module, since jQuery can be concatenated with other
+// Register as a named AMD module, since jQuery can be concatenated with util
 // files that may use define, but not via a proper concatenation script that
 // understands anonymous AMD modules. A named AMD is safest and most robust
 // way to register. Lowercase jquery is used because AMD module names are

@@ -1,7 +1,7 @@
 package com.hotel.controller;
 
 import com.hotel.model.*;
-import com.hotel.other.resultReturn;
+import com.hotel.util.ResultReturn;
 import com.hotel.service.orderService;
 import com.hotel.service.orderroomService;
 import com.hotel.service.roomService;
@@ -48,7 +48,7 @@ public class orderController {
     //order表的查
     @RequestMapping("/order/orderlist")
     public Result<List<Order>> orderList() {
-        return resultReturn.success(orderservice.findAll());
+        return ResultReturn.success(orderservice.findAll());
     }
 
     //order找一个
@@ -56,10 +56,10 @@ public class orderController {
     public Result orderSearchOne(@PathVariable("orderno") int orderno) {
         Order r = orderservice.findById(orderno);
         if(r == null) {
-            return resultReturn.error(1,"it's not exist, you can't delete!");
+            return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
-            return resultReturn.success(r);
+            return ResultReturn.success(r);
         }
     }
 
@@ -70,12 +70,12 @@ public class orderController {
                               @RequestParam("isenter") int isenter) {
         Order o = orderservice.findByOrderno(orderno);
         if(o==null)
-            return resultReturn.error(1,"cant't find orderno!");
+            return ResultReturn.error(1,"cant't find orderno!");
         o.setName(name);
         o.setId(id);
         o.setPhone(phone);
         o.setIsenter(isenter);
-        return resultReturn.success(orderservice.save(o));
+        return ResultReturn.success(orderservice.save(o));
     }
 
     //order表删除
@@ -84,18 +84,18 @@ public class orderController {
         //需要先查询是否存在
         Order o = orderservice.findByOrderno(orderno);
         if(o == null) {
-            return resultReturn.error(1,"it's not exist, you can't delete!");
+            return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
             orderservice.delete(o);
-            return resultReturn.success(o);
+            return ResultReturn.success(o);
         }
     }
 
     //orderroom表查看
     @RequestMapping("/order/orderroom/{orderno}")
     public Result<List<orderroom>> orderroomList(@PathVariable("orderno") int orderno) {
-        return resultReturn.success(orderroomservice.findAll(orderno));
+        return ResultReturn.success(orderroomservice.findAll(orderno));
     }
 
     //orderroom找一个
@@ -103,10 +103,10 @@ public class orderController {
     public Result orderroomSearchOne(@PathVariable("orno") int orno) {
         orderroom r = orderroomservice.findById(orno);
         if(r == null) {
-            return resultReturn.error(1,"it's not exist, you can't delete!");
+            return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
-            return resultReturn.success(r);
+            return ResultReturn.success(r);
         }
     }
 
@@ -115,15 +115,15 @@ public class orderController {
     public Result orderroomUpdate(@PathVariable("orno")int orno,@RequestParam("brand")String brand) {
         orderroom o = orderroomservice.findOne(orno);
         if(o==null)
-            return resultReturn.error(1,"cant't find rino");
+            return ResultReturn.error(1,"cant't find rino");
         o.setBrand(brand);
-        return resultReturn.success(orderroomservice.save(o));
+        return ResultReturn.success(orderroomservice.save(o));
     }
 
     //roomid表查看
     @RequestMapping("/order/orderroom/roomid/list/{roomno}")
     public Result<List<roomid>> roomidList(@PathVariable("roomno") int roomno) {
-        return resultReturn.success(roomidservice.findAll(roomno));
+        return ResultReturn.success(roomidservice.findAll(roomno));
     }
 
     //roomid找一个
@@ -131,10 +131,10 @@ public class orderController {
     public Result roomidSearchOne(@PathVariable("rino") int rino) {
         roomid r = roomidservice.findById(rino);
         if(r == null) {
-            return resultReturn.error(1,"it's not exist, you can't delete!");
+            return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
         else {
-            return resultReturn.success(r);
+            return ResultReturn.success(r);
         }
     }
 
@@ -154,7 +154,7 @@ public class orderController {
         room rb = roomservice.findById(roomnoBefore);
         o.setPrice(o.getPrice()+ra.getPrice()-rb.getPrice());
         orderservice.save(o);
-        return resultReturn.success(roomidservice.save(ri));
+        return ResultReturn.success(roomidservice.save(ri));
     }
 
     //获取不在roomid中的roomno
@@ -170,7 +170,7 @@ public class orderController {
         for(int i=0; i<r.size(); i++) {
             sum.add(r.get(i).getRoomno());
         }
-        return resultReturn.success(sum);
+        return ResultReturn.success(sum);
     }
 
     //结算功能
@@ -183,7 +183,7 @@ public class orderController {
             return new OrderHistoryController(orderHistoryService).orderHistoryInsert(o);
         }
         else {
-            return resultReturn.error(1,"还未入住");
+            return ResultReturn.error(1,"还未入住");
         }
 
     }

@@ -4,7 +4,7 @@ import com.hotel.exception.ExceptionType;
 import com.hotel.exception.HotelException;
 import com.hotel.model.OrderHistory;
 import com.hotel.model.Result;
-import com.hotel.other.resultReturn;
+import com.hotel.util.ResultReturn;
 import com.hotel.service.OrderHistoryService;
 import com.hotel.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class OrderHistoryController
 	@RequestMapping("/orderhistory/getall")
 	public Result<List<OrderHistory>> orderHistoryList()
 	{
-		return resultReturn.success(orderHistoryService.findAll());
+		return ResultReturn.success(orderHistoryService.findAll());
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class OrderHistoryController
 		}
 		else
 		{
-			return resultReturn.success(orderHistory);
+			return ResultReturn.success(orderHistory);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class OrderHistoryController
 	{
 		OrderHistory orderHistory=saveOrderHistory(roomCount,price,name,id,
 												   phone,startTime,endTime,isMember);
-		return resultReturn.success(orderHistoryService.save(orderHistory));
+		return ResultReturn.success(orderHistoryService.save(orderHistory));
 	}
 
 	/**
@@ -138,6 +138,6 @@ public class OrderHistoryController
 	{
 		OrderHistory orderHistory=saveOrderHistory(order);
 
-		return resultReturn.success(orderHistoryService.save(orderHistory));
+		return ResultReturn.success(orderHistoryService.save(orderHistory));
 	}
 }
