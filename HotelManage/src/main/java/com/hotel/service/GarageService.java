@@ -20,17 +20,30 @@ public class GarageService
 		return garageRepository.findAll();
 	}
 
+	public Garage findById(int garageNo) throws HotelException
+	{
+		Garage garage=garageRepository.findById(garageNo).orElse(null);
+		if(garage==null)
+		{
+			throw new HotelException(ExceptionType.GARAGE_FIND_BY_ID_ERROR.getCode(),
+					ExceptionType.GARAGE_FIND_BY_ID_ERROR.getMsg());
+		}
+		else
+		{
+			return garage;
+		}
+	}
+
 	public Garage findByBrand(String brand) throws HotelException
 	{
-		for (Garage garage:garageRepository.findAll())
+		for (Garage garage : garageRepository.findAll())
 		{
-			if (garage.getBrand().equals(brand))
+			if(garage.getBrand().equals(brand))
 			{
 				return garage;
 			}
 		}
-		throw new HotelException(
-				ExceptionType.GARAGE_FIND_BY_BRAND_ERROR.getCode(),
+		throw new HotelException(ExceptionType.GARAGE_FIND_BY_BRAND_ERROR.getCode(),
 				ExceptionType.GARAGE_FIND_BY_BRAND_ERROR.getMsg());
 	}
 

@@ -3,7 +3,8 @@ package com.hotel.exception;
 public enum ExceptionType
 {
 	DONE(0,"成功"),
-	GARAGE_FIND_BY_BRAND_ERROR(400,"未通过车牌找到目标车库"),
+	GARAGE_FIND_BY_ID_ERROR(400,"未通过车库编号找到目标车库"),
+	GARAGE_FIND_BY_BRAND_ERROR(401,"未通过车牌找到目标车库"),
 	ORDER_HISTORY_FINDING_ERROR(800,"订单历史搜索失败"),
 	UNKNOWN_ERROR(-1,"未知错误"),
 	;
