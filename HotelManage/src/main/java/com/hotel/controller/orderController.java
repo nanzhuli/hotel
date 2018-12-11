@@ -6,6 +6,7 @@ import com.hotel.service.orderService;
 import com.hotel.service.orderroomService;
 import com.hotel.service.roomService;
 import com.hotel.service.roomidService;
+import com.hotel.service.OrderHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,9 @@ public class orderController {
 
     @Autowired
     roomService roomservice;
+
+    @Autowired
+    OrderHistoryService orderHistoryService;
     /**
      * order表有查 更新 删除操作，更新可以更新name/id/phone/isenter 更改phone后需要去核对会员信息
      * 删除操作则是当isenter=N时才可以
@@ -175,8 +179,8 @@ public class orderController {
         Order o = orderservice.findByOrderno(orderno);
         if(o.getIsenter()==1){
             orderservice.delete(o);
-            /**这里需要把o转移到历史去 ！未完成*/
-            return resultReturn.success(o);
+
+            return new OrderHistoryController(orderHistoryService).orderHistoryInsert(o);
         }
         else {
             return resultReturn.error(1,"还未入住");

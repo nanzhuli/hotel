@@ -115,7 +115,7 @@ public class OrderHistoryController
 	 * @param order 结算完成的订单
 	 * @return 返回对应的订单记录（作为历史记录）
 	 */
-	public OrderHistory saveOrderHistory(Order order)
+	private OrderHistory saveOrderHistory(Order order)
 	{
 		OrderHistory orderHistory=new OrderHistory();
 		orderHistory.setEndTime(order.getEndtime());
@@ -128,5 +128,18 @@ public class OrderHistoryController
 		orderHistory.setStartTime(order.getStarttime());
 
 		return orderHistory;
+	}
+
+	/**
+	 * 注意！！此方法只于OrderController中调用！！
+	 *
+	 * @param order 结算完成的订单
+	 * @return 返回插入新的订单记录的结果
+	 */
+	public result orderHistoryInsert(Order order)
+	{
+		OrderHistory orderHistory=saveOrderHistory(order);
+
+		return resultReturn.success(orderHistoryService.save(orderHistory));
 	}
 }
