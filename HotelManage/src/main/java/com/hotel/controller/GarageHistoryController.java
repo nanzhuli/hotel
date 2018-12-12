@@ -64,10 +64,14 @@ public class GarageHistoryController
 		newGarageHistory.setGarageid(garage.getGarageno());
 		newGarageHistory.setStarttime(garage.getStarttime());
 		newGarageHistory.setType(garage.getType());
-		newGarageHistory.setPrice(new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),
-				endTime)*garage.getGaragePricePreHour());
+		if(garage.getType()==0)
+		{
+			newGarageHistory.setPrice(new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),
+					endTime)*garage.getGaragePricePreHour());
 
-		new FinanceController().insert(newGarageHistory);
+			new FinanceController().insert(newGarageHistory);
+		}
+
 		return ResultReturn.success(garageHistoryService.save(newGarageHistory));
 	}
 }
