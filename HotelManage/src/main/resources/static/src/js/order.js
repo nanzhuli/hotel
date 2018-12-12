@@ -208,7 +208,7 @@ var order = {
                             allRoomData.forEach(function (each) {
                                 // 插一行房间信息和编辑按钮
                                 var str = "<tr>" +
-                                    "<td id='roomno-" + each.orno + "'>" + order.funcs.getEmptyRoom(each.roomno ,each.orno) + "</td>" +
+                                    "<td id='roomno-" + each.orno + "'>" + order.funcs.getEmptyRoom(each.roomno, each.orno) + "</td>" +
                                     "<td><input type='text' style='width:66px' id='brand-" + each.orno + "' maxlength='7' value='" + home.funcs.spaceFunc(each.brand) + "'></td>" +
                                     // "<td><button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='room-update' id='room-update-" + each.roomno + "'>保存</lable></td></button>" +
                                     "<td><a href='#' class='room-update' id='room-update-" + each.orno + "'><i class='layui-icon layui-icon-ok'></i></a></td>" +
@@ -234,11 +234,11 @@ var order = {
                                 "<tr><td>房间数量</td><td colspan='3' id='roomcount'>" + (res.roomcount) + "</td></tr>" +
                                 "<tr><td>订单价格</td><td colspan='3' id='price'>" + (res.price) + "</td></tr>" +
                                 "<tr><td>姓名</td><td colspan='3'><input id='name' style='width: 145px' type='text' value='" + (res.name) + "'>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>全部保存</lable></button></td></tr>" +
                                 "<tr><td>身份证号</td><td colspan='3'><input id='id' style='width: 145px' type='text' maxlength='18' value='" + (res.id) + "'>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>全部保存</lable></button></td></tr>" +
                                 "<tr><td>联系方式</td><td colspan='3'><input id='phone' style='width: 145px' type='number' oninput='if(value.length>11)value=value.slice(0,11)' value='" + (res.phone) + "'>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>全部保存</lable></button></td></tr>" +
                                 "<tr><td>入住时间</td><td colspan='3' id='starttime'>" + home.funcs.timeStrDate(res.starttime) + "</td></tr>" +
                                 "<tr><td>离开时间</td><td colspan='3' id='endtime'>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
                                 "<tr><td>是否会员</td><td colspan='3' id='ismenber'>" + home.vars.member[res.ismenber] + "</td></tr>" +
@@ -279,12 +279,12 @@ var order = {
                         allRoomIdData.forEach(function (each) {
                             // 插一行用户信息
                             var str = "<tr><td>" + each.roomno + "</td>" +
-                                "<td><input id='name' style='width: 80px' type='text' value='" + each.name + "'>" +
-                                "<br><button class='layui-btn layui-btn-primary layui-btn-xs' style='margin-top: 5px'>保存</button></td>" +
-                                "<td><input id='id' style='width: 145px' type='text' maxlength='18' value='" + each.id + "'>" +
-                                "<br><button class='layui-btn layui-btn-primary layui-btn-xs' style='margin-top: 5px'>保存</button></td>" +
-                                "</tr>";
+                                "<td><input id='name-" + each.rino + "' style='width: 80px' type='text' value='" + each.name + "'></td>" +
+                                "<td><input id='id-" + each.rino + "' style='width: 145px' type='text' maxlength='18' value='" + each.id + "'></td>" +
+                                "<td><a href='#' class='id-update' id='id-update-" + each.rino + "'><i class='layui-icon layui-icon-ok'></i></a></td></tr>";
                             order.funcs.detailRoomHandler(str);
+                            var updateBtn = $(".id-update");
+                            order.funcs.bindIdUpdateEventListener(updateBtn);
                         });
                     });
                     layer.open({
@@ -293,7 +293,7 @@ var order = {
                         content:
                             "<div id='pop-div-roomid' class='display-table'>" +
                             "<table id='room-detail-table' class='layui-table' border='1px' width='70%'>" +
-                            "<tr><td>房间号</td><td>姓名</td><td>身份证号</td></tr>" +
+                            "<tr><td>房间号</td><td>姓名</td><td>身份证号</td><td>保存</td></tr>" +
                             "</table>" +
                             "</div>",
                         area: ['600px', '400px'],
@@ -301,9 +301,6 @@ var order = {
                         offset: 'auto', //['5%', '35%'],
                         zIndex: 10,
                         btnAlign: 'c',
-                        success: function () {
-                            layer.setTop(layero); //重点2
-                        },
                         yes: function (index) {
                             layer.close(index)
                         }
@@ -484,10 +481,22 @@ var order = {
                 console.log("RoomUpdate");
                 var orno = this.id.substr(12);
                 // console.log(orno);
-                var roomno = $("#roomno-"+orno).children("select").val();
-                var roomcount = $("#brand-"+orno).val();
+                var roomno = $("#roomno-" + orno).children("select").val();
+                var brand = $("#brand-" + orno).val();
                 console.log(roomno);
-                console.log(roomcount);
+                console.log(brand);
+            });
+        },
+        bindIdUpdateEventListener: function (updateBtn) {
+            updateBtn.off('click');
+            updateBtn.on('click', function () {
+                console.log("RoomUpdate");
+                var rino = this.id.substr(10);
+                console.log(rino);
+                var name = $("#name-" + rino).val();
+                var id = $("#id-" + rino).val();
+                console.log(name);
+                console.log(id);
             });
         }
     }
