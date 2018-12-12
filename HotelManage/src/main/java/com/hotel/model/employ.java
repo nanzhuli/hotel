@@ -1,13 +1,17 @@
 package com.hotel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "employ")
-public class employ {
+public class employ implements UserDetails{
     @Id
     private int employno;
     private String employname;
@@ -17,15 +21,35 @@ public class employ {
     private int employauthority;
     private int employpaymentpermonth;
     private int employworktime;
-    private String loginname;
+    private String username;
     private String password;
 
-    public String getLoginname() {
-        return loginname;
+    @ManyToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.EAGER)
+    private List<sysrole> roles;
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> auths = new ArrayList<>();
+        List<sysrole> roles = this.getRoles();
+        for (sysrole role : roles) {
+            auths.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return auths;
     }
 
-    public void setLoginname(String loginname) {
-        this.loginname = loginname;
+    public List<sysrole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<sysrole> roles) {
+        this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -111,8 +135,30 @@ public class employ {
                 ", employauthority=" + employauthority +
                 ", employpaymentpermonth=" + employpaymentpermonth +
                 ", employworktime=" + employworktime +
-                ", loginname='" + loginname + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

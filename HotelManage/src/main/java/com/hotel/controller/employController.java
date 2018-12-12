@@ -5,6 +5,7 @@ import com.hotel.model.employ;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.employService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,7 +84,7 @@ public class employController {
     public employ saveEmploy(int employno, String employname, int employsex, int employage,
                            int employposition, int employauthority,
                            int employpaymentpermonth, int employworktime,
-                             String loginname, String password) {
+                             String username, String password) {
         employ e = new employ();
         e.setEmployno(employno);
         e.setEmployposition(employposition);
@@ -93,8 +94,8 @@ public class employController {
         e.setEmployname(employname);
         e.setEmploypaymentpermonth(employpaymentpermonth);
         e.setEmployauthority(employauthority);
-        e.setLoginname(loginname);
-        e.setPassword(password);
+        e.setUsername(username);
+        e.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
         return e;
     }
 
