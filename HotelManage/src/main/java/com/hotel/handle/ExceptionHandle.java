@@ -26,6 +26,8 @@ public class ExceptionHandle
 		}
 		else
 		{
+			e.printStackTrace();
+			
 			return ResultReturn.error(
 					ExceptionType.UNKNOWN_ERROR.getCode(),
 					ExceptionType.UNKNOWN_ERROR.getMsg()
