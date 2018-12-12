@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -57,7 +58,7 @@ public class GarageController
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
 		garage.setStarttime(startTime);
-		garage.setEndTime(endTime);
+		garage.setEndtime(endTime);
 		garage.setBrand(brand);
 
 		return ResultReturn.success(garageService.save(garage));
@@ -80,7 +81,7 @@ public class GarageController
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
 		garage.setStarttime(startTime);
-		garage.setEndTime(new Timestamp(0));
+		garage.setEndtime(new Timestamp(0));
 		garage.setBrand(brand);
 
 		return ResultReturn.success(garageService.save(garage));
@@ -91,8 +92,22 @@ public class GarageController
 								 @RequestParam("endtime") Timestamp endTime)
 	{
 		Garage garage=garageService.findById(garageNo);
-		garage.setEndTime(endTime);
+		garage.setEndtime(endTime);
 
 		return ResultReturn.success(garageService.save(garage));
+	}
+
+	@RequestMapping("/garage/insertnullgarage/{number}")
+	public Result garageInsertNullGarage(@PathVariable("number") int number)
+	{
+		List<Garage> garageList=new ArrayList<>();
+
+		while(number-->0)
+		{
+			Garage newGarage=new Garage();
+			garageList.add(garageService.save(newGarage));
+		}
+
+		return ResultReturn.success(garageList);
 	}
 }
