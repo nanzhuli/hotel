@@ -62,4 +62,37 @@ public class GarageController
 
 		return ResultReturn.success(garageService.save(garage));
 	}
+
+	/**
+	 *
+	 * @param garageNo  车库(位)编号
+	 * @param type      类型
+	 * @param startTime 入库时间
+	 * @param brand     车牌
+	 * @return 返回更新车库结果
+	 */
+	@RequestMapping("/garage/drivein")
+	public Result garageDriveIn(@RequestParam("garageno") int garageNo,
+								@RequestParam("type") String type,
+								@RequestParam("starttime") Timestamp startTime,
+								@RequestParam("brand") String brand)
+	{
+		Garage garage=garageService.findById(garageNo);
+		garage.setType(type);
+		garage.setStartTime(startTime);
+		garage.setEndTime(new Timestamp(0));
+		garage.setBrand(brand);
+
+		return ResultReturn.success(garageService.save(garage));
+	}
+
+	@RequestMapping("/garage/driveout")
+	public Result garageDriveOut(@RequestParam("garageno") int garageNo,
+								 @RequestParam("endtime") Timestamp endTime)
+	{
+		Garage garage=garageService.findById(garageNo);
+		garage.setEndTime(endTime);
+
+		return ResultReturn.success(garageService.save(garage));
+	}
 }
