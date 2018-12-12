@@ -9,23 +9,49 @@
 <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
 <link rel="stylesheet" href="../../css/style.css" media="all">
 
-<div id="garage" class="display-image">
-    <!--<table class="layui-table" id="garage_table">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<td>事务编号</td>-->
-            <!--<td>事务类型</td>-->
-            <!--<td>房号</td>-->
-            <!--<td>负责人编号</td>-->
-            <!--<td>备注</td>-->
-            <!--<td>产生时间</td>-->
-            <!--<td>完成时间</td>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--</tbody>-->
-    <!--</table>-->
-    <img src="../../dist/images/garage/garage.png" style="height: 70%; width: 70%">
+<blockquote class="layui-elem-quote layui-text" style="margin-bottom: 0; height: 20px">
+    <div class="block-left">
+        车库历史
+    </div>
+    <div class="block-right">
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="refresh">
+            <i class="layui-icon layui-icon-refresh">刷新</i>
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <span id="sel">
+            <select id="select-bar" class="select-bar">
+                <option value="0">车库编号</option>
+                <option value="1">车位</option>
+                <option value="2">类型</option>
+                <option value="3">进入时间</option>
+                <option value="4">离开时间</option>
+                <option value="5">车牌</option>
+            </select>
+        </span>
+        <span id="change">
+            <input type='text' id='search-bar' class='search-bar' placeholder="输入关键字">
+        </span>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="search">
+            <i class="layui-icon layui-icon-search">搜索</i>
+        </button>
+    </div>
+</blockquote>
+
+<div id="garage" class="display-table">
+    <table class="layui-table" id="garageHistory_table">
+        <thead>
+        <tr>
+            <td>车库编号</td>
+            <td>车位</td>
+            <td>类型</td>
+            <td>进入时间</td>
+            <td>离开时间</td>
+            <td>车牌</td>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>
 
 <script src="../js/garage.js"></script>

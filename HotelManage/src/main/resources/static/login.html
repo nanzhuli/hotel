@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>宾馆管理系统登录</title>
@@ -12,48 +12,58 @@
 
     <link rel="stylesheet" href="layui/css/layui.css" media="all">
 </head>
+
 <body>
 <div class="block-login">
-<form class="layui-form" action="">
-    <div class="layui-form-item">
-        <label class="layui-form-label">单行输入框</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+    <!--<table>-->
+        <!--<tr>-->
+            <!--<td>-->
+                <!--<label for="username">用户名</label>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<input id="username" type="text">-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>-->
+                <!--<label for="password">密码</label>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<input id="password" type="password">-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td colspan="2">-->
+                <!--<button class='layui-btn layui-btn-primary layui-btn-xs'>-->
+                    <!--<label id='loginBtn'>登录！CNM</label>-->
+                <!--</button>-->
+            <!--</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+    <form class="form-signin" role="form" name="form" th:action="@{/login}" action="/login" method="post">
+        <div class="form-group">
+            <label for="username">账号</label>
+            <input type="text" class="form-control" name="username" value="" placeholder="账号"/>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">验证必填项</label>
-        <div class="layui-input-block">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" name="password" placeholder="密码"/>
         </div>
-    </div>
+        <input type="submit" id="login" value="Login" class="btn btn-primary"/>
+    </form>
 
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">验证手机</label>
-            <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">验证邮箱</label>
-            <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-</form>
 </div>
 
-<script>
+<script src="./src/js/login.js"></script>
+<script type="application/javascript">
     // layui 初始化
     layui.use('element', function () {
         var element = layui.element;
     });
 
-    function jump(type) {
-        $("#myFrame").attr("src", "./src/html/" + type + ".html");
-    }
+    // $(function () {
+    //     login.init();
+    // });
 </script>
 </body>
 </html>

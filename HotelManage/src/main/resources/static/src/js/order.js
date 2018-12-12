@@ -210,7 +210,7 @@ var order = {
                                 var str = "<tr>" +
                                     "<td id='roomno-" + each.orno + "'>" + order.funcs.getEmptyRoom(each.roomno, each.orno) + "</td>" +
                                     "<td><input type='text' style='width:66px' id='brand-" + each.orno + "' maxlength='7' value='" + home.funcs.spaceFunc(each.brand) + "'></td>" +
-                                    // "<td><button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='room-update' id='room-update-" + each.roomno + "'>保存</lable></td></button>" +
+                                    // "<td><button class='layui-btn layui-btn-primary layui-btn-xs'><label class='room-update' id='room-update-" + each.roomno + "'>保存</label></td></button>" +
                                     "<td><a href='#' class='room-update' id='room-update-" + each.orno + "'><i class='layui-icon layui-icon-ok'></i></a></td>" +
                                     "<td><a href='#' class='edit-rooms' id='room-edit-" + each.roomno + "'><i class='layui-icon layui-icon-edit'></i></a></td>" +
                                     "</tr>";
@@ -234,16 +234,16 @@ var order = {
                                 "<tr><td>房间数量</td><td colspan='3' id='roomcount'>" + (res.roomcount) + "</td></tr>" +
                                 "<tr><td>订单价格</td><td colspan='3' id='price'>" + (res.price) + "</td></tr>" +
                                 "<tr><td>姓名</td><td colspan='3'><input id='name' style='width: 145px' type='text' value='" + (res.name) + "'>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>全部保存</lable></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>全部保存</label></button></td></tr>" +
                                 "<tr><td>身份证号</td><td colspan='3'><input id='id' style='width: 145px' type='text' maxlength='18' value='" + (res.id) + "'>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>全部保存</lable></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>全部保存</label></button></td></tr>" +
                                 "<tr><td>联系方式</td><td colspan='3'><input id='phone' style='width: 145px' type='number' oninput='if(value.length>11)value=value.slice(0,11)' value='" + (res.phone) + "'>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>全部保存</lable></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>全部保存</label></button></td></tr>" +
                                 "<tr><td>入住时间</td><td colspan='3' id='starttime'>" + home.funcs.timeStrDate(res.starttime) + "</td></tr>" +
                                 "<tr><td>离开时间</td><td colspan='3' id='endtime'>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
                                 "<tr><td>是否会员</td><td colspan='3' id='ismenber'>" + home.vars.member[res.ismenber] + "</td></tr>" +
                                 "<tr><td>是否入住</td><td colspan='3'><select id='isenter' style='width: 145px; height: 22px'>" + home.funcs.generateOption(2, home.vars.enter, res.isenter) + "</select>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><lable class='order-update'>保存</lable></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>保存</label></button></td></tr>" +
                                 "<tr><th colspan='4'>房间详情</th></tr>" +
                                 "<tr><td>房间号</td><td>绑定车牌</td><td>保存</td><td>编辑房客</td></tr>" +
                                 "</table>" +
