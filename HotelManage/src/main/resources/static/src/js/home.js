@@ -35,7 +35,7 @@ var home = {
             //
             getOne: "/order/orderroom/orderroomSearchOne/", //orno
             // orderroom表更新
-            update: "/order/orderroom/update/"      // rino
+            update: "/order/orderroom/update/"      // orno
         },
         roomid: {
             // roomid表查看

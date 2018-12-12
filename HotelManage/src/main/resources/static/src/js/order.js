@@ -211,7 +211,7 @@ var order = {
                                     "<td id='roomno-" + each.orno + "'>" + order.funcs.getEmptyRoom(each.roomno, each.orno) + "</td>" +
                                     "<td><input type='text' style='width:66px' id='brand-" + each.orno + "' maxlength='7' value='" + home.funcs.spaceFunc(each.brand) + "'></td>" +
                                     // "<td><button class='layui-btn layui-btn-primary layui-btn-xs'><label class='room-update' id='room-update-" + each.roomno + "'>保存</label></td></button>" +
-                                    "<td><a href='#' class='room-update' id='room-update-" + each.orno + "'><i class='layui-icon layui-icon-ok'></i></a></td>" +
+                                    "<td><a href='#' class='room-update' id='room-update-" + each.orno + "-" + each.roomno + "-" +res.orderno +"'><i class='layui-icon layui-icon-ok'></i></a></td>" +
                                     "<td><a href='#' class='edit-rooms' id='room-edit-" + each.roomno + "'><i class='layui-icon layui-icon-edit'></i></a></td>" +
                                     "</tr>";
                                 order.funcs.detailHandler(str);
@@ -479,24 +479,66 @@ var order = {
             updateBtn.off('click');
             updateBtn.on('click', function () {
                 console.log("RoomUpdate");
-                var orno = this.id.substr(12);
+                var arr = this.id.split("-");
                 // console.log(orno);
+                var orno = arr[2];
+                var roomnoOld = arr[3];
+                var orderno = arr[4];
                 var roomno = $("#roomno-" + orno).children("select").val();
                 var brand = $("#brand-" + orno).val();
+                console.log(orno);
                 console.log(roomno);
                 console.log(brand);
+                console.log(roomnoOld);
+                console.log(orderno);
+                $.post(home.urls.room.update + orno, {
+                    brand: brand,
+                    roomnoAfter: roomno,
+                    roomnoBefore: roomnoOld,
+                    orderno: orderno
+                }, function (result) {
+                    console.log(result);
+                    layer.msg(result.msg, {
+                        offset: ['50%', '50%'],
+                        time: 700
+                    });
+                    if (result.code === 0) {
+                        var time = setTimeout(function () {
+                            order.init();
+                            clearTimeout(time);
+                        }, 500)
+                    }
+                    layer.closeAll();
+                })
             });
         },
         bindIdUpdateEventListener: function (updateBtn) {
             updateBtn.off('click');
             updateBtn.on('click', function () {
-                console.log("RoomUpdate");
+                console.log("RoomIdUpdate");
                 var rino = this.id.substr(10);
                 console.log(rino);
                 var name = $("#name-" + rino).val();
                 var id = $("#id-" + rino).val();
                 console.log(name);
                 console.log(id);
+                $.post(home.urls.roomid.update + rino, {
+                    name: name,
+                    id: id
+                }, function (result) {
+                    console.log(result);
+                    layer.msg(result.msg, {
+                        offset: ['50%', '50%'],
+                        time: 700
+                    });
+                    if (result.code === 0) {
+                        var time = setTimeout(function () {
+                            order.init();
+                            clearTimeout(time);
+                        }, 500)
+                    }
+                    layer.closeAll();
+                })
             });
         }
     }
