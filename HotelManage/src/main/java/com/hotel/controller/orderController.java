@@ -112,13 +112,30 @@ public class orderController {
     }
 
     //orderroom表更新
+    /**
+     * @param
+     *      orno orderroom编号
+     *      brand 车牌号
+     *      roomnoAfter 之前的房间号
+     *      roomnoBefore 现在重新设定的房间号（计算价格需要）
+     *      orderno 订单号（保存当前订单的价格需要）
+     * @return 返回保存的orderroom对象
+     */
     @RequestMapping("/order/orderroom/update/{orno}")
-    public Result orderroomUpdate(@PathVariable("orno")int orno,@RequestParam("brand")String brand) {
-        orderroom o = orderroomservice.findOne(orno);
-        if(o==null)
+    public Result orderroomUpdate(@PathVariable("orno")int orno,@RequestParam("brand")String brand,
+                                  @RequestParam("roomnoAfter")int roomnoAfter,
+                                  @RequestParam("roomnoBefore")int roomnoBefore,
+                                  @RequestParam("orderno")int orderno) {
+        orderroom or = orderroomservice.findOne(orno);
+        if(or==null)
             return ResultReturn.error(1,"cant't find rino");
-        o.setBrand(brand);
-        return ResultReturn.success(orderroomservice.save(o));
+        or.setBrand(brand);
+        Order o = orderservice.findByOrderno(orderno);
+        room ra = roomservice.findById(roomnoAfter);
+        room rb = roomservice.findById(roomnoBefore);
+        o.setPrice(o.getPrice()+ra.getPrice()-rb.getPrice());
+        orderservice.save(o);
+        return ResultReturn.success(orderroomservice.save(or));
     }
 
     //roomid表查看
@@ -140,21 +157,12 @@ public class orderController {
     }
 
     //roomid表修改
-    /**在进入更改操作之前需要先获取可以更换的roomno号 调用 函数*/
     @RequestMapping("/order/orderroom/roomid/update/{rino}")
-    public Result roomidUpdate(@PathVariable("rino")int rino,@RequestParam("roomnoAfter")int roomnoAfter,
-                               @RequestParam("roomnoBefore")int roomnoBefore,@RequestParam("orderno")int orderno,
+    public Result roomidUpdate(@PathVariable("rino")int rino,
                                @RequestParam("name") String name,@RequestParam("id") String id) {
         roomid ri = roomidservice.findByRino(rino);
-        ri.setRoomno(roomnoAfter);
         ri.setId(id);
         ri.setName(name);
-        //修改price
-        Order o = orderservice.findByOrderno(orderno);
-        room ra = roomservice.findById(roomnoAfter);
-        room rb = roomservice.findById(roomnoBefore);
-        o.setPrice(o.getPrice()+ra.getPrice()-rb.getPrice());
-        orderservice.save(o);
         return ResultReturn.success(roomidservice.save(ri));
     }
 
