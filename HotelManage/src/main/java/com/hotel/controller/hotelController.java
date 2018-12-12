@@ -12,9 +12,18 @@ public class hotelController {
         return "login";
     }
 
-    @RequestMapping(value = "/hotel")
-    public String hotel2(){
-        return "test";
+    @RequestMapping(value = "/adminHotel")
+    public String adminhotel(){
+        return "adminHotel";
     }
 
+    @RequestMapping(value = "/workerHotel")
+    public String workerhotel(){
+        return "workerHotel";
+    }
+
+    @RequestMapping(value = "/serverHotel")
+    public String serverhotel(){
+        return "serverHotel";
+    }
 }

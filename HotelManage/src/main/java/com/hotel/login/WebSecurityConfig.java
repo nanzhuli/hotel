@@ -34,9 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //HTTP请求安全处理
         http.authorizeRequests()
                 .anyRequest().authenticated()
+               // .antMatchers("employ/**","order/**","event/**").hasRole("WORKER")
                 .and().formLogin().loginPage("/login")
                 //设置默认登录成功跳转页面
-                .defaultSuccessUrl("/hotel").failureUrl("/login").permitAll()
+                .defaultSuccessUrl("/").successHandler(new LoginSuccessHandle())
+                .failureUrl("/login").permitAll()
                 .and()
                 .logout()
                 //默认注销行为为logout，可以通过下面的方式来修改
@@ -44,6 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //设置注销成功后跳转页面，默认是跳转到登录页面
                 .logoutSuccessUrl("/login")
                 .permitAll();
-
+        http.headers().frameOptions().sameOrigin();
     }
 }

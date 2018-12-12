@@ -27,8 +27,8 @@ public class employService implements UserDetailsService {
         if (e == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
-        String st = "admin";
-        System.out.println(BCrypt.hashpw(st, BCrypt.gensalt()));
+//        String st = "server1";
+//        System.out.println(BCrypt.hashpw(st, BCrypt.gensalt()));
         System.out.println("s:"+s);
         System.out.println("username:"+e.getUsername()+";password:"+e.getPassword());
         return e;
