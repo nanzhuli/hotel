@@ -33,6 +33,7 @@ public class employ implements UserDetails{
         for (sysrole role : roles) {
             auths.add(new SimpleGrantedAuthority(role.getName()));
         }
+        System.out.println("auths = "+auths);
         return auths;
     }
 

@@ -10,34 +10,34 @@ import java.sql.Timestamp;
 public class OrderHistory
 {
 	@Id
-	private int orderNo;
-	private int roomCount;
+	private int orderno;
+	private int roomcount;
 	private int price;
 	private String name;
 	private String id;
 	private String phone;
-	private Timestamp startTime;
-	private Timestamp endTime;
-	private String isMember;
+	private Timestamp starttime;
+	private Timestamp endtime;
+	private String ismember;
 
-	public int getOrderNo()
+	public int getOrderno()
 	{
-		return orderNo;
+		return orderno;
 	}
 
-	public void setOrderNo(int orderNo)
+	public void setOrderno(int orderno)
 	{
-		this.orderNo=orderNo;
+		this.orderno=orderno;
 	}
 
-	public int getRoomCount()
+	public int getRoomcount()
 	{
-		return roomCount;
+		return roomcount;
 	}
 
-	public void setRoomCount(int roomCount)
+	public void setRoomcount(int roomcount)
 	{
-		this.roomCount=roomCount;
+		this.roomcount=roomcount;
 	}
 
 	public int getPrice()
@@ -80,48 +80,48 @@ public class OrderHistory
 		this.phone=phone;
 	}
 
-	public Timestamp getStartTime()
+	public Timestamp getStarttime()
 	{
-		return startTime;
+		return starttime;
 	}
 
-	public void setStartTime(Timestamp startTime)
+	public void setStarttime(Timestamp starttime)
 	{
-		this.startTime=startTime;
+		this.starttime=starttime;
 	}
 
-	public Timestamp getEndTime()
+	public Timestamp getEndtime()
 	{
-		return endTime;
+		return endtime;
 	}
 
-	public void setEndTime(Timestamp endTime)
+	public void setEndtime(Timestamp endtime)
 	{
-		this.endTime=endTime;
+		this.endtime=endtime;
 	}
 
 	public String getMember()
 	{
-		return isMember;
+		return ismember;
 	}
 
 	public void setMember(String member)
 	{
-		isMember=member;
+		ismember=member;
 	}
 
 	@Override
 	public String toString()
 	{
 		return "orderhistory{"+
-				"orderno="+orderNo+
-				",roomCount="+roomCount+
+				"orderno="+orderno+
+				",roomcount="+roomcount+
 				",price="+price+
 				",name='"+name+"'"+
 				",id='"+id+"'"+
 				",phone='"+phone+"'"+
-				",starttime="+startTime+
-				",endtime="+endTime+
-				",ismember='"+isMember+"'}";
+				",starttime="+starttime+
+				",endtime="+endtime+
+				",ismember='"+ismember+"'}";
 	}
 }
