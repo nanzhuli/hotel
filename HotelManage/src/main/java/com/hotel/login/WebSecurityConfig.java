@@ -32,12 +32,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //HTTP请求安全处理
-        http.authorizeRequests()
+        http.csrf().disable().
+    authorizeRequests()
                 .anyRequest().authenticated()
                // .antMatchers("employ/**","order/**","event/**").hasRole("WORKER")
                 .and().formLogin().loginPage("/login")
                 //设置默认登录成功跳转页面
-                .defaultSuccessUrl("/").successHandler(new LoginSuccessHandle())
+                .defaultSuccessUrl("/").successHandler(new LoginSuccessHandle()).permitAll()
                 .failureUrl("/login").permitAll()
                 .and()
                 .logout()
