@@ -34,7 +34,7 @@ public class Garage
 
 	@Id
 	private int garageno;
-	private String type;
+	private int type;
 	private Timestamp starttime;
 	private Timestamp endtime;
 	private String brand;
@@ -49,12 +49,12 @@ public class Garage
 		this.garageno=garageno;
 	}
 
-	public String getType()
+	public int getType()
 	{
 		return type;
 	}
 
-	public void setType(String type)
+	public void setType(int type)
 	{
 		this.type=type;
 	}
