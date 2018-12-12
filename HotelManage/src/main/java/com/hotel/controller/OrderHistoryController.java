@@ -96,14 +96,14 @@ public class OrderHistoryController
 										   Timestamp endTime,String isMember)
 	{
 		OrderHistory orderHistory=new OrderHistory();
-		orderHistory.setEndTime(endTime);
+		orderHistory.setEndtime(endTime);
 		orderHistory.setId(id);
 		orderHistory.setMember(isMember);
 		orderHistory.setName(name);
 		orderHistory.setPhone(phone);
 		orderHistory.setPrice(price);
-		orderHistory.setRoomCount(roomCount);
-		orderHistory.setStartTime(startTime);
+		orderHistory.setRoomcount(roomCount);
+		orderHistory.setStarttime(startTime);
 
 		return orderHistory;
 	}
@@ -116,14 +116,14 @@ public class OrderHistoryController
 	private OrderHistory saveOrderHistory(Order order)
 	{
 		OrderHistory orderHistory=new OrderHistory();
-		orderHistory.setEndTime(order.getEndtime());
+		orderHistory.setEndtime(order.getEndtime());
 		orderHistory.setId(order.getId());
 		/*orderHistory.setMember(order.getIsmenber());*/
 		orderHistory.setName(order.getName());
 		orderHistory.setPhone(order.getPhone());
 		orderHistory.setPrice(order.getPrice());
-		orderHistory.setRoomCount(order.getRoomcount());
-		orderHistory.setStartTime(order.getStarttime());
+		orderHistory.setRoomcount(order.getRoomcount());
+		orderHistory.setStarttime(order.getStarttime());
 
 		return orderHistory;
 	}

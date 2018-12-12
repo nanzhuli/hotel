@@ -10,21 +10,21 @@ import java.sql.Timestamp;
 public class GarageHistory
 {
 	@Id
-	private int garageNo;
+	private int garageno;
 	private String type;
-	private Timestamp startTime;
-	private Timestamp endTime;
+	private Timestamp starttime;
+	private Timestamp endtime;
 	private String brand;
 	private int price;
 
-	public int getGarageNo()
+	public int getGarageno()
 	{
-		return garageNo;
+		return garageno;
 	}
 
-	public void setGarageNo(int garageNo)
+	public void setGarageno(int garageno)
 	{
-		this.garageNo=garageNo;
+		this.garageno=garageno;
 	}
 
 	public String getType()
@@ -37,24 +37,24 @@ public class GarageHistory
 		this.type=type;
 	}
 
-	public Timestamp getStartTime()
+	public Timestamp getStarttime()
 	{
-		return startTime;
+		return starttime;
 	}
 
-	public void setStartTime(Timestamp startTime)
+	public void setStarttime(Timestamp starttime)
 	{
-		this.startTime=startTime;
+		this.starttime=starttime;
 	}
 
-	public Timestamp getEndTime()
+	public Timestamp getEndtime()
 	{
-		return endTime;
+		return endtime;
 	}
 
-	public void setEndTime(Timestamp endTime)
+	public void setEndtime(Timestamp endtime)
 	{
-		this.endTime=endTime;
+		this.endtime=endtime;
 	}
 
 	public String getBrand()
@@ -81,10 +81,10 @@ public class GarageHistory
 	public String toString()
 	{
 		return "GarageHistory{"+
-				"garageNo="+garageNo+
+				"garageno="+garageno+
 				", type='"+type+'\''+
-				", startTime="+startTime+
-				", endTime="+endTime+
+				", starttime="+starttime+
+				", endtime="+endtime+
 				", brand='"+brand+'\''+
 				", price="+price+'}';
 	}

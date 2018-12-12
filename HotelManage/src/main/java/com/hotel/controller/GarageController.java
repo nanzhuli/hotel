@@ -56,7 +56,7 @@ public class GarageController
 	{
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
-		garage.setStartTime(startTime);
+		garage.setStarttime(startTime);
 		garage.setEndTime(endTime);
 		garage.setBrand(brand);
 
@@ -79,7 +79,7 @@ public class GarageController
 	{
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
-		garage.setStartTime(startTime);
+		garage.setStarttime(startTime);
 		garage.setEndTime(new Timestamp(0));
 		garage.setBrand(brand);
 

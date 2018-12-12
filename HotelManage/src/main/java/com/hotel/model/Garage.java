@@ -12,7 +12,7 @@ public class Garage
 	@Id
 	private int garageNo;
 	private String type;
-	private Timestamp startTime;
+	private Timestamp starttime;
 	private Timestamp endTime;
 	private String brand;
 
@@ -36,14 +36,14 @@ public class Garage
 		this.type=type;
 	}
 
-	public Timestamp getStartTime()
+	public Timestamp getStarttime()
 	{
-		return startTime;
+		return starttime;
 	}
 
-	public void setStartTime(Timestamp startTime)
+	public void setStarttime(Timestamp starttime)
 	{
-		this.startTime=startTime;
+		this.starttime=starttime;
 	}
 
 	public Timestamp getEndTime()
@@ -72,7 +72,7 @@ public class Garage
 		return "Garage{"+
 				"garageNo="+garageNo+
 				", type='"+type+'\''+
-				", startTime="+startTime+
+				", starttime="+starttime+
 				", endTime="+endTime+
 				", brand='"+brand+'\''+'}';
 	}
