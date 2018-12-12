@@ -27,10 +27,9 @@ public class OrderHistoryController
 	}
 
 	/**
-	 *
-	 * @param year 年份
+	 * @param year  年份
 	 * @param month 月份
-	 * @param day 天数
+	 * @param day   天数
 	 * @return 返回对应的日订单历史
 	 */
 	@RequestMapping("/orderhistory/getallbyday")
@@ -41,8 +40,7 @@ public class OrderHistoryController
 	}
 
 	/**
-	 *
-	 * @param year 年份
+	 * @param year  年份
 	 * @param month 月份
 	 * @return 返回对应的月订单历史
 	 */
@@ -53,7 +51,6 @@ public class OrderHistoryController
 	}
 
 	/**
-	 *
 	 * @param year 年份
 	 * @return 返回对应的年订单历史
 	 */
@@ -64,7 +61,6 @@ public class OrderHistoryController
 	}
 
 	/**
-	 *
 	 * @param id 身份证
 	 * @return 返回对应的订单历史
 	 */
@@ -99,10 +95,11 @@ public class OrderHistoryController
 	 * @param order 结算完成的订单
 	 * @return 返回插入新的订单记录的结果
 	 */
-	public Result orderHistoryInsert(Order order)
+	Result orderHistoryInsert(Order order)
 	{
 		OrderHistory orderHistory=saveOrderHistory(order);
 
+		new FinanceController().insert(orderHistory);
 		return ResultReturn.success(orderHistoryService.save(orderHistory));
 	}
 }

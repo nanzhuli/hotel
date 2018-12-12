@@ -20,7 +20,6 @@ public class GarageHistoryController
 	GarageHistoryService garageHistoryService;
 
 	/**
-	 *
 	 * @return 返回车库历史纪录列表
 	 */
 	@RequestMapping("/garagehistory/getall")
@@ -30,7 +29,6 @@ public class GarageHistoryController
 	}
 
 	/**
-	 *
 	 * @param garageId 车库(位)编号
 	 * @return 返回根据车库(位)编号查询到的车库历史纪录列表
 	 */
@@ -41,7 +39,6 @@ public class GarageHistoryController
 	}
 
 	/**
-	 *
 	 * @param brand 车牌
 	 * @return 返回根据车牌查询到的车库历史纪录列表
 	 */
@@ -51,8 +48,14 @@ public class GarageHistoryController
 		return ResultReturn.success(garageHistoryService.findAllByBrand(brand));
 	}
 
-
-	public Result garageHistoryInsertLog(Garage garage,Timestamp endTime)
+	/**
+	 * 注意！！此方法只于GarageController中调用！！
+	 *
+	 * @param garage  车库对象
+	 * @param endTime 出库时间
+	 * @return 返回当前车库记录
+	 */
+	Result garageHistoryInsertLog(Garage garage,Timestamp endTime)
 	{
 		GarageHistory newGarageHistory=new GarageHistory();
 
@@ -61,11 +64,10 @@ public class GarageHistoryController
 		newGarageHistory.setGarageid(garage.getGarageno());
 		newGarageHistory.setStarttime(garage.getStarttime());
 		newGarageHistory.setType(garage.getType());
-		newGarageHistory.setPrice(
-				new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),endTime)
-						*garage.getGaragePricePreHour()
-		);
+		newGarageHistory.setPrice(new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),
+				endTime)*garage.getGaragePricePreHour());
 
+		new FinanceController().insert(newGarageHistory);
 		return ResultReturn.success(garageHistoryService.save(newGarageHistory));
 	}
 }

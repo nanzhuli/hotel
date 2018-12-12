@@ -18,6 +18,7 @@ public enum ExceptionType
 	FINANCE_FIND_BY_DAY_ERROR(900,"日财务报表获取失败"),
 	FINANCE_FIND_BY_MONTH_ERROR(901,"月财务报表获取失败"),
 	FINANCE_FIND_BY_YEAR_ERROR(902,"年财务报表获取失败"),
+	FINANCE_INSERT_TYPE_ERROR(903,"收入类型错误"),
 
 	UNKNOWN_ERROR(-1,"未知错误"),
 	;

@@ -49,11 +49,9 @@ public class GarageController
 	 * @return 返回更新车库结果
 	 */
 	@RequestMapping("/garage/update")
-	public Result garageUpdate(@RequestParam("garageno") int garageNo,
-							   @RequestParam("type") String type,
+	public Result garageUpdate(@RequestParam("garageno") int garageNo,@RequestParam("type") String type,
 							   @RequestParam("starttime") Timestamp startTime,
-							   @RequestParam("endtime") Timestamp endTime,
-							   @RequestParam("brand") String brand)
+							   @RequestParam("endtime") Timestamp endTime,@RequestParam("brand") String brand)
 	{
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
@@ -65,7 +63,6 @@ public class GarageController
 	}
 
 	/**
-	 *
 	 * @param garageNo  车库(位)编号
 	 * @param type      类型
 	 * @param startTime 入库时间
@@ -73,10 +70,8 @@ public class GarageController
 	 * @return 返回更新车库结果
 	 */
 	@RequestMapping("/garage/drivein")
-	public Result garageDriveIn(@RequestParam("garageno") int garageNo,
-								@RequestParam("type") String type,
-								@RequestParam("starttime") Timestamp startTime,
-								@RequestParam("brand") String brand)
+	public Result garageDriveIn(@RequestParam("garageno") int garageNo,@RequestParam("type") String type,
+								@RequestParam("starttime") Timestamp startTime,@RequestParam("brand") String brand)
 	{
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
@@ -88,14 +83,12 @@ public class GarageController
 	}
 
 	/**
-	 *
 	 * @param garageNo 车库(位)编号
-	 * @param endTime 出库时间
+	 * @param endTime  出库时间
 	 * @return 返回出库结果
 	 */
 	@RequestMapping("/garage/driveout")
-	public Result garageDriveOut(@RequestParam("garageno") int garageNo,
-								 @RequestParam("endtime") Timestamp endTime)
+	public Result garageDriveOut(@RequestParam("garageno") int garageNo,@RequestParam("endtime") Timestamp endTime)
 	{
 		Garage garage=garageService.findById(garageNo);
 		garageUpdate(garage.getGarageno(),null,null,null,null);
@@ -104,7 +97,6 @@ public class GarageController
 	}
 
 	/**
-	 *
 	 * @param number 想要增加车位的数量
 	 * @return 返回车库扩增结果(增加车位的具体信息)
 	 */
@@ -113,7 +105,7 @@ public class GarageController
 	{
 		List<Garage> garageList=new ArrayList<>();
 
-		while(number-->0)
+		while (number-->0)
 		{
 			Garage newGarage=new Garage();
 			garageList.add(garageService.save(newGarage));
