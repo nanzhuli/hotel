@@ -21,12 +21,12 @@ public class GarageHistoryService
 		return garageHistoryRepository.findAll();
 	}
 
-	public List<GarageHistory> findAllById(int garageNo)
+	public List<GarageHistory> findAllById(int garageId)
 	{
 		List<GarageHistory> garageHistoryList=new ArrayList<GarageHistory>();
 		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
 		{
-			if(garageHistory.getGarageno()==garageNo)
+			if(garageHistory.getGarageid()==garageId)
 			{
 				garageHistoryList.add(garageHistory);
 			}
