@@ -26,7 +26,7 @@ public class GarageHistoryService
 		List<GarageHistory> garageHistoryList=new ArrayList<GarageHistory>();
 		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
 		{
-			if(garageHistory.getGarageNo()==garageNo)
+			if(garageHistory.getGarageno()==garageNo)
 			{
 				garageHistoryList.add(garageHistory);
 			}
