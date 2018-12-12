@@ -1,14 +1,16 @@
 package com.hotel.controller;
 
+import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
 import com.hotel.model.Result;
 import com.hotel.service.GarageHistoryService;
-import com.hotel.util.ResultReturn;
+import com.hotel.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -49,4 +51,21 @@ public class GarageHistoryController
 		return ResultReturn.success(garageHistoryService.findAllByBrand(brand));
 	}
 
+
+	public Result garageHistoryInsertLog(Garage garage,Timestamp endTime)
+	{
+		GarageHistory newGarageHistory=new GarageHistory();
+
+		newGarageHistory.setEndtime(endTime);
+		newGarageHistory.setBrand(garage.getBrand());
+		newGarageHistory.setGarageid(garage.getGarageno());
+		newGarageHistory.setStarttime(garage.getStarttime());
+		newGarageHistory.setType(garage.getType());
+		newGarageHistory.setPrice(
+				new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),endTime)
+						*garage.getGaragePricePreHour()
+		);
+
+		return ResultReturn.success(garageHistoryService.save(newGarageHistory));
+	}
 }

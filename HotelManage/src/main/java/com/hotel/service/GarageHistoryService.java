@@ -2,6 +2,7 @@ package com.hotel.service;
 
 import com.hotel.exception.ExceptionType;
 import com.hotel.exception.HotelException;
+import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
 import com.hotel.repository.GarageHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,10 @@ public class GarageHistoryService
 			throw new HotelException(ExceptionType.GARAGE_HISTORY_FIND_BY_BRAND_ERROR.getCode(),
 					ExceptionType.GARAGE_HISTORY_FIND_BY_BRAND_ERROR.getMsg());
 		}
+	}
+
+	public GarageHistory save(GarageHistory garageHistory)
+	{
+		return garageHistoryRepository.save(garageHistory);
 	}
 }

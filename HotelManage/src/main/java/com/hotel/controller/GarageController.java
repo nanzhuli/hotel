@@ -87,16 +87,27 @@ public class GarageController
 		return ResultReturn.success(garageService.save(garage));
 	}
 
+	/**
+	 *
+	 * @param garageNo 车库(位)编号
+	 * @param endTime 出库时间
+	 * @return 返回出库结果
+	 */
 	@RequestMapping("/garage/driveout")
 	public Result garageDriveOut(@RequestParam("garageno") int garageNo,
 								 @RequestParam("endtime") Timestamp endTime)
 	{
 		Garage garage=garageService.findById(garageNo);
-		garage.setEndtime(endTime);
+		garageUpdate(garage.getGarageno(),null,null,null,null);
 
-		return ResultReturn.success(garageService.save(garage));
+		return new GarageHistoryController().garageHistoryInsertLog(garage,endTime);
 	}
 
+	/**
+	 *
+	 * @param number 想要增加车位的数量
+	 * @return 返回车库扩增结果(增加车位的具体信息)
+	 */
 	@RequestMapping("/garage/insertnullgarage/{number}")
 	public Result garageInsertNullGarage(@PathVariable("number") int number)
 	{
