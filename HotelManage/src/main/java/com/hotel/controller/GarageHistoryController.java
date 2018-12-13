@@ -8,6 +8,7 @@ import com.hotel.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
@@ -46,6 +47,40 @@ public class GarageHistoryController
 	public Result<List<GarageHistory>> garageHistoryListByBrand(@PathVariable("brand") String brand)
 	{
 		return ResultReturn.success(garageHistoryService.findAllByBrand(brand));
+	}
+
+	/**
+	 * @param year  年份
+	 * @param month 月份
+	 * @param day   天数
+	 * @return 返回日车库历史
+	 */
+	@RequestMapping("/garagehistory/getallbyday")
+	public Result<List<GarageHistory>> getAllByDay(@RequestParam("year") int year,@RequestParam("month") int month,
+												   @RequestParam("day") int day)
+	{
+		return ResultReturn.success(garageHistoryService.findAllByDay(year,month,day));
+	}
+
+	/**
+	 * @param year  年份
+	 * @param month 月份
+	 * @return 返回日车库历史
+	 */
+	@RequestMapping("/garagehistory/getallbymonth")
+	public Result<List<GarageHistory>> getAllByMonth(@RequestParam("year") int year,@RequestParam("month") int month)
+	{
+		return ResultReturn.success(garageHistoryService.findAllByMonth(year,month));
+	}
+
+	/**
+	 * @param year 年份
+	 * @return 返回日车库历史
+	 */
+	@RequestMapping("/garagehistory/getallbyyear")
+	public Result<List<GarageHistory>> getAllByYear(@RequestParam("year") int year)
+	{
+		return ResultReturn.success(garageHistoryService.findAllByYear(year));
 	}
 
 	/**

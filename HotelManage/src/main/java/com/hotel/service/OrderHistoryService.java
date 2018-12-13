@@ -4,6 +4,7 @@ import com.hotel.exception.ExceptionType;
 import com.hotel.exception.HotelException;
 import com.hotel.model.OrderHistory;
 import com.hotel.repository.OrderHistoryRepository;
+import com.hotel.util.TimeStampUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,9 @@ public class OrderHistoryService
 
 		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
 		{
-			if(orderHistory.getEndtime().getYear()==year && orderHistory.getEndtime().getMonth()==month && orderHistory.getEndtime().getDay()==day)
+			String[] strings=new TimeStampUtil().getStringArray(orderHistory.getEndtime());
+			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
+					Integer.toString(month)) && strings[2].equals(Integer.toString(day)))
 			{
 				orderHistoryList.add(orderHistory);
 			}
@@ -50,7 +53,9 @@ public class OrderHistoryService
 
 		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
 		{
-			if(orderHistory.getEndtime().getYear()==year && orderHistory.getEndtime().getMonth()==month)
+			String[] strings=new TimeStampUtil().getStringArray(orderHistory.getEndtime());
+			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
+					Integer.toString(month)))
 			{
 				orderHistoryList.add(orderHistory);
 			}
@@ -73,7 +78,8 @@ public class OrderHistoryService
 
 		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
 		{
-			if(orderHistory.getEndtime().getYear()==year)
+			String[] strings=new TimeStampUtil().getStringArray(orderHistory.getEndtime());
+			if(strings[0].equals(Integer.toString(year)))
 			{
 				orderHistoryList.add(orderHistory);
 			}

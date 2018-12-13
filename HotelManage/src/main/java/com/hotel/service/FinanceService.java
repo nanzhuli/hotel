@@ -4,9 +4,11 @@ import com.hotel.exception.ExceptionType;
 import com.hotel.exception.HotelException;
 import com.hotel.model.Finance;
 import com.hotel.repository.FinanceRepository;
+import com.hotel.util.TimeStampUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,9 @@ public class FinanceService
 
 		for (Finance finance : financeRepository.findAll())
 		{
-			if(finance.getTime().getYear()==year && finance.getTime().getMonth()==month && finance.getTime().getDay()==day)
+			String[] strings=new TimeStampUtil().getStringArray(finance.getTime());
+			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
+					Integer.toString(month)) && strings[2].equals(Integer.toString(day)))
 			{
 				financeList.add(finance);
 			}
@@ -50,7 +54,8 @@ public class FinanceService
 
 		for (Finance finance : financeRepository.findAll())
 		{
-			if(finance.getTime().getYear()==year && finance.getTime().getMonth()==month)
+			String[] strings=new TimeStampUtil().getStringArray(finance.getTime());
+			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(Integer.toString(month)))
 			{
 				financeList.add(finance);
 			}
@@ -73,7 +78,8 @@ public class FinanceService
 
 		for (Finance finance : financeRepository.findAll())
 		{
-			if(finance.getTime().getYear()==year)
+			String[] strings=new TimeStampUtil().getStringArray(finance.getTime());
+			if(strings[0].equals(Integer.toString(year)))
 			{
 				financeList.add(finance);
 			}

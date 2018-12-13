@@ -5,6 +5,7 @@ import com.hotel.exception.HotelException;
 import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
 import com.hotel.repository.GarageHistoryRepository;
+import com.hotel.util.TimeStampUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +64,79 @@ public class GarageHistoryService
 		{
 			throw new HotelException(ExceptionType.GARAGE_HISTORY_FIND_BY_BRAND_ERROR.getCode(),
 					ExceptionType.GARAGE_HISTORY_FIND_BY_BRAND_ERROR.getMsg());
+		}
+	}
+
+	public List<GarageHistory> findAllByDay(int year,int month,int day) throws HotelException
+	{
+		List<GarageHistory> garageHistoryList=new ArrayList<>();
+
+		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
+		{
+			String[] strings=new TimeStampUtil().getStringArray(garageHistory.getEndtime());
+			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
+					Integer.toString(month)) && strings[2].equals(Integer.toString(day)))
+			{
+				garageHistoryList.add(garageHistory);
+			}
+		}
+
+		if(garageHistoryList.size()>0)
+		{
+			return garageHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.GARAGE_HISTORY_FIND_BY_DAY_ERROR.getCode(),
+					ExceptionType.GARAGE_HISTORY_FIND_BY_DAY_ERROR.getMsg());
+		}
+	}
+
+	public List<GarageHistory> findAllByMonth(int year,int month) throws HotelException
+	{
+		List<GarageHistory> garageHistoryList=new ArrayList<>();
+
+		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
+		{
+			String[] strings=new TimeStampUtil().getStringArray(garageHistory.getEndtime());
+			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(Integer.toString(month)))
+			{
+				garageHistoryList.add(garageHistory);
+			}
+		}
+
+		if(garageHistoryList.size()>0)
+		{
+			return garageHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.GARAGE_HISTORY_FIND_BY_MONTH_ERROR.getCode(),
+					ExceptionType.GARAGE_HISTORY_FIND_BY_MONTH_ERROR.getMsg());
+		}
+	}
+
+	public List<GarageHistory> findAllByYear(int year) throws HotelException
+	{
+		List<GarageHistory> garageHistoryList=new ArrayList<>();
+
+		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
+		{
+			String[] strings=new TimeStampUtil().getStringArray(garageHistory.getEndtime());
+			if(strings[0].equals(Integer.toString(year)))
+			{
+				garageHistoryList.add(garageHistory);
+			}
+		}
+
+		if(garageHistoryList.size()>0)
+		{
+			return garageHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.GARAGE_HISTORY_FIND_BY_YEAR_ERROR.getCode(),
+					ExceptionType.GARAGE_HISTORY_FIND_BY_YEAR_ERROR.getMsg());
 		}
 	}
 
