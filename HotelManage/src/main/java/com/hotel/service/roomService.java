@@ -1,11 +1,8 @@
 package com.hotel.service;
 
-import com.hotel.model.room;
+import com.hotel.model.Room;
 import com.hotel.repository.roomRepository;
-import org.hibernate.validator.constraints.EAN;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,25 +12,25 @@ public class roomService {
     @Autowired
     roomRepository roomrepository;
 
-    public Iterable<room> getAll() {
+    public Iterable<Room> getAll() {
         return  roomrepository.findAll();
     }
 
-    public room save(room r) {
+    public Room save(Room r) {
         return roomrepository.save(r);
     }
 
-    public room findById(int roomno) {
+    public Room findById(int roomno) {
         return roomrepository.findById(roomno).orElse(null);
     }
 
-    public void delete(room r) {
+    public void delete(Room r) {
         roomrepository.delete(r);
     }
 
-    public List<room> getEmpty(List<Integer> l) {
+    public List<Room> getEmpty(List<Integer> l) {
         //for(int i=0;i<l.size())
-        List<room> r =roomrepository.findByRoomnoNotIn(l);
+        List<Room> r =roomrepository.findByRoomnoNotIn(l);
         return r;
     }
 

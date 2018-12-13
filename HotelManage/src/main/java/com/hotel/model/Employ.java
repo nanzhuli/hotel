@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "employ")
-public class employ implements UserDetails{
+public class Employ implements UserDetails{
     @Id
     private int employno;
     private String employname;
@@ -25,23 +25,23 @@ public class employ implements UserDetails{
     private String password;
 
     @ManyToMany(cascade = {CascadeType.REFRESH},fetch = FetchType.EAGER)
-    private List<sysrole> roles;
+    private List<SysRole> roles;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<>();
-        List<sysrole> roles = this.getRoles();
-        for (sysrole role : roles) {
+        List<SysRole> roles = this.getRoles();
+        for (SysRole role : roles) {
             auths.add(new SimpleGrantedAuthority(role.getName()));
         }
         System.out.println("auths = "+auths);
         return auths;
     }
 
-    public List<sysrole> getRoles() {
+    public List<SysRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<sysrole> roles) {
+    public void setRoles(List<SysRole> roles) {
         this.roles = roles;
     }
 
@@ -127,7 +127,7 @@ public class employ implements UserDetails{
 
     @Override
     public String toString() {
-        return "employ{" +
+        return "Employ{" +
                 "employno=" + employno +
                 ", employname='" + employname + '\'' +
                 ", employsex=" + employsex +

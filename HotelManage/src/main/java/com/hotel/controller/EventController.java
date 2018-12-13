@@ -1,9 +1,9 @@
 package com.hotel.controller;
 
+import com.hotel.model.Employ;
+import com.hotel.model.Event;
 import com.hotel.model.Result;
-import com.hotel.model.employ;
-import com.hotel.model.event;
-import com.hotel.model.room;
+import com.hotel.model.Room;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.employService;
 import com.hotel.service.eventService;
@@ -28,7 +28,7 @@ public class EventController {
 
     //查看事务列表
     @RequestMapping("/event/allList")
-    public Result<event> eventList() {
+    public Result<Event> eventList() {
         return ResultReturn.success(eventservice.findAll());
     }
 
@@ -36,7 +36,7 @@ public class EventController {
     @RequestMapping("/event/add")
     public Result evenAdd(@RequestParam("type") int type,@RequestParam("roomno") int roomno,
 						  @RequestParam("comment") String comment) {
-        event e = new event();
+        Event e = new Event();
         e.setType(type);
         e.setRoomno(roomno);
         e.setComment(comment);
@@ -44,11 +44,11 @@ public class EventController {
         java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
         e.setStarttime(timestamp);
 
-        room r = roomservice.findById(roomno);
+        Room r = roomservice.findById(roomno);
         if(r==null)
             return ResultReturn.error(1,"roomno is not exist");
         //需要做employno
-        employ em = employservice.eventMatch(type, timestamp);
+        Employ em = employservice.eventMatch(type, timestamp);
         if(em.getEmployno()==0){
             return ResultReturn.error(1,"can't match worker in that time");
         }
@@ -62,17 +62,17 @@ public class EventController {
     @RequestMapping("/event/update/{eventno}")
     public Result eventUpdate(@PathVariable("eventno") int eventno,@RequestParam("type") int type,
 							  @RequestParam("roomno") int roomno,@RequestParam("comment") String comment) {
-        event E = eventservice.findAllByEventno(eventno);
+        Event E = eventservice.findAllByEventno(eventno);
         if(E==null)
             return ResultReturn.error(1,"can't find this eventno");
         //更新时房间号确认
         E.setType(type);
-        room r = roomservice.findById(roomno);
+        Room r = roomservice.findById(roomno);
         if(r==null)
             return ResultReturn.error(1,"roomno is not exist");
         E.setRoomno(roomno);
         E.setComment(comment);
-        employ em = employservice.eventMatch(type, E.getStarttime());
+        Employ em = employservice.eventMatch(type, E.getStarttime());
         if(em.getEmployno()==0){
             return ResultReturn.error(1,"can't match worker in that time");
         }
@@ -85,7 +85,7 @@ public class EventController {
     //根据eventno删除事务
     @RequestMapping("/event/delete/{eventno}")
     public Result eventDelete(@PathVariable("eventno") int eventno) {
-        event E = eventservice.findAllByEventno(eventno);
+        Event E = eventservice.findAllByEventno(eventno);
         if(E==null)
             return ResultReturn.error(1,"can't find this eventno");
         eventservice.delete(E);
@@ -94,7 +94,7 @@ public class EventController {
 
     @RequestMapping("/event/searchOne/{eventno}")
     public Result evenSerchOne(@PathVariable("eventno") int eventno) {
-        event e = eventservice.findById(eventno);
+        Event e = eventservice.findById(eventno);
         if(e == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }

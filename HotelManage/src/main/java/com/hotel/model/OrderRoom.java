@@ -6,7 +6,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orderroom")
-public class orderroom {
+public class OrderRoom
+{
     @Id
     private int orno;
     private int orderno;
@@ -47,7 +48,7 @@ public class orderroom {
 
     @Override
     public String toString() {
-        return "orderroom{" +
+        return "OrderRoom{" +
                 "orno=" + orno +
                 ", orderno=" + orderno +
                 ", roomno=" + roomno +

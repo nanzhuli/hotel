@@ -1,6 +1,6 @@
 package com.hotel.service;
 
-import com.hotel.model.employ;
+import com.hotel.model.Employ;
 import com.hotel.repository.employRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -8,7 +8,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -23,7 +22,7 @@ public class employService implements UserDetailsService {
     //登陆
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        employ e = employrepository.findByUsername(s);
+        Employ e = employrepository.findByUsername(s);
         if (e == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
@@ -35,7 +34,7 @@ public class employService implements UserDetailsService {
     }
 
     //假定所有的事务都只能是当天完成，所以只有当天的事务
-    public employ eventMatch(int type, Timestamp t) {
+    public Employ eventMatch(int type,Timestamp t) {
         //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
@@ -50,7 +49,7 @@ public class employService implements UserDetailsService {
         } else {
             worktime = 1;
         }
-        employ e = new employ();
+        Employ e = new Employ();
         e.setEmployworktime(worktime);
         e.setEmployposition(type);
         e.setEmployno(0);
@@ -58,25 +57,25 @@ public class employService implements UserDetailsService {
                 ExampleMatcher.GenericPropertyMatchers.contains()).withMatcher("employposition",
                 ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("employno","employname",
                 "employsex","employage","employpaymentpermonth","employauthority","loginname","password");
-        Example<employ> ex = Example.of(e, exampleMatcher);
-        Optional<employ> worker = employrepository.findOne(ex);
+        Example<Employ> ex = Example.of(e, exampleMatcher);
+        Optional<Employ> worker = employrepository.findOne(ex);
         return worker.orElse(e);
     }
 
-    public List<employ> findAll() {
+    public List<Employ> findAll() {
         return employrepository.findAll();
     }
 
-    public employ findByEmployno(int employno) {
+    public Employ findByEmployno(int employno) {
         return employrepository.findById(employno).orElse(null);
 
     }
 
-    public employ save(employ e) {
+    public Employ save(Employ e) {
         return employrepository.save(e);
     }
 
-    public void delete(employ e) {
+    public void delete(Employ e) {
         employrepository.delete(e);
     }
 

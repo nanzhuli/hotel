@@ -1,8 +1,8 @@
 package com.hotel.controller;
 
 import com.hotel.model.Result;
-import com.hotel.model.room;
-import com.hotel.model.standard;
+import com.hotel.model.Room;
+import com.hotel.model.Standard;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.roomService;
 import com.hotel.service.standardService;
@@ -21,13 +21,13 @@ public class RoomInformationController {
 
     //查询房间标准列表
     @RequestMapping("/standard")
-    public Result<List<standard>> standardList() {
+    public Result<List<Standard>> standardList() {
         return ResultReturn.success(standservice.getAll());
     }
 
     //查询客房信息列表
     @RequestMapping("/room/roomlist")
-    public Result<List<room>> roomList() {
+    public Result<List<Room>> roomList() {
         return ResultReturn.success(roomservice.getAll()) ;
     }
 
@@ -40,7 +40,7 @@ public class RoomInformationController {
         //需要做检测
         if(roomservice.findById(roomno)==null) {
             System.out.println(roomno);
-            room r = saveRoom(roomno, type, price, ifwindow, comment);
+            Room r = saveRoom(roomno, type, price, ifwindow, comment);
             return ResultReturn.success(roomservice.save(r));
         }
         else
@@ -57,14 +57,14 @@ public class RoomInformationController {
             return ResultReturn.error(1,"cant't find roomno!");
         }
         else {
-            room r = saveRoom(roomno, type, price, ifwindow, comment);
+            Room r = saveRoom(roomno, type, price, ifwindow, comment);
             return ResultReturn.success(roomservice.save(r));
         }
     }
 
     @RequestMapping("/room/searchOne/{roomno}")
     public Result roomSerchOne(@PathVariable("roomno") int roomno) {
-        room r = roomservice.findById(roomno);
+        Room r = roomservice.findById(roomno);
         if(r == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
@@ -77,7 +77,7 @@ public class RoomInformationController {
     @RequestMapping("/room/delete/{roomno}")
     public Result roomDelete(@PathVariable("roomno") int roomno) {
         //需要先查询是否存在
-        room r = roomservice.findById(roomno);
+        Room r = roomservice.findById(roomno);
         if(r == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
@@ -88,8 +88,8 @@ public class RoomInformationController {
     }
 
 
-    public room saveRoom(int roomno, int type, int price, int ifwindow, String comment) {
-        room r = new room();
+    public Room saveRoom(int roomno,int type,int price,int ifwindow,String comment) {
+        Room r = new Room();
         r.setRoomno(roomno);
         r.setType(type);
         r.setPrice(price);

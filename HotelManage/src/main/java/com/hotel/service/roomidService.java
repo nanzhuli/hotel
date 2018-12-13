@@ -1,6 +1,6 @@
 package com.hotel.service;
 
-import com.hotel.model.roomid;
+import com.hotel.model.Roomid;
 import com.hotel.repository.roomidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -14,30 +14,30 @@ public class roomidService {
     @Autowired
     roomidRepository roomidrepository;
 
-    public List<roomid> findAll(int roomno) {
-        roomid or = new roomid();
+    public List<Roomid> findAll(int roomno) {
+        Roomid or = new Roomid();
         or.setRoomno(roomno);
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("roomno",
                 ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("rino","name",
                 "id");
-        Example<roomid> ex = Example.of(or, exampleMatcher);
-        List<roomid> worker = roomidrepository.findAll(ex);
+        Example<Roomid> ex = Example.of(or, exampleMatcher);
+        List<Roomid> worker = roomidrepository.findAll(ex);
         return worker;
     }
 
-    public roomid findById(int r) {
+    public Roomid findById(int r) {
         return roomidrepository.findById(r).orElse(null);
     }
 
-    public List<roomid> findAllWithoutparam() {
+    public List<Roomid> findAllWithoutparam() {
         return roomidrepository.findAll();
     }
 
-    public roomid save(roomid e) {
+    public Roomid save(Roomid e) {
         return roomidrepository.save(e);
     }
 
-    public roomid findByRino(int rino) {
+    public Roomid findByRino(int rino) {
         return roomidrepository.findById(rino).orElse(null);
     }
 

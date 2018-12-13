@@ -1,10 +1,8 @@
 package com.hotel.service;
 
-import com.hotel.model.event;
+import com.hotel.model.Event;
 import com.hotel.repository.eventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,23 +12,23 @@ public class eventService {
     @Autowired
     eventRepository eventrepository;
 
-    public List<event> findAll() {
+    public List<Event> findAll() {
         return eventrepository.findAll();
     }
 
-    public event save(event e) {
+    public Event save(Event e) {
         return eventrepository.save(e);
     }
 
-    public event findAllByEventno(int eventno) {
+    public Event findAllByEventno(int eventno) {
         return eventrepository.findById(eventno).orElse(null);
     }
 
-    public void delete(event e){
+    public void delete(Event e){
         eventrepository.delete(e);
     }
 
-    public event findById(int eventno) {
+    public Event findById(int eventno) {
         return eventrepository.findById(eventno).orElse(null);
     }
 }

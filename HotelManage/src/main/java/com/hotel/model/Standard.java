@@ -5,13 +5,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "standard")
-public class standard {
+public class Standard
+{
     @Id
     private int stdno;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "type")
-    private List<room> rooms;
+    private List<Room> rooms;
 
     @Column(name = "stdname")
     private String stdname;
@@ -54,7 +55,7 @@ public class standard {
 
     @Override
     public String toString() {
-        return "standard{" +
+        return "Standard{" +
                 "stdno=" + stdno +
                 ", rooms=" + rooms +
                 ", stdname='" + stdname + '\'' +

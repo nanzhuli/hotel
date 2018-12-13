@@ -1,7 +1,7 @@
 package com.hotel.repository;
 
-import com.hotel.model.orderroom;
+import com.hotel.model.OrderRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface orderroomRepository extends JpaRepository<orderroom, Integer> {
+public interface orderroomRepository extends JpaRepository<OrderRoom, Integer> {
 }

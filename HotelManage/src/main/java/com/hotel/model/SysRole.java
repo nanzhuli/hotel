@@ -6,7 +6,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sysrole")
-public class sysrole {
+public class SysRole
+{
     @Id
     private int id;
     private String name;
@@ -29,7 +30,7 @@ public class sysrole {
 
     @Override
     public String toString() {
-        return "sysrole{" +
+        return "SysRole{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

@@ -8,7 +8,8 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "event")
-public class event {
+public class Event
+{
     @Id
     private int eventno;
     private int type;
@@ -76,7 +77,7 @@ public class event {
 
     @Override
     public String toString() {
-        return "event{" +
+        return "Event{" +
                 "eventno=" + eventno +
                 ", type=" + type +
                 ", roomno=" + roomno +

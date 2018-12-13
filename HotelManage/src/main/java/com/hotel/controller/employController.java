@@ -1,7 +1,7 @@
 package com.hotel.controller;
 
+import com.hotel.model.Employ;
 import com.hotel.model.Result;
-import com.hotel.model.employ;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.employService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +17,13 @@ public class employController {
     employService employservice;
 
     @RequestMapping("/employ/list")
-    public Result<employ> employList() {
+    public Result<Employ> employList() {
         return ResultReturn.success(employservice.findAll());
     }
 
     @RequestMapping("/employ/searchOne/{employno}")
     public Result employSearchOne(@PathVariable("employno") int employno) {
-        employ r = employservice.findByEmployno(employno);
+        Employ r = employservice.findByEmployno(employno);
         if(r == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
@@ -41,7 +41,7 @@ public class employController {
                             @RequestParam("employworktime") int employworktime,
                             @RequestParam("loginname") String loginname,
                             @RequestParam("password") String password) {
-        employ e = employservice.findByEmployno(employno);
+        Employ e = employservice.findByEmployno(employno);
         if(e!=null)
             return ResultReturn.error(2,"that employno arleady exist");
         else{
@@ -60,7 +60,7 @@ public class employController {
                                @RequestParam("employworktime") int employworktime,
                                @RequestParam("loginname") String loginname,
                                @RequestParam("password") String password) {
-        employ e = employservice.findByEmployno(employno);
+        Employ e = employservice.findByEmployno(employno);
             if(e==null) {
             return ResultReturn.error(1,"that employno did not exist");
         }
@@ -74,18 +74,18 @@ public class employController {
 
     @RequestMapping("/employ/delete/{employno}")
     public Result employDelete(@PathVariable("employno")int employno) {
-        employ e = employservice.findByEmployno(employno);
+        Employ e = employservice.findByEmployno(employno);
         if (e==null)
             return ResultReturn.error(1,"can't find this employno");
         employservice.delete(e);
         return ResultReturn.success(e);
     }
 
-    public employ saveEmploy(int employno, String employname, int employsex, int employage,
-                           int employposition, int employauthority,
-                           int employpaymentpermonth, int employworktime,
-                             String username, String password) {
-        employ e = new employ();
+    public Employ saveEmploy(int employno,String employname,int employsex,int employage,
+                             int employposition,int employauthority,
+                             int employpaymentpermonth,int employworktime,
+                             String username,String password) {
+        Employ e = new Employ();
         e.setEmployno(employno);
         e.setEmployposition(employposition);
         e.setEmployworktime(employworktime);

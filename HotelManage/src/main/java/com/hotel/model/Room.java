@@ -4,7 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "room")
-public class room {
+public class Room
+{
     @Id
     private int roomno;
     private int type;
@@ -12,9 +13,9 @@ public class room {
     private int ifwindow;
     private String comment;
 
-//    @ManyToOne(targetEntity = standard.class)
+//    @ManyToOne(targetEntity = Standard.class)
 //    @JoinColumn(name = "type")
-//    private standard s;
+//    private Standard s;
 
 
     public int getRoomno() {
@@ -59,7 +60,7 @@ public class room {
 
     @Override
     public String toString() {
-        return "room{" +
+        return "Room{" +
                 "roomno=" + roomno +
                 ", type=" + type +
                 ", price=" + price +

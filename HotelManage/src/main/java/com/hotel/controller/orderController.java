@@ -6,9 +6,7 @@ import com.hotel.service.orderService;
 import com.hotel.service.orderroomService;
 import com.hotel.service.roomService;
 import com.hotel.service.roomidService;
-import com.hotel.service.OrderHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,14 +90,14 @@ public class orderController {
 
     //orderroom表查看
     @RequestMapping("/order/orderroom/{orderno}")
-    public Result<List<orderroom>> orderroomList(@PathVariable("orderno") int orderno) {
+    public Result<List<OrderRoom>> orderroomList(@PathVariable("orderno") int orderno) {
         return ResultReturn.success(orderroomservice.findAll(orderno));
     }
 
     //orderroom找一个
     @RequestMapping("/order/orderroom/orderroomSearchOne/{orno}")
     public Result orderroomSearchOne(@PathVariable("orno") int orno) {
-        orderroom r = orderroomservice.findById(orno);
+        OrderRoom r = orderroomservice.findById(orno);
         if(r == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
@@ -123,14 +121,13 @@ public class orderController {
                                   @RequestParam("roomnoAfter")int roomnoAfter,
                                   @RequestParam("roomnoBefore")int roomnoBefore,
                                   @RequestParam("orderno")int orderno) {
-        orderroom or = orderroomservice.findOne(orno);
+        OrderRoom or = orderroomservice.findOne(orno);
         if(or==null)
             return ResultReturn.error(1,"cant't find rino");
         or.setBrand(brand);
-        or.setRoomno(roomnoAfter);
         Order o = orderservice.findByOrderno(orderno);
-        room ra = roomservice.findById(roomnoAfter);
-        room rb = roomservice.findById(roomnoBefore);
+        Room ra = roomservice.findById(roomnoAfter);
+        Room rb = roomservice.findById(roomnoBefore);
         o.setPrice(o.getPrice()+ra.getPrice()-rb.getPrice());
         orderservice.save(o);
         return ResultReturn.success(orderroomservice.save(or));
@@ -138,14 +135,14 @@ public class orderController {
 
     //roomid表查看
     @RequestMapping("/order/orderroom/roomid/list/{roomno}")
-    public Result<List<roomid>> roomidList(@PathVariable("roomno") int roomno) {
+    public Result<List<Roomid>> roomidList(@PathVariable("roomno") int roomno) {
         return ResultReturn.success(roomidservice.findAll(roomno));
     }
 
     //roomid找一个
     @RequestMapping("/order/orderroom/roomid/roomidSearchOne/{rino}")
     public Result roomidSearchOne(@PathVariable("rino") int rino) {
-        roomid r = roomidservice.findById(rino);
+        Roomid r = roomidservice.findById(rino);
         if(r == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
@@ -158,7 +155,7 @@ public class orderController {
     @RequestMapping("/order/orderroom/roomid/update/{rino}")
     public Result roomidUpdate(@PathVariable("rino")int rino,
                                @RequestParam("name") String name,@RequestParam("id") String id) {
-        roomid ri = roomidservice.findByRino(rino);
+        Roomid ri = roomidservice.findByRino(rino);
         ri.setId(id);
         ri.setName(name);
         return ResultReturn.success(roomidservice.save(ri));
@@ -167,12 +164,12 @@ public class orderController {
     //获取不在roomid中的roomno
     @RequestMapping("/order/orderroom/roomid/getEmptyRoomno")
     public Result<List<Integer>> getEmptyRoomno() {
-        List<roomid> ri = roomidservice.findAllWithoutparam();
+        List<Roomid> ri = roomidservice.findAllWithoutparam();
         List<Integer> q = new ArrayList<>(ri.size());
         for(int i=0; i<ri.size(); i++) {
             q.add(ri.get(i).getRoomno());
         }
-        List<room> r = roomservice.getEmpty(q);
+        List<Room> r = roomservice.getEmpty(q);
         List<Integer> sum = new ArrayList<Integer>(r.size());
         for(int i=0; i<r.size(); i++) {
             sum.add(r.get(i).getRoomno());
