@@ -321,7 +321,7 @@ var garage = {
             })
         },
         getCarType: function (type, brand) {
-            if (home.funcs.spaceFuncEmpty(brand) === null) {
+            if (home.funcs.spaceFuncEmpty(brand) === "") {
                 return "layui-btn";
             }
             // 0外来，1住店
