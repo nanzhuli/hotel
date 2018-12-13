@@ -126,6 +126,13 @@ public class OrderController
         if(or==null)
             return ResultReturn.error(1,"cant't find rino");
         or.setBrand(brand);
+        or.setRoomno(roomnoAfter);
+        List<Roomid> ri = roomidservice.findAll(roomnoBefore);
+        System.out.println(ri);
+        for(int i=0;i<ri.size();i++)
+            ri.get(i).setRoomno(roomnoAfter);
+        System.out.println(ri);
+        roomidservice.saveAll(ri);
         Order o = orderservice.findByOrderno(orderno);
         Room ra = roomservice.findById(roomnoAfter);
         Room rb = roomservice.findById(roomnoBefore);

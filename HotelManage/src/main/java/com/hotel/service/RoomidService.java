@@ -38,6 +38,9 @@ public class RoomidService
         return roomidrepository.save(e);
     }
 
+    public List<Roomid> saveAll(List<Roomid> ri) {
+        return roomidrepository.saveAll(ri);
+    }
     public Roomid findByRino(int rino) {
         return roomidrepository.findById(rino).orElse(null);
     }
