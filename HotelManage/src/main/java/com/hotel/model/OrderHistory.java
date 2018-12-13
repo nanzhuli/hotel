@@ -18,7 +18,7 @@ public class OrderHistory
 	private String phone;
 	private Timestamp starttime;
 	private Timestamp endtime;
-	private String ismember;
+	private int ismember;
 
 	public int getOrderno()
 	{
@@ -100,12 +100,12 @@ public class OrderHistory
 		this.endtime=endtime;
 	}
 
-	public String getMember()
+	public int getMember()
 	{
 		return ismember;
 	}
 
-	public void setMember(String member)
+	public void setMember(int member)
 	{
 		ismember=member;
 	}
@@ -122,6 +122,6 @@ public class OrderHistory
 				",phone='"+phone+"'"+
 				",starttime="+starttime+
 				",endtime="+endtime+
-				",ismember='"+ismember+"'}";
+				",ismember="+ismember+"}";
 	}
 }

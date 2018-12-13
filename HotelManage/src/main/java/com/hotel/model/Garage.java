@@ -9,29 +9,52 @@ import java.sql.Timestamp;
 @Table(name="garage")
 public class Garage
 {
+	private int garagePricePreHour=2;
+	private int garagePricePreDay=18;
+
+	public int getGaragePricePreHour()
+	{
+		return garagePricePreHour;
+	}
+
+	public void setGaragePricePreHour(int garagePricePreHour)
+	{
+		this.garagePricePreHour=garagePricePreHour;
+	}
+
+	public int getGaragePricePreDay()
+	{
+		return garagePricePreDay;
+	}
+
+	public void setGaragePricePreDay(int garagePricePreDay)
+	{
+		this.garagePricePreDay=garagePricePreDay;
+	}
+
 	@Id
-	private int garageNo;
-	private String type;
+	private int garageno;
+	private int type;
 	private Timestamp starttime;
-	private Timestamp endTime;
+	private Timestamp endtime;
 	private String brand;
 
-	public int getGarageNo()
+	public int getGarageno()
 	{
-		return garageNo;
+		return garageno;
 	}
 
-	public void setGarageNo(int garageNo)
+	public void setGarageno(int garageno)
 	{
-		this.garageNo=garageNo;
+		this.garageno=garageno;
 	}
 
-	public String getType()
+	public int getType()
 	{
 		return type;
 	}
 
-	public void setType(String type)
+	public void setType(int type)
 	{
 		this.type=type;
 	}
@@ -46,14 +69,14 @@ public class Garage
 		this.starttime=starttime;
 	}
 
-	public Timestamp getEndTime()
+	public Timestamp getEndtime()
 	{
-		return endTime;
+		return endtime;
 	}
 
-	public void setEndTime(Timestamp endTime)
+	public void setEndtime(Timestamp endtime)
 	{
-		this.endTime=endTime;
+		this.endtime=endtime;
 	}
 
 	public String getBrand()
@@ -70,10 +93,10 @@ public class Garage
 	public String toString()
 	{
 		return "Garage{"+
-				"garageNo="+garageNo+
+				"garageno="+garageno+
 				", type='"+type+'\''+
 				", starttime="+starttime+
-				", endTime="+endTime+
+				", endtime="+endtime+
 				", brand='"+brand+'\''+'}';
 	}
 }

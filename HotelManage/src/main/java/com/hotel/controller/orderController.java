@@ -30,9 +30,6 @@ public class orderController {
 
     @Autowired
     roomService roomservice;
-
-    @Autowired
-    OrderHistoryService orderHistoryService;
     /**
      * order表有查 更新 删除操作，更新可以更新name/id/phone/isenter 更改phone后需要去核对会员信息
      * 删除操作则是当isenter=N时才可以
@@ -189,7 +186,7 @@ public class orderController {
         if(o.getIsenter()==1){
             orderservice.delete(o);
 
-            return new OrderHistoryController(orderHistoryService).orderHistoryInsert(o);
+            return new OrderHistoryController().orderHistoryInsert(o);
         }
         else {
             return ResultReturn.error(1,"还未入住");

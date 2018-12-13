@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                // .antMatchers("employ/**","order/**","event/**").hasRole("WORKER")
                 .and().formLogin().loginPage("/login")
                 //设置默认登录成功跳转页面
-                .defaultSuccessUrl("/").successHandler(new LoginSuccessHandle())
+                .defaultSuccessUrl("/").successHandler(new LoginSuccessHandle()).permitAll()
                 .failureUrl("/login").permitAll()
                 .and()
                 .logout()

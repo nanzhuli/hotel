@@ -1,10 +1,13 @@
 package com.hotel.service;
 
+import com.hotel.exception.ExceptionType;
+import com.hotel.exception.HotelException;
 import com.hotel.model.OrderHistory;
 import com.hotel.repository.OrderHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +21,96 @@ public class OrderHistoryService
 		return orderHistoryRepository.findAll();
 	}
 
-	public OrderHistory findByOrderNo(int orderNo)
+	public List<OrderHistory> findByDay(int year,int month,int day)
 	{
-		return orderHistoryRepository.findById(orderNo).orElse(null);
+		List<OrderHistory> orderHistoryList=new ArrayList<>();
+
+		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
+		{
+			if(orderHistory.getEndtime().getYear()==year && orderHistory.getEndtime().getMonth()==month && orderHistory.getEndtime().getDay()==day)
+			{
+				orderHistoryList.add(orderHistory);
+			}
+		}
+
+		if(orderHistoryList.size()>0)
+		{
+			return orderHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.ORDER_HISTORY_FIND_BY_DAY_ERROR.getCode(),
+					ExceptionType.ORDER_HISTORY_FIND_BY_DAY_ERROR.getMsg());
+		}
+	}
+
+	public List<OrderHistory> findByMonth(int year,int month)
+	{
+		List<OrderHistory> orderHistoryList=new ArrayList<>();
+
+		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
+		{
+			if(orderHistory.getEndtime().getYear()==year && orderHistory.getEndtime().getMonth()==month)
+			{
+				orderHistoryList.add(orderHistory);
+			}
+		}
+
+		if(orderHistoryList.size()>0)
+		{
+			return orderHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.ORDER_HISTORY_FIND_BY_MONTH_ERROR.getCode(),
+					ExceptionType.ORDER_HISTORY_FIND_BY_MONTH_ERROR.getMsg());
+		}
+	}
+
+	public List<OrderHistory> findByYear(int year)
+	{
+		List<OrderHistory> orderHistoryList=new ArrayList<>();
+
+		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
+		{
+			if(orderHistory.getEndtime().getYear()==year)
+			{
+				orderHistoryList.add(orderHistory);
+			}
+		}
+
+		if(orderHistoryList.size()>0)
+		{
+			return orderHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.ORDER_HISTORY_FIND_BY_YEAR_ERROR.getCode(),
+					ExceptionType.ORDER_HISTORY_FIND_BY_YEAR_ERROR.getMsg());
+		}
+	}
+
+	public List<OrderHistory> findByID(String ID)
+	{
+		List<OrderHistory> orderHistoryList=new ArrayList<>();
+
+		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
+		{
+			if(orderHistory.getId().equals(ID))
+			{
+				orderHistoryList.add(orderHistory);
+			}
+		}
+
+		if(orderHistoryList.size()>0)
+		{
+			return orderHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.ORDER_HISTORY_FIND_BY_ID_ERROR.getCode(),
+					ExceptionType.ORDER_HISTORY_FIND_BY_ID_ERROR.getMsg());
+		}
 	}
 
 	public OrderHistory save(OrderHistory orderHistory)

@@ -1,14 +1,16 @@
 package com.hotel.controller;
 
+import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
 import com.hotel.model.Result;
 import com.hotel.service.GarageHistoryService;
-import com.hotel.util.ResultReturn;
+import com.hotel.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -18,7 +20,6 @@ public class GarageHistoryController
 	GarageHistoryService garageHistoryService;
 
 	/**
-	 *
 	 * @return 返回车库历史纪录列表
 	 */
 	@RequestMapping("/garagehistory/getall")
@@ -28,7 +29,6 @@ public class GarageHistoryController
 	}
 
 	/**
-	 *
 	 * @param garageId 车库(位)编号
 	 * @return 返回根据车库(位)编号查询到的车库历史纪录列表
 	 */
@@ -39,7 +39,6 @@ public class GarageHistoryController
 	}
 
 	/**
-	 *
 	 * @param brand 车牌
 	 * @return 返回根据车牌查询到的车库历史纪录列表
 	 */
@@ -49,4 +48,30 @@ public class GarageHistoryController
 		return ResultReturn.success(garageHistoryService.findAllByBrand(brand));
 	}
 
+	/**
+	 * 注意！！此方法只于GarageController中调用！！
+	 *
+	 * @param garage  车库对象
+	 * @param endTime 出库时间
+	 * @return 返回当前车库记录
+	 */
+	Result garageHistoryInsertLog(Garage garage,Timestamp endTime)
+	{
+		GarageHistory newGarageHistory=new GarageHistory();
+
+		newGarageHistory.setEndtime(endTime);
+		newGarageHistory.setBrand(garage.getBrand());
+		newGarageHistory.setGarageid(garage.getGarageno());
+		newGarageHistory.setStarttime(garage.getStarttime());
+		newGarageHistory.setType(garage.getType());
+		if(garage.getType()==0)
+		{
+			newGarageHistory.setPrice(new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),
+					endTime)*garage.getGaragePricePreHour());
+
+			new FinanceController().insert(newGarageHistory);
+		}
+
+		return ResultReturn.success(garageHistoryService.save(newGarageHistory));
+	}
 }

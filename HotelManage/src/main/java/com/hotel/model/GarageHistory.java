@@ -10,29 +10,40 @@ import java.sql.Timestamp;
 public class GarageHistory
 {
 	@Id
-	private int garageno;
-	private String type;
+	private int garagehistoryno;
+	private int garageid;
+	private int type;
 	private Timestamp starttime;
 	private Timestamp endtime;
 	private String brand;
 	private int price;
 
-	public int getGarageno()
+	public int getGaragehistoryno()
 	{
-		return garageno;
+		return garagehistoryno;
 	}
 
-	public void setGarageno(int garageno)
+	public void setGaragehistoryno(int garagehistoryno)
 	{
-		this.garageno=garageno;
+		this.garagehistoryno=garagehistoryno;
 	}
 
-	public String getType()
+	public int getGarageid()
+	{
+		return garageid;
+	}
+
+	public void setGarageid(int garageid)
+	{
+		this.garageid=garageid;
+	}
+
+	public int getType()
 	{
 		return type;
 	}
 
-	public void setType(String type)
+	public void setType(int type)
 	{
 		this.type=type;
 	}
@@ -81,7 +92,8 @@ public class GarageHistory
 	public String toString()
 	{
 		return "GarageHistory{"+
-				"garageno="+garageno+
+				"garagehistoryno="+garagehistoryno+
+				", garageid="+garageid+
 				", type='"+type+'\''+
 				", starttime="+starttime+
 				", endtime="+endtime+
