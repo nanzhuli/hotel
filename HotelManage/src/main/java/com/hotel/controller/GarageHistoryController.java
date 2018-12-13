@@ -55,7 +55,7 @@ public class GarageHistoryController
 	 * @param endTime 出库时间
 	 * @return 返回当前车库记录
 	 */
-	Result garageHistoryInsertLog(Garage garage,Timestamp endTime)
+	Result<GarageHistory> garageHistoryInsertLog(Garage garage,Timestamp endTime)
 	{
 		GarageHistory newGarageHistory=new GarageHistory();
 

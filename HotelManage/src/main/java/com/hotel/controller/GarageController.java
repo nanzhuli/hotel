@@ -1,6 +1,7 @@
 package com.hotel.controller;
 
 import com.hotel.model.Garage;
+import com.hotel.model.GarageHistory;
 import com.hotel.service.GarageService;
 import com.hotel.model.Result;
 import com.hotel.util.ResultReturn;
@@ -34,10 +35,9 @@ public class GarageController
 	 * @return 返回查询到的车库
 	 */
 	@RequestMapping("/garage/getonebybrand/{brand}")
-	public Result garageFindByBrand(@PathVariable("brand") String brand)
+	public Result<Garage> garageFindByBrand(@PathVariable("brand") String brand)
 	{
-		Garage garage=garageService.findByBrand(brand);
-		return ResultReturn.success(garage);
+		return ResultReturn.success(garageService.findByBrand(brand));
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class GarageController
 	 * @return 返回更新车库结果
 	 */
 	@RequestMapping("/garage/update")
-	public Result garageUpdate(@RequestParam("garageno") int garageNo,@RequestParam("type") String type,
+	public Result<Garage> garageUpdate(@RequestParam("garageno") int garageNo,@RequestParam("type") int type,
 							   @RequestParam("starttime") Timestamp startTime,
 							   @RequestParam("endtime") Timestamp endTime,@RequestParam("brand") String brand)
 	{
@@ -70,7 +70,7 @@ public class GarageController
 	 * @return 返回更新车库结果
 	 */
 	@RequestMapping("/garage/drivein")
-	public Result garageDriveIn(@RequestParam("garageno") int garageNo,@RequestParam("type") String type,
+	public Result<Garage> garageDriveIn(@RequestParam("garageno") int garageNo,@RequestParam("type") int type,
 								@RequestParam("starttime") Timestamp startTime,@RequestParam("brand") String brand)
 	{
 		Garage garage=garageService.findById(garageNo);
@@ -88,10 +88,10 @@ public class GarageController
 	 * @return 返回出库结果
 	 */
 	@RequestMapping("/garage/driveout")
-	public Result garageDriveOut(@RequestParam("garageno") int garageNo,@RequestParam("endtime") Timestamp endTime)
+	public Result<GarageHistory> garageDriveOut(@RequestParam("garageno") int garageNo,@RequestParam("endtime") Timestamp endTime)
 	{
 		Garage garage=garageService.findById(garageNo);
-		garageUpdate(garage.getGarageno(),null,null,null,null);
+		garageUpdate(garage.getGarageno(),0,null,null,null);
 
 		return new GarageHistoryController().garageHistoryInsertLog(garage,endTime);
 	}
@@ -101,7 +101,7 @@ public class GarageController
 	 * @return 返回车库扩增结果(增加车位的具体信息)
 	 */
 	@RequestMapping("/garage/insertnullgarage/{number}")
-	public Result garageInsertNullGarage(@PathVariable("number") int number)
+	public Result<List<Garage>> garageInsertNullGarage(@PathVariable("number") int number)
 	{
 		List<Garage> garageList=new ArrayList<>();
 
@@ -109,6 +109,7 @@ public class GarageController
 		{
 			Garage newGarage=new Garage();
 			garageList.add(garageService.save(newGarage));
+			garageService.save(newGarage);
 		}
 
 		return ResultReturn.success(garageList);

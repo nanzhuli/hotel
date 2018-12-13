@@ -95,7 +95,7 @@ public class OrderHistoryController
 	 * @param order 结算完成的订单
 	 * @return 返回插入新的订单记录的结果
 	 */
-	Result orderHistoryInsert(Order order)
+	Result<OrderHistory> orderHistoryInsert(Order order)
 	{
 		OrderHistory orderHistory=saveOrderHistory(order);
 
