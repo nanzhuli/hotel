@@ -61,30 +61,31 @@ var home = {
             update: "/event/update/",
             delete: "/event/delete/"
         },
-        finance:{
-            getAll:"/finance/getall",
-            getByDay:"/finance/getbyday",
-            getByMonth:"/finance/getbymonth",
-            getByYear:"/finance/getbyyear",
+        finance: {
+            getAll: "/finance/getall",
+            getByDay: "/finance/getbyday",
+            getByMonth: "/finance/getbymonth",
+            getByYear: "/finance/getbyyear",
         },
-        member:{
-            getAll:"/member/getall",
-            getOne:"/member/getbyid",
-            add:"/member/insert",
-            delete:"/member/deletebyphone"
+        member: {
+            getAll: "/member/getall",
+            getOne: "/member/getbyid",
+            add: "/member/insert",
+            delete: "/member/deletebyphone"
         },
-        orderHistory:{
-            getAll:"/orderhistory/getall",
-            getByDay:"/orderhistory/getallbyday",
-            getByMonth:"/orderhistory/getallbymonth",
-            getByYear:"/orderhistory/getallbyyear"
+        orderHistory: {
+            getAll: "/orderhistory/getall",
+            getByDay: "/orderhistory/getallbyday",
+            getByMonth: "/orderhistory/getallbymonth",
+            getByYear: "/orderhistory/getallbyyear"
         },
-        garage:{
-            getAll:"/garage/getall",
-            getByBrand:"/garage/getonebybrand/",    //brand
-            update:"/garage/update",
-            driveIn:"/garage/drivein",
-            driveOut:"/garage/driveout"
+        garage: {
+            getAll: "/garage/getall",
+            getByBrand: "/garage/getonebybrand/",    //brand
+            getOne: "/garage/getonebyid/",
+            update: "/garage/update",
+            driveIn: "/garage/drivein",
+            driveOut: "/garage/driveout"
         }
     },
     // 功能型函数
@@ -152,14 +153,14 @@ var home = {
         },
         indexOf: function (array, element) {
             for (var i = 0; i < array.length; i++) {
-                if(array[i] === element){
+                if (array[i] === element) {
                     return i;
                 }
             }
             return -1;
         },
         cutPassword: function (password) {
-            return (password.length>7)?password.substr(0,7)+"...":password;
+            return (password.length > 7) ? password.substr(0, 7) + "..." : password;
         }
     },
     // Get数据型函数
