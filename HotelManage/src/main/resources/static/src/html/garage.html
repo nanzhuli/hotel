@@ -12,7 +12,7 @@
         车库历史
     </div>
     <div class="block-right">
-        <button class="layui-btn layui-btn-primary layui-btn-xs" id="refresh">
+        <button class="layui-btn layui-btn-xs" id="refresh">
             <i class="layui-icon layui-icon-refresh">刷新</i>
         </button>
         &nbsp;&nbsp;&nbsp;
@@ -29,7 +29,7 @@
         <span id="change">
             <input type='text' id='search-bar' class='search-bar' placeholder="输入关键字">
         </span>
-        <button class="layui-btn layui-btn-primary layui-btn-xs" id="search">
+        <button class="layui-btn layui-btn-xs" id="search">
             <i class="layui-icon layui-icon-search">搜索</i>
         </button>
     </div>
@@ -50,73 +50,12 @@
     <!--<tbody>-->
     <!--</tbody>-->
     <!--</table>-->
-    <table class='table-garage' border="1">
-        <tr>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-        </tr>
-        <tr>
-        </tr>
-        <tr>
-            <td style="width:60px;"></td>
-            <td colspan="6"></td>
-            <td style="width:60px;"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td colspan="6"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-            <td rowspan="2"></td>
-        </tr>
-        <tr></tr>
+    <table class='table-garage' id="garage-table">
+        <tbody></tbody>
     </table>
 </div>
 
+<script src="../js/home.js"></script>
 <script src="../js/garage.js"></script>
 <script type="application/javascript">
     // layui 初始化

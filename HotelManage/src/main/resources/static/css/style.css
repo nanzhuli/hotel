@@ -159,10 +159,14 @@ p {
     border-color: #4E5465;
 }
 
-.table-garage tr {
-    height: 30px;
+.table-garage td {
+    width: 60px;
+    height: 90px;
+    padding: 0 5px 0 5px;
 }
 
-.table-garage td {
-    width: 30px;
+.table-garage button {
+    width: 80px;
+    height: 80px;
+    font-size: 30px;
 }

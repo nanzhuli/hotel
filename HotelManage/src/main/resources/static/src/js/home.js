@@ -78,6 +78,13 @@ var home = {
             getByDay:"/orderhistory/getallbyday",
             getByMonth:"/orderhistory/getallbymonth",
             getByYear:"/orderhistory/getallbyyear"
+        },
+        garage:{
+            getAll:"/garage/getall",
+            getByBrand:"/garage/getonebybrand/",    //brand
+            update:"/garage/update",
+            driveIn:"/garage/drivein",
+            driveOut:"/garage/driveout"
         }
     },
     // 功能型函数
@@ -150,6 +157,9 @@ var home = {
                 }
             }
             return -1;
+        },
+        cutPassword: function (password) {
+            return (password.length>7)?password.substr(0,7)+"...":password;
         }
     },
     // Get数据型函数

@@ -42,7 +42,7 @@ var order = {
                     "<td><a href='#' class='mores' id='more-" + e.orderno + "'><i class=\"layui-icon layui-icon-list\"></i></a></td>" +
                     "<td><a href='#' class='edits' id='edit-" + e.orderno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
                     "<td><a href='#' class='deletes' id='delete-" + e.orderno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
-                    "<td><a href='#' class='' id='submit-" + e.orderno + "'><i class=\"layui-icon layui-icon-ok-circle\"></i></a></td>" +
+                    "<td><a href='#' class='submits' id='submit-" + e.orderno + "'><i class=\"layui-icon layui-icon-ok-circle\"></i></a></td>" +
                     "</tr>")
             });
             // 数据渲染完毕

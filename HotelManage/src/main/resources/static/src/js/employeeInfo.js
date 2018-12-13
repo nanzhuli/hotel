@@ -39,6 +39,8 @@ var employeeInfo = {
                     "<td>" + home.vars.authority[e.employauthority] + "</td>" +
                     "<td>" + (e.employpaymentpermonth) + "</td>" +
                     "<td>" + home.vars.workTime[e.employworktime] + "</td>" +
+                    "<td>" + e.username + "</td>" +
+                    "<td>" + home.funcs.cutPassword(e.password) + "</td>" +
                     "<td><a href='#' class='edits' id='edit-" + e.employno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
                     "<td><a href='#' class='deletes' id='delete-" + e.employno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
                     "</tr>")
@@ -91,12 +93,14 @@ var employeeInfo = {
                             home.funcs.generateSelect(4, home.vars.position) +
                             "</select></p>" +
                             "<p>权限：<select id='employee-authority'>" +
-                            home.funcs.generateSelect(3,home.vars.authority)+
+                            home.funcs.generateSelect(3, home.vars.authority) +
                             "</select></p>" +
                             "<p>工资：<input type='number' id='employee-salary'/></p>" +
                             "<p>时段：<select id='employee-time'>" +
                             home.funcs.generateSelect(3, home.vars.workTime) +
                             "</select></p>" +
+                            "<p>账号：<input type='text' id='employee-username'/></p>" +
+                            "<p>密码：<input type='text' id='employee-password'/></p>" +
                             "</div>",
                         area: ['350px', '380px'],
                         btn: ['确认', '取消'],
@@ -110,6 +114,8 @@ var employeeInfo = {
                             var authority = $('#employee-authority').val();
                             var salary = $('#employee-salary').val();
                             var time = $('#employee-time').val();
+                            var username = $('#employee-username').val();
+                            var password = $('#employee-password').val();
                             $.post(home.urls.employee.add, {
                                 employno: employeeNo,
                                 employname: name,
@@ -118,7 +124,9 @@ var employeeInfo = {
                                 employposition: position,
                                 employauthority: authority,
                                 employpaymentpermonth: salary,
-                                employworktime: time
+                                employworktime: time,
+                                loginname: username,
+                                password: password
                             }, function (result) {
                                 console.log(result);
                                 layer.msg(result.msg, {
@@ -166,12 +174,14 @@ var employeeInfo = {
                                 home.funcs.generateOption(4, home.vars.position, res.employposition) +
                                 "</select></p>" +
                                 "<p>权限：<select id='employee-authority'>" +
-                                home.funcs.generateOption(3,home.vars.authority, res.employauthority)+
+                                home.funcs.generateOption(3, home.vars.authority, res.employauthority) +
                                 "</select></p>" +
                                 "<p>工资：<input type='number' id='employee-salary' value='" + res.employpaymentpermonth + "'/></p>" +
                                 "<p>时段：<select id='employee-time'>" +
                                 home.funcs.generateOption(3, home.vars.workTime, res.employworktime) +
                                 "</select></p>" +
+                                "<p>账号：<input type='text' id='employee-username' value='" + res.username + "'/></p>" +
+                                "<p>密码：<input type='text' id='employee-password' value='" + "'/></p>" +
                                 "</div>",
                             area: ['350px', '380px'],
                             btn: ['确认', '取消'],
@@ -185,6 +195,8 @@ var employeeInfo = {
                                 var authority = $('#employee-authority').val();
                                 var salary = $('#employee-salary').val();
                                 var time = $('#employee-time').val();
+                                var username = $('#employee-username').val();
+                                var password = $('#employee-password').val();
                                 $.post(home.urls.employee.update + employeeNo, {
                                     // employno: employeeNo,
                                     employname: name,
@@ -193,7 +205,9 @@ var employeeInfo = {
                                     employposition: position,
                                     employauthority: authority,
                                     employpaymentpermonth: salary,
-                                    employworktime: time
+                                    employworktime: time,
+                                    loginname: username,
+                                    password: password
                                 }, function (result) {
                                     console.log(result);
                                     layer.msg(result.msg, {
