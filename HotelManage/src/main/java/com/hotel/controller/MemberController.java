@@ -91,7 +91,7 @@ public class MemberController
 	 * @param id 身份证
 	 * @return 返回成功
 	 */
-	@RequestMapping("/member/deletebyphone")
+	@RequestMapping("/member/deletebyid")
 	public Result deleteByID(@RequestParam("id") String id)
 	{
 		memberService.delete(memberService.findByID(id));
