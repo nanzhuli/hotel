@@ -55,21 +55,19 @@ public class MemberController
 	 * @param phone 电话号码
 	 * @param name 姓名
 	 * @param id 身份证
-	 * @param enterTime 加入时间
 	 * @return 返回对应会员
 	 */
 	@RequestMapping("/member/insert")
 	public Result<Member> insert(@RequestParam("phone") String phone,
 								 @RequestParam("name") String name,
-								 @RequestParam("id") String id,
-								 @RequestParam("entertime") Timestamp enterTime)
+								 @RequestParam("id") String id)
 	{
 		Member member=new Member();
 
 		member.setPhone(phone);
 		member.setName(name);
 		member.setId(id);
-		member.setEntertime(enterTime);
+		member.setEntertime(new Timestamp(System.currentTimeMillis()));
 
 		return ResultReturn.success(memberService.save(member));
 	}
