@@ -102,7 +102,7 @@ public class GarageHistoryController
 		if(garage.getType()==0)
 		{
 			newGarageHistory.setPrice(new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),
-					endTime)*garage.getGaragePricePreHour());
+					endTime)*GarageUtil.getGaragePricePreHour());
 
 			new FinanceController().insert(newGarageHistory);
 		}

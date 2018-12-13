@@ -9,29 +9,6 @@ import java.sql.Timestamp;
 @Table(name="garage")
 public class Garage
 {
-	private int garagePricePreHour=2;
-	private int garagePricePreDay=18;
-
-	public int getGaragePricePreHour()
-	{
-		return garagePricePreHour;
-	}
-
-	public void setGaragePricePreHour(int garagePricePreHour)
-	{
-		this.garagePricePreHour=garagePricePreHour;
-	}
-
-	public int getGaragePricePreDay()
-	{
-		return garagePricePreDay;
-	}
-
-	public void setGaragePricePreDay(int garagePricePreDay)
-	{
-		this.garagePricePreDay=garagePricePreDay;
-	}
-
 	@Id
 	private int garageno;
 	private int type;
