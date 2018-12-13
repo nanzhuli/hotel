@@ -66,6 +66,12 @@ var home = {
             getByDay:"/finance/getbyday",
             getByMonth:"/finance/getbymonth",
             getByYear:"/finance/getbyyear",
+        },
+        member:{
+            getAll:"/member/getall",
+            getOne:"/member/getbyid",
+            add:"/member/insert",
+            delete:"/member/deletebyphone"
         }
     },
     // 功能型函数

@@ -9,15 +9,46 @@
 <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
 <link rel="stylesheet" href="../../css/style.css" media="all">
 
-<div id="member" class="display-table">
-    <table class="layui-table" id="member_table">
+<blockquote class="layui-elem-quote layui-text" style="margin-bottom: 0; height: 20px">
+    <div class="block-left">
+        会员信息
+    </div>
+    <div class="block-right">
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="refresh">
+            <i class="layui-icon layui-icon-refresh">刷新</i>
+        </button>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="add">
+            <i class="layui-icon layui-icon-add-1">增加</i>
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <span id="sel">
+            <select id="select-bar" class="select-bar">
+                <option value="0">编号</option>
+                <option value="1">姓名</option>
+                <option value="2">手机号</option>
+                <option value="3">身份证号</option>
+                <option value="4">加入时间</option>
+            </select>
+        </span>
+        <span id="change">
+            <input type='text' id='search-bar' class='search-bar' placeholder="输入关键字">
+        </span>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="search">
+            <i class="layui-icon layui-icon-search">搜索</i>
+        </button>
+    </div>
+</blockquote>
+
+<div id="member" class="display-table-large">
+    <table class="layui-table" id="member-table">
         <thead>
         <tr>
-            <td>编号</td>
-            <td>手机号</td>
+            <td width="30px">编号</td>
             <td>姓名</td>
+            <td>手机号</td>
             <td>身份证号</td>
             <td>加入时间</td>
+            <td width="30px">删除</td>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +56,7 @@
     </table>
 </div>
 
+<script src="../js/home.js"></script>
 <script src="../js/member.js"></script>
 <script type="application/javascript">
     // layui 初始化

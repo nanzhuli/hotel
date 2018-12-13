@@ -133,13 +133,13 @@ var finance = {
                 switch (select) {
                     case 0:
                         element.innerHTML =
-                            "<input type='number' id='search-bar-year' class='search-bar-date' placeholder='年'>" +
-                            "<input type='number' id='search-bar-month' class='search-bar-date' placeholder='月'>" +
+                            "<input type='number' id='search-bar-year' class='search-bar-date' placeholder='年'>&nbsp;" +
+                            "<input type='number' id='search-bar-month' class='search-bar-date' placeholder='月'>&nbsp;" +
                             "<input type='number' id='search-bar-date' class='search-bar-date' placeholder='日'>";
                         break;
                     case 1:
                         element.innerHTML =
-                            "<input type='number' id='search-bar-year' class='search-bar-date' placeholder='年'>" +
+                            "<input type='number' id='search-bar-year' class='search-bar-date' placeholder='年'>&nbsp;" +
                             "<input type='number' id='search-bar-month' class='search-bar-date' placeholder='月'>";
                         break;
                     case 2:
