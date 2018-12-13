@@ -50,6 +50,10 @@ public class GarageHistoryService
 		List<GarageHistory> garageHistoryList=new ArrayList<GarageHistory>();
 		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
 		{
+			if(garageHistory.getBrand()==null)
+			{
+				continue;
+			}
 			if(garageHistory.getBrand().equals(brand))
 			{
 				garageHistoryList.add(garageHistory);
@@ -73,6 +77,10 @@ public class GarageHistoryService
 
 		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
 		{
+			if(garageHistory.getEndtime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(garageHistory.getEndtime());
 			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
 					Integer.toString(month)) && strings[2].equals(Integer.toString(day)))
@@ -98,6 +106,10 @@ public class GarageHistoryService
 
 		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
 		{
+			if(garageHistory.getEndtime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(garageHistory.getEndtime());
 			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(Integer.toString(month)))
 			{
@@ -122,6 +134,10 @@ public class GarageHistoryService
 
 		for (GarageHistory garageHistory : garageHistoryRepository.findAll())
 		{
+			if(garageHistory.getEndtime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(garageHistory.getEndtime());
 			if(strings[0].equals(Integer.toString(year)))
 			{

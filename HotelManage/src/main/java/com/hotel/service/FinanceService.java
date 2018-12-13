@@ -29,6 +29,10 @@ public class FinanceService
 
 		for (Finance finance : financeRepository.findAll())
 		{
+			if (finance.getTime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(finance.getTime());
 			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
 					Integer.toString(month)) && strings[2].equals(Integer.toString(day)))
@@ -54,6 +58,10 @@ public class FinanceService
 
 		for (Finance finance : financeRepository.findAll())
 		{
+			if (finance.getTime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(finance.getTime());
 			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(Integer.toString(month)))
 			{
@@ -78,6 +86,10 @@ public class FinanceService
 
 		for (Finance finance : financeRepository.findAll())
 		{
+			if (finance.getTime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(finance.getTime());
 			if(strings[0].equals(Integer.toString(year)))
 			{

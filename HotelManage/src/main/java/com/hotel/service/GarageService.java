@@ -38,6 +38,10 @@ public class GarageService
 	{
 		for (Garage garage : garageRepository.findAll())
 		{
+			if(garage.getBrand()==null)
+			{
+				continue;
+			}
 			if(garage.getBrand().equals(brand))
 			{
 				return garage;

@@ -24,6 +24,10 @@ public class MemberService
 	{
 		for (Member member : memberRepository.findAll())
 		{
+			if (member.getPhone()==null)
+			{
+				continue;
+			}
 			if(member.getPhone().equals(phone))
 			{
 				return member;
@@ -38,6 +42,10 @@ public class MemberService
 	{
 		for (Member member : memberRepository.findAll())
 		{
+			if (member.getId()==null)
+			{
+				continue;
+			}
 			if(member.getId().equals(id))
 			{
 				return member;

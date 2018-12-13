@@ -28,6 +28,10 @@ public class OrderHistoryService
 
 		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
 		{
+			if (orderHistory.getEndtime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(orderHistory.getEndtime());
 			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
 					Integer.toString(month)) && strings[2].equals(Integer.toString(day)))
@@ -53,6 +57,10 @@ public class OrderHistoryService
 
 		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
 		{
+			if (orderHistory.getEndtime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(orderHistory.getEndtime());
 			if(strings[0].equals(Integer.toString(year)) && strings[1].equals(
 					Integer.toString(month)))
@@ -78,6 +86,10 @@ public class OrderHistoryService
 
 		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
 		{
+			if (orderHistory.getEndtime()==null)
+			{
+				continue;
+			}
 			String[] strings=new TimeStampUtil().getStringArray(orderHistory.getEndtime());
 			if(strings[0].equals(Integer.toString(year)))
 			{
@@ -102,6 +114,10 @@ public class OrderHistoryService
 
 		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
 		{
+			if (orderHistory.getId()==null)
+			{
+				continue;
+			}
 			if(orderHistory.getId().equals(ID))
 			{
 				orderHistoryList.add(orderHistory);

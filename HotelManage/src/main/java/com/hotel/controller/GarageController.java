@@ -94,13 +94,13 @@ public class GarageController
 
 	/**
 	 * @param garageNo 车库(位)编号
-	 * @param endTime  出库时间
 	 * @return 返回出库结果
 	 */
 	@RequestMapping("/garage/driveout")
-	public Result<GarageHistory> garageDriveOut(@RequestParam("garageno") int garageNo,@RequestParam("endtime") Timestamp endTime)
+	public Result<GarageHistory> garageDriveOut(@RequestParam("garageno") int garageNo)
 	{
 		Garage garage=garageService.findById(garageNo);
+		Timestamp endTime=new Timestamp(System.currentTimeMillis());
 		garageUpdate(garage.getGarageno(),0,null,null,null);
 
 		return new GarageHistoryController().garageHistoryInsertLog(garage,endTime);
