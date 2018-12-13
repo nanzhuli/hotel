@@ -1,7 +1,7 @@
 package com.hotel.service;
 
 import com.hotel.model.Room;
-import com.hotel.repository.roomRepository;
+import com.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class roomService {
     @Autowired
-    roomRepository roomrepository;
+    RoomRepository roomrepository;
 
     public Iterable<Room> getAll() {
         return  roomrepository.findAll();

@@ -1,7 +1,7 @@
 package com.hotel.service;
 
 import com.hotel.model.Roomid;
-import com.hotel.repository.roomidRepository;
+import com.hotel.repository.RoomidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class roomidService {
     @Autowired
-    roomidRepository roomidrepository;
+    RoomidRepository roomidrepository;
 
     public List<Roomid> findAll(int roomno) {
         Roomid or = new Roomid();
