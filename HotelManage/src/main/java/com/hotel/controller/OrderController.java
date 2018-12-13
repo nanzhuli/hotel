@@ -2,10 +2,10 @@ package com.hotel.controller;
 
 import com.hotel.model.*;
 import com.hotel.util.ResultReturn;
-import com.hotel.service.orderService;
-import com.hotel.service.orderroomService;
-import com.hotel.service.roomService;
-import com.hotel.service.roomidService;
+import com.hotel.service.OrderService;
+import com.hotel.service.OrderRoomService;
+import com.hotel.service.RoomService;
+import com.hotel.service.RoomidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,18 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class orderController {
+public class OrderController
+{
     @Autowired
-    orderService orderservice;
+    OrderService orderservice;
 
     @ Autowired
-    orderroomService orderroomservice;
+    OrderRoomService orderroomservice;
 
     @Autowired
-    roomidService roomidservice;
+    RoomidService roomidservice;
 
     @Autowired
-    roomService roomservice;
+    RoomService roomservice;
     /**
      * order表有查 更新 删除操作，更新可以更新name/id/phone/isenter 更改phone后需要去核对会员信息
      * 删除操作则是当isenter=N时才可以

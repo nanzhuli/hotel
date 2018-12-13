@@ -1,16 +1,17 @@
 package com.hotel.service;
 
 import com.hotel.model.Event;
-import com.hotel.repository.eventRepository;
+import com.hotel.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class eventService {
+public class EventService
+{
     @Autowired
-    eventRepository eventrepository;
+	EventRepository eventrepository;
 
     public List<Event> findAll() {
         return eventrepository.findAll();
