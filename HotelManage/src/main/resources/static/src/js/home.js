@@ -72,6 +72,12 @@ var home = {
             getOne:"/member/getbyid",
             add:"/member/insert",
             delete:"/member/deletebyphone"
+        },
+        orderHistory:{
+            getAll:"/orderhistory/getall",
+            getByDay:"/orderhistory/getallbyday",
+            getByMonth:"/orderhistory/getallbymonth",
+            getByYear:"/orderhistory/getallbyyear"
         }
     },
     // 功能型函数
