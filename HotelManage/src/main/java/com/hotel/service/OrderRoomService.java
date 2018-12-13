@@ -7,6 +7,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,8 +23,7 @@ public class OrderRoomService
                 ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("orno","roomno",
                 "brand");
         Example<OrderRoom> ex = Example.of(or, exampleMatcher);
-        List<OrderRoom> worker = orderroomrepository.findAll(ex);
-        return worker;
+        return orderroomrepository.findAll(ex);
     }
 
     public OrderRoom findById(int o) {
@@ -37,4 +37,5 @@ public class OrderRoomService
     public OrderRoom save(OrderRoom e) {
         return orderroomrepository.save(e);
     }
+
 }

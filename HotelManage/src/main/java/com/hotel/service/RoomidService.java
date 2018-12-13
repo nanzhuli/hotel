@@ -12,37 +12,42 @@ import java.util.List;
 @Service
 public class RoomidService
 {
-    @Autowired
-    RoomidRepository roomidrepository;
+	@Autowired
+	RoomidRepository roomidrepository;
 
-    public List<Roomid> findAll(int roomno) {
-        Roomid or = new Roomid();
-        or.setRoomno(roomno);
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("roomno",
-                ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("rino","name",
-                "id");
-        Example<Roomid> ex = Example.of(or, exampleMatcher);
-        List<Roomid> worker = roomidrepository.findAll(ex);
-        return worker;
-    }
+	public List<Roomid> findAll(int roomno)
+	{
+		Roomid or=new Roomid();
+		or.setRoomno(roomno);
+		ExampleMatcher exampleMatcher=ExampleMatcher.matching().withMatcher("roomno",
+				ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("rino","name","id");
+		Example<Roomid> ex=Example.of(or,exampleMatcher);
+		return roomidrepository.findAll(ex);
+	}
 
-    public Roomid findById(int r) {
-        return roomidrepository.findById(r).orElse(null);
-    }
+	public Roomid findById(int r)
+	{
+		return roomidrepository.findById(r).orElse(null);
+	}
 
-    public List<Roomid> findAllWithoutparam() {
-        return roomidrepository.findAll();
-    }
+	public List<Roomid> findAllWithoutparam()
+	{
+		return roomidrepository.findAll();
+	}
 
-    public Roomid save(Roomid e) {
-        return roomidrepository.save(e);
-    }
+	public Roomid save(Roomid e)
+	{
+		return roomidrepository.save(e);
+	}
 
-    public List<Roomid> saveAll(List<Roomid> ri) {
-        return roomidrepository.saveAll(ri);
-    }
-    public Roomid findByRino(int rino) {
-        return roomidrepository.findById(rino).orElse(null);
-    }
+	public List<Roomid> saveAll(List<Roomid> ri)
+	{
+		return roomidrepository.saveAll(ri);
+	}
+
+	public Roomid findByRino(int rino)
+	{
+		return roomidrepository.findById(rino).orElse(null);
+	}
 
 }

@@ -13,6 +13,8 @@ public enum ExceptionType
 	GARAGE_HISTORY_FIND_BY_MONTH_ERROR(504,"未找到该月份对应的车库历史"),
 	GARAGE_HISTORY_FIND_BY_YEAR_ERROR(505,"未找到该年份对应的订单历史"),
 
+	ORDER_FIND_BY_ID_ERROR(600,"未找到该订单号对应的订单"),
+
 	MEMBER_FIND_BY_PHONE_ERROR(700,"未找到该电话号码对应的会员"),
 	MEMBER_FIND_BY_ID_ERROR(701,"未找到该身份证对应的会员"),
 
