@@ -34,7 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .anyRequest().authenticated()
-               // .antMatchers("Employ/**","order/**","Event/**").hasRole("WORKER")
+                // .antMatchers("Employ/**","order/**","Event/**").hasRole("WORKER")
+//                .antMatchers("/css/**", "/dist/**", "/js/**", "/layui/**", "/src/**").permitAll()
                 .and().formLogin().loginPage("/login")
                 //设置默认登录成功跳转页面
                 .defaultSuccessUrl("/").successHandler(new LoginSuccessHandle()).permitAll()

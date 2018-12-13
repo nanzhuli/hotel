@@ -1,55 +1,119 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>宾馆管理系统登录</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <script src="./js/jquery.min.js"></script>
     <script src="src/js/home.js"></script>
     <script src="./layui/layui.js"></script>
 
     <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./css/style.css" media="all">
+
+    <style>
+        .div-relative {
+            position: absolute;
+            color: #000;
+            /*border: 1px solid #000;*/
+            /*background: #FF0;*/
+        }
+
+        .div-c {
+            /*position: absolute;*/
+            /*left: 80px;*/
+            /*top: 80px;*/
+            z-index: 70;
+            width: 100%;
+            height: 100%;
+        }
+
+        .block-login {
+            position: absolute;
+            z-index: 100;
+            left: 37%;
+            top: 27%;
+            width: 400px;
+            height: 300px;
+            background-color: white;
+            border-radius: 0.3em;
+            border: solid #666666 0.5px;
+            opacity: 0.95;
+        }
+
+        .img-fill {
+            /*alignment: center;*/
+            width: 100%;
+            display: block;
+        }
+
+        .top-block {
+            position: absolute;
+            top: 20px;
+            height: 150px;
+            width: 400px;
+        }
+
+        .bottom-block {
+            position: absolute;
+            top: 250px;
+            height: 50px;
+        }
+    </style>
 </head>
 
-<body>
-<div class="block-login">
-    <!--<table>-->
-        <!--<tr>-->
-            <!--<td>-->
-                <!--<label for="username">用户名</label>-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--<input id="username" type="text">-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td>-->
-                <!--<label for="password">密码</label>-->
-            <!--</td>-->
-            <!--<td>-->
-                <!--<input id="password" type="password">-->
-            <!--</td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-            <!--<td colspan="2">-->
-                <!--<button class='layui-btn layui-btn-primary layui-btn-xs'>-->
-                    <!--<label id='loginBtn'>登录！CNM</label>-->
-                <!--</button>-->
-            <!--</td>-->
-        <!--</tr>-->
-    <!--</table>-->
-    <form class="form-signin" role="form" name="form" th:action="@{/login}" action="/login" method="post">
-        <div class="form-group">
-            <label for="username">账号</label>
-            <input type="text" class="form-control" name="username" value="" placeholder="账号"/>
+<body style="height:800px; background-color: #0C0C0C">
+<div class="layui-layout layui-layout-admin" style="height: 7%">
+    <div class="head">
+        <div class="layui-header">
+            <div class="layui-logo">宾馆管理系统</div>
         </div>
-        <div class="form-group">
-            <label for="password">密码</label>
-            <input type="password" class="form-control" name="password" placeholder="密码"/>
+    </div>
+</div>
+<div class="div-relative" style="height: 93%; width: 100%">
+    <div class="block-login">
+        <form class="layui-form" role="form" name="form" th:action="@{/login}" action="/login" method="post">
+            <div class="top-block">
+                <fieldset class="layui-elem-field layui-field-title">
+                    <legend>宾馆管理系统登录</legend>
+                </fieldset>
+                <br>
+                <div style="width: 350px">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">账号</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" name="username" value="" placeholder="账号"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" class="layui-input" name="password" placeholder="密码"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<input type="submit" id="login" value="Login" class="btn btn-primary"/>-->
+            <div class="bottom-block">
+                <button class="layui-btn" type="submit" id="login" value="Login" style="width: 400px; height: 50px">登录
+                </button>
+            </div>
+        </form>
+    </div>
+    <!--http://www.mafengwo.cn/hotel/7335180.html-->
+    <div class="div-c">
+        <div class="layui-carousel" id="test1">
+            <div carousel-item>
+                <div class="img-fill"><img src="./dist/images/background/pic(1).jpeg"></div>
+                <div class="img-fill"><img src="./dist/images/background/pic(2).jpeg"></div>
+                <div class="img-fill"><img src="./dist/images/background/pic(3).jpeg"></div>
+                <div class="img-fill"><img src="./dist/images/background/pic(4).jpeg"></div>
+                <div class="img-fill"><img src="./dist/images/background/pic(5).jpeg"></div>
+            </div>
         </div>
-        <input type="submit" id="login" value="Login" class="btn btn-primary"/>
-    </form>
-
+    </div>
 </div>
 
 <script src="./src/js/login.js"></script>
@@ -59,9 +123,17 @@
         var element = layui.element;
     });
 
-    // $(function () {
-    //     login.init();
-    // });
+    layui.use('carousel', function () {
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            , width: '100%' //设置容器宽度
+            , height: '100%'
+            , arrow: 'hover' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
 </script>
 </body>
 </html>
