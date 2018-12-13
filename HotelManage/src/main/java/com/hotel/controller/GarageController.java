@@ -114,13 +114,22 @@ public class GarageController
 	public Result<List<Garage>> garageInsertNullGarage(@PathVariable("number") int number)
 	{
 		List<Garage> garageList=new ArrayList<>();
-
-		while (number-->0)
+		int temp=number;
+		do
 		{
 			Garage newGarage=new Garage();
+
+			if (temp==number)
+			{
+				newGarage.setGarageno(1);
+			}
+			newGarage.setBrand(null);
+			newGarage.setStarttime(null);
+			newGarage.setEndtime(null);
+			newGarage.setType(0);
 			garageList.add(garageService.save(newGarage));
 			garageService.save(newGarage);
-		}
+		} while (--number>0);
 
 		return ResultReturn.success(garageList);
 	}
