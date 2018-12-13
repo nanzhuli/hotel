@@ -4,8 +4,8 @@ import com.hotel.model.Result;
 import com.hotel.model.Room;
 import com.hotel.model.Standard;
 import com.hotel.util.ResultReturn;
-import com.hotel.service.roomService;
-import com.hotel.service.standardService;
+import com.hotel.service.RoomService;
+import com.hotel.service.StandardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,10 @@ import java.util.List;
 @RestController
 public class RoomInformationController {
     @Autowired
-    standardService standservice;
+    StandardService standservice;
 
     @Autowired
-    roomService roomservice;
+    RoomService roomservice;
 
     //查询房间标准列表
     @RequestMapping("/standard")

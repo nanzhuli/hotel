@@ -5,9 +5,9 @@ import com.hotel.model.Event;
 import com.hotel.model.Result;
 import com.hotel.model.Room;
 import com.hotel.util.ResultReturn;
-import com.hotel.service.employService;
-import com.hotel.service.eventService;
-import com.hotel.service.roomService;
+import com.hotel.service.EmployService;
+import com.hotel.service.EventService;
+import com.hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EventController {
     @Autowired
-    employService employservice;
+    EmployService employservice;
 
     @Autowired
-    eventService eventservice;
+    EventService eventservice;
 
     @Autowired
-    roomService roomservice;
+    RoomService roomservice;
 
     //查看事务列表
     @RequestMapping("/event/allList")

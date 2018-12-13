@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class roomidService {
+public class RoomidService
+{
     @Autowired
     RoomidRepository roomidrepository;
 

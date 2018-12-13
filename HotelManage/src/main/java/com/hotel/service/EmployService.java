@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class employService implements UserDetailsService {
+public class EmployService implements UserDetailsService {
     @Autowired
 	EmployRepository employrepository;
 

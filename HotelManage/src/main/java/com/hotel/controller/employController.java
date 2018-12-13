@@ -3,7 +3,7 @@ package com.hotel.controller;
 import com.hotel.model.Employ;
 import com.hotel.model.Result;
 import com.hotel.util.ResultReturn;
-import com.hotel.service.employService;
+import com.hotel.service.EmployService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class employController {
     @Autowired
-    employService employservice;
+	EmployService employservice;
 
     @RequestMapping("/employ/list")
     public Result<Employ> employList() {
