@@ -41,10 +41,10 @@ public class GarageController
 	}
 
 	/**
-	 * @param garageNo 车牌
+	 * @param garageNo 车位
 	 * @return 返回查询到的车库
 	 */
-	@RequestMapping("/garage/getonebybrand/{garageno}")
+	@RequestMapping("/garage/getonebyid/{garageno}")
 	public Result<Garage> garageFindById(@PathVariable("garageno") int garageNo)
 	{
 		return ResultReturn.success(garageService.findById(garageNo));
