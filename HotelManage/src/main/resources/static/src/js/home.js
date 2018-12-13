@@ -60,6 +60,12 @@ var home = {
             add: "/event/add",
             update: "/event/update/",
             delete: "/event/delete/"
+        },
+        finance:{
+            getAll:"/finance/getall",
+            getByDay:"/finance/getbyday",
+            getByMonth:"/finance/getbymonth",
+            getByYear:"/finance/getbyyear",
         }
     },
     // 功能型函数

@@ -9,8 +9,36 @@
 <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
 <link rel="stylesheet" href="../../css/style.css" media="all">
 
+<blockquote class="layui-elem-quote layui-text" style="margin-bottom: 0; height: 20px">
+    <div class="block-left">
+        事务信息
+    </div>
+    <div class="block-right">
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="refresh">
+            <i class="layui-icon layui-icon-refresh">刷新</i>
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <span id="sel">
+            <label for="select-bar">查询</label>
+            <select id="select-bar" class="select-bar">
+                <option value="0">按日期</option>
+                <option value="1">按月份</option>
+                <option value="2">按年份</option>
+            </select>
+        </span>
+        <span id="change">
+            <input type='number' id='search-bar-year' class='search-bar-date' placeholder="年">
+            <input type='number' id='search-bar-month' class='search-bar-date' placeholder="月">
+            <input type='number' id='search-bar-date' class='search-bar-date' placeholder="日">
+        </span>
+        <button class="layui-btn layui-btn-primary layui-btn-xs" id="search">
+            <i class="layui-icon layui-icon-search">搜索</i>
+        </button>
+    </div>
+</blockquote>
+
 <div id="finance" class="display-table">
-    <table class="layui-table" id="finance_table">
+    <table class="layui-table" id="finance-table">
         <thead>
         <tr>
             <td>类型</td>
@@ -23,6 +51,7 @@
     </table>
 </div>
 
+<script src="../js/home.js"></script>
 <script src="../js/finance.js"></script>
 <script type="application/javascript">
     // layui 初始化
