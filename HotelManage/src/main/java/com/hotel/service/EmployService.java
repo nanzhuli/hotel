@@ -56,7 +56,7 @@ public class EmployService implements UserDetailsService {
         ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("employworktime",
                 ExampleMatcher.GenericPropertyMatchers.contains()).withMatcher("employposition",
                 ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("employno","employname",
-                "employsex","employage","employpaymentpermonth","employauthority","loginname","password");
+                "employsex","employage","employpaymentpermonth","employauthority","username","password");
         Example<Employ> ex = Example.of(e, exampleMatcher);
         Optional<Employ> worker = employrepository.findOne(ex);
         return worker.orElse(e);
@@ -79,4 +79,16 @@ public class EmployService implements UserDetailsService {
         employrepository.delete(e);
     }
 
+    public Employ findByUsernameAndPassword(String username, String password) {
+        Employ e = new Employ();
+        e.setUsername(username);
+        e.setPassword(password);
+        ExampleMatcher exampleMatcher = ExampleMatcher.matching().withMatcher("username",
+                ExampleMatcher.GenericPropertyMatchers.contains()).withMatcher("password",
+                ExampleMatcher.GenericPropertyMatchers.contains()).withIgnorePaths("employno","employname",
+                "employsex","employage","employpaymentpermonth","employauthority","employworktime","employposition");
+        Example<Employ> ex = Example.of(e, exampleMatcher);
+        Optional<Employ> worker = employrepository.findOne(ex);
+        return worker.orElse(e);
+    }
 }

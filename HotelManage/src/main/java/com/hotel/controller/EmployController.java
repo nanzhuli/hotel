@@ -5,6 +5,8 @@ import com.hotel.model.Result;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.EmployService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,6 +82,17 @@ public class EmployController
             return ResultReturn.error(1,"can't find this employno");
         employservice.delete(e);
         return ResultReturn.success(e);
+    }
+
+    @RequestMapping("/employ/personalMeasage")
+    public Result getPersonalMeasage() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        String password = userDetails.getPassword();
+        Employ e = employservice.findByUsernameAndPassword(username,password);
+        System.out.println("employ measage:"+e);
+        return ResultReturn.success(e);
+
     }
 
     public Employ saveEmploy(int employno,String employname,int employsex,int employage,
