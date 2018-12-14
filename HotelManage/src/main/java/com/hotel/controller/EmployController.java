@@ -16,8 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmployController
 {
+    private final EmployService employservice;
+
     @Autowired
-	EmployService employservice;
+    public EmployController(EmployService employservice)
+    {
+        this.employservice=employservice;
+    }
 
     @RequestMapping("/employ/list")
     public Result<Employ> employList() {

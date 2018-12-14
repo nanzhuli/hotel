@@ -16,8 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FinanceController
 {
+	private final FinanceService financeService;
+
 	@Autowired
-	FinanceService financeService;
+	public FinanceController(FinanceService financeService)
+	{
+		this.financeService=financeService;
+	}
 
 	/**
 	 * @return 返回全部财务报表
@@ -85,9 +90,6 @@ public class FinanceController
 			finance.setMoney(((GarageHistory)object).getPrice());
 			finance.setTime(((GarageHistory)object).getEndtime());
 			finance.setType("车库");
-			finance.setFinanceno(2);
-
-			System.out.println(finance);
 
 			financeService.save(finance);
 		}

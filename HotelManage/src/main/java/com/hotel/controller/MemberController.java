@@ -15,8 +15,13 @@ import java.util.List;
 @RestController
 public class MemberController
 {
+	private final MemberService memberService;
+
 	@Autowired
-	MemberService memberService;
+	public MemberController(MemberService memberService)
+	{
+		this.memberService=memberService;
+	}
 
 	/**
 	 *

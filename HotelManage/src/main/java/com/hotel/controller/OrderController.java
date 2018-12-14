@@ -1,11 +1,8 @@
 package com.hotel.controller;
 
 import com.hotel.model.*;
+import com.hotel.service.*;
 import com.hotel.util.ResultReturn;
-import com.hotel.service.OrderService;
-import com.hotel.service.OrderRoomService;
-import com.hotel.service.RoomService;
-import com.hotel.service.RoomidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,17 +15,30 @@ import java.util.List;
 @RestController
 public class OrderController
 {
-	@Autowired
-	OrderService orderservice;
+	private final OrderService orderservice;
+
+	private final OrderRoomService orderroomservice;
+
+	private final RoomidService roomidservice;
+
+	private final RoomService roomservice;
+
+	private final OrderHistoryService orderHistoryService;
+
+	private final FinanceService financeService;
 
 	@Autowired
-	OrderRoomService orderroomservice;
-
-	@Autowired
-	RoomidService roomidservice;
-
-	@Autowired
-	RoomService roomservice;
+	public OrderController(OrderService orderservice,OrderRoomService orderroomservice,RoomidService roomidservice,
+						   RoomService roomservice,OrderHistoryService orderHistoryService,
+						   FinanceService financeService)
+	{
+		this.orderservice=orderservice;
+		this.orderroomservice=orderroomservice;
+		this.roomidservice=roomidservice;
+		this.roomservice=roomservice;
+		this.orderHistoryService=orderHistoryService;
+		this.financeService=financeService;
+	}
 
 	/**
 	 * order表有查 更新 删除操作，更新可以更新name/id/phone/isenter 更改phone后需要去核对会员信息
@@ -212,7 +222,7 @@ public class OrderController
 		{
 			orderservice.delete(o);
 
-			return new OrderHistoryController().orderHistoryInsert(o);
+			return new OrderHistoryController(orderHistoryService,financeService).orderHistoryInsert(o);
 		}
 		else
 		{

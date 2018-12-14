@@ -2,6 +2,7 @@ package com.hotel.controller;
 
 import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
+import com.hotel.service.FinanceService;
 import com.hotel.service.GarageHistoryService;
 import com.hotel.service.GarageService;
 import com.hotel.model.Result;
@@ -19,11 +20,20 @@ import java.util.List;
 @RestController
 public class GarageController
 {
+	private final GarageService garageService;
+
+	private final GarageHistoryService garageHistoryService;
+
+	private final FinanceService financeService;
+
 	@Autowired
-	GarageService garageService;
-	
-	@Autowired
-	GarageHistoryService garageHistoryService;
+	public GarageController(GarageService garageService,GarageHistoryService garageHistoryService,
+							FinanceService financeService)
+	{
+		this.garageService=garageService;
+		this.garageHistoryService=garageHistoryService;
+		this.financeService=financeService;
+	}
 
 	/**
 	 * @return 返回车库列表
@@ -100,12 +110,9 @@ public class GarageController
 	 * @return 返回出库结果
 	 */
 	@RequestMapping("/garage/driveout")
-	public Result garageDriveOut(@RequestParam("garageno") int garageNo)
+	public Result<GarageHistory> garageDriveOut(@RequestParam("garageno") int garageNo)
 	{
 		Garage garage=garageService.findById(garageNo);
-
-		System.out.println(garage.hashCode()+": "+garage.toString());
-
 		Timestamp endTime=new Timestamp(System.currentTimeMillis());
 
 		Garage garageTemp=new Garage();
@@ -117,7 +124,7 @@ public class GarageController
 
 		garageUpdate(garage.getGarageno(),0,null,null,null);
 
-		return new GarageHistoryController(garageHistoryService).garageHistoryInsertLog(garageTemp,endTime);
+		return new GarageHistoryController(garageHistoryService,financeService).garageHistoryInsertLog(garageTemp,endTime);
 	}
 
 	/**

@@ -2,6 +2,7 @@ package com.hotel.controller;
 
 import com.hotel.model.OrderHistory;
 import com.hotel.model.Result;
+import com.hotel.service.FinanceService;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.OrderHistoryService;
 import com.hotel.model.Order;
@@ -14,8 +15,16 @@ import java.util.List;
 public class OrderHistoryController
 {
 
+	private final OrderHistoryService orderHistoryService;
+
+	private final FinanceService financeService;
+
 	@Autowired
-	private OrderHistoryService orderHistoryService;
+	public OrderHistoryController(OrderHistoryService orderHistoryService,FinanceService financeService)
+	{
+		this.orderHistoryService=orderHistoryService;
+		this.financeService=financeService;
+	}
 
 	/**
 	 * @return 返回订单历史集合
@@ -99,7 +108,7 @@ public class OrderHistoryController
 	{
 		OrderHistory orderHistory=saveOrderHistory(order);
 
-		new FinanceController().insert(orderHistory);
+		new FinanceController(financeService).insert(orderHistory);
 		return ResultReturn.success(orderHistoryService.save(orderHistory));
 	}
 }

@@ -13,11 +13,16 @@ import java.util.List;
 
 @RestController
 public class RoomInformationController {
-    @Autowired
-    StandardService standservice;
+    private final StandardService standservice;
+
+    private final RoomService roomservice;
 
     @Autowired
-    RoomService roomservice;
+    public RoomInformationController(StandardService standservice,RoomService roomservice)
+    {
+        this.standservice=standservice;
+        this.roomservice=roomservice;
+    }
 
     //查询房间标准列表
     @RequestMapping("/standard")
