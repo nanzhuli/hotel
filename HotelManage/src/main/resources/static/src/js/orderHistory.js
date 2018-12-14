@@ -15,8 +15,9 @@ var orderHistory = {
     funcs: {
         renderTable: function () {
             $.get(home.urls.orderHistory.getAll, {}, function (result) {
+                console.log(result);
                 var data = result.data;        //获取数据
-                var $tbody = $("#orderHistory-table").children('tbody');
+                var $tbody = $("#order-history-table").children('tbody');
                 orderHistory.funcs.renderHandler($tbody, data);
                 var searchBtn = $('#search');
                 orderHistory.funcs.bindSearchEventListener(searchBtn, $tbody);
@@ -32,28 +33,19 @@ var orderHistory = {
             data.forEach(function (e) {
                 $tbody.append(
                     "<tr>" +
-                    "<td>" + (e.orderHistoryno) + "</td>" +
+                    "<td>" + (e.orderno) + "</td>" +
                     "<td>" + (e.name) + "</td>" +
                     "<td>" + (e.phone) + "</td>" +
+                    "<td>" + (e.id) + "</td>" +
                     "<td>" + home.funcs.timeStrDate(e.starttime) + "</td>" +
                     "<td>" + home.funcs.timeStrDate(e.endtime) + "</td>" +
                     "<td>" + (e.price) + "</td>" +
-                    "<td>" + home.vars.enter[e.isenter] + "</td>" +
                     "<td><a href='#' class='mores' id='more-" + e.orderHistoryno + "'><i class=\"layui-icon layui-icon-list\"></i></a></td>" +
-                    "<td><a href='#' class='edits' id='edit-" + e.orderHistoryno + "'><i class=\"layui-icon layui-icon-edit\"></i></a></td>" +
-                    "<td><a href='#' class='deletes' id='delete-" + e.orderHistoryno + "'><i class=\"layui-icon layui-icon-delete\"></i></a></td>" +
-                    "<td><a href='#' class='' id='submit-" + e.orderHistoryno + "'><i class=\"layui-icon layui-icon-ok-circle\"></i></a></td>" +
                     "</tr>")
             });
             // 数据渲染完毕
             var moreBtns = $('.mores');
-            var editBtns = $('.edits');
-            var deleteBtns = $('.deletes');
-            var submitBtns = $('.submits');
             orderHistory.funcs.bindMoreEventListener(moreBtns);
-            orderHistory.funcs.bindEditEventListener(editBtns);
-            orderHistory.funcs.bindDeleteEventListener(deleteBtns);
-            orderHistory.funcs.bindSubmitEventListener(submitBtns);
         },
         bindRefreshEventListener: function (refreshBtn) {
             refreshBtn.off('click');
