@@ -52,7 +52,7 @@ public class EventController
 		java.sql.Timestamp timestamp=new java.sql.Timestamp(System.currentTimeMillis());
 		e.setStarttime(timestamp);
 
-		Room r=roomservice.findById(roomno);
+		Room r=roomservice.findByRoom(roomno);
 		if(r==null)
 			return ResultReturn.error(1,"roomno is not exist");
 		//需要做employno
@@ -78,7 +78,7 @@ public class EventController
 			return ResultReturn.error(1,"can't find this eventno");
 		//更新时房间号确认
 		E.setType(type);
-		Room r=roomservice.findById(roomno);
+		Room r=roomservice.findByRoom(roomno);
 		if(r==null)
 			return ResultReturn.error(1,"roomno is not exist");
 		E.setRoomno(roomno);

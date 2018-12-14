@@ -1,5 +1,7 @@
 package com.hotel.controller;
 
+import com.hotel.exception.ExceptionType;
+import com.hotel.exception.HotelException;
 import com.hotel.model.*;
 import com.hotel.service.*;
 import com.hotel.util.ResultReturn;
@@ -54,6 +56,7 @@ public class OrderController
 	 */
 
 	/**
+	 * 查找所有订单
 	 *
 	 * @return 返回现有的全部订单
 	 */
@@ -64,6 +67,7 @@ public class OrderController
 	}
 
 	/**
+	 * 根据订单号查找对应订单信息
 	 *
 	 * @param orderno 订单号
 	 * @return 返回订单号对应的订单
@@ -75,11 +79,12 @@ public class OrderController
 	}
 
 	/**
+	 * 更新订单信息
 	 *
 	 * @param orderno 订单号
-	 * @param name 姓名
-	 * @param id 身份证
-	 * @param phone 电话号码
+	 * @param name    姓名
+	 * @param id      身份证
+	 * @param phone   电话号码
 	 * @param isenter 是否入住
 	 * @return 返回更新后的订单
 	 */
@@ -96,7 +101,12 @@ public class OrderController
 		return ResultReturn.success(orderservice.save(o));
 	}
 
-	//order表删除
+	/**
+	 * 删除订单
+	 *
+	 * @param orderno 订单号
+	 * @return 返回成功
+	 */
 	@RequestMapping("/order/delete/{orderno}")
 	public Result orderDelete(@PathVariable("orderno") int orderno)
 	{
@@ -105,36 +115,38 @@ public class OrderController
 		return ResultReturn.success();
 	}
 
-	//orderroom表查看
+	/**
+	 * 根据订单号查找所有的订单中的所有房间
+	 *
+	 * @param orderno 订单号
+	 * @return 返回房间列表
+	 */
 	@RequestMapping("/order/orderroom/{orderno}")
 	public Result<List<OrderRoom>> orderroomList(@PathVariable("orderno") int orderno)
 	{
 		return ResultReturn.success(orderroomservice.findAll(orderno));
 	}
 
-	//orderroom找一个
+	/**
+	 * 根据订单-房间序号查找对应记录
+	 *
+	 * @param orno 订单-房间表的序号
+	 * @return 返回对应的订单-房间信息
+	 */
 	@RequestMapping("/order/orderroom/orderroomSearchOne/{orno}")
-	public Result orderroomSearchOne(@PathVariable("orno") int orno)
+	public Result<OrderRoom> orderroomSearchOne(@PathVariable("orno") int orno)
 	{
-		OrderRoom r=orderroomservice.findById(orno);
-		if(r==null)
-		{
-			return ResultReturn.error(1,"it's not exist, you can't delete!");
-		}
-		else
-		{
-			return ResultReturn.success(r);
-		}
+		return ResultReturn.success(orderroomservice.findOne(orno));
 	}
 
-	//orderroom表更新
-
 	/**
-	 * @param orno orderroom编号
-	 *             brand 车牌号
-	 *             roomnoAfter 之前的房间号
-	 *             roomnoBefore 现在重新设定的房间号（计算价格需要）
-	 *             orderno 订单号（保存当前订单的价格需要）
+	 * OrderRoom表更新
+	 *
+	 * @param orno         编号
+	 * @param brand        车牌号
+	 * @param roomnoAfter  之前的房间号
+	 * @param roomnoBefore 现在重新设定的房间号（计算价格需要）
+	 * @param orderno      订单号（保存当前订单的价格需要）
 	 * @return 返回保存的orderroom对象
 	 */
 	@RequestMapping("/order/orderroom/update/{orno}")
@@ -143,21 +155,22 @@ public class OrderController
 								  @RequestParam("roomnoBefore") int roomnoBefore,@RequestParam("orderno") int orderno)
 	{
 		OrderRoom or=orderroomservice.findOne(orno);
-		if(or==null)
-			return ResultReturn.error(1,"cant't find rino");
 		or.setBrand(brand);
 		or.setRoomno(roomnoAfter);
+
 		List<Roomid> ri=roomidservice.findAll(roomnoBefore);
-		System.out.println(ri);
-		for (int i=0;i<ri.size();i++)
-			ri.get(i).setRoomno(roomnoAfter);
-		System.out.println(ri);
+		for (Roomid aRi : ri)
+		{
+			aRi.setRoomno(roomnoAfter);
+		}
 		roomidservice.saveAll(ri);
-		Order o=orderservice.findById(orderno);
-		Room ra=roomservice.findById(roomnoAfter);
-		Room rb=roomservice.findById(roomnoBefore);
-		o.setPrice(o.getPrice()+ra.getPrice()-rb.getPrice());
-		orderservice.save(o);
+
+		Order order=orderservice.findById(orderno);
+		Room roomAfter=roomservice.findByRoom(roomnoAfter);
+		Room roomBefore=roomservice.findByRoom(roomnoBefore);
+		order.setPrice(order.getPrice()+roomAfter.getPrice()-roomBefore.getPrice());
+		orderservice.save(order);
+
 		return ResultReturn.success(orderroomservice.save(or));
 	}
 
@@ -168,22 +181,26 @@ public class OrderController
 		return ResultReturn.success(roomidservice.findAll(roomno));
 	}
 
-	//roomid找一个
+	/**
+	 * 根据房间-身份证表的序号查找对应信息
+	 *
+	 * @param rino 房间-身份证表的序号
+	 * @return 返回对应信息
+	 */
 	@RequestMapping("/order/orderroom/roomid/roomidSearchOne/{rino}")
-	public Result roomidSearchOne(@PathVariable("rino") int rino)
+	public Result<Roomid> roomidSearchOne(@PathVariable("rino") int rino)
 	{
-		Roomid r=roomidservice.findById(rino);
-		if(r==null)
-		{
-			return ResultReturn.error(1,"it's not exist, you can't delete!");
-		}
-		else
-		{
-			return ResultReturn.success(r);
-		}
+		return ResultReturn.success(roomidservice.findByRino(rino));
 	}
 
-	//roomid表修改
+	/**
+	 * 房间-身份证表更新
+	 *
+	 * @param rino 房间-身份证表的序号
+	 * @param name 姓名
+	 * @param id   身份证
+	 * @return 返回更改后的信息
+	 */
 	@RequestMapping("/order/orderroom/roomid/update/{rino}")
 	public Result roomidUpdate(@PathVariable("rino") int rino,@RequestParam("name") String name,
 							   @RequestParam("id") String id)
@@ -194,28 +211,38 @@ public class OrderController
 		return ResultReturn.success(roomidservice.save(ri));
 	}
 
-	//获取不在roomid中的roomno
+	/**
+	 * 寻找未入住的房间号列表
+	 *
+	 * @return 返回房间号列表
+	 */
 	@RequestMapping("/order/orderroom/roomid/getEmptyRoomno")
 	public Result<List<Integer>> getEmptyRoomno()
 	{
 		List<Roomid> ri=roomidservice.findAllWithoutparam();
 		List<Integer> q=new ArrayList<>(ri.size());
-		for (int i=0;i<ri.size();i++)
+		for (Roomid aRi : ri)
 		{
-			q.add(ri.get(i).getRoomno());
+			q.add(aRi.getRoomno());
 		}
 		List<Room> r=roomservice.getEmpty(q);
-		List<Integer> sum=new ArrayList<Integer>(r.size());
-		for (int i=0;i<r.size();i++)
+		List<Integer> sum=new ArrayList<>();
+		for (Room aR : r)
 		{
-			sum.add(r.get(i).getRoomno());
+			sum.add(aR.getRoomno());
 		}
 		return ResultReturn.success(sum);
 	}
 
-	//结算功能
+	/**
+	 * 结算订单
+	 *
+	 * @param orderno 订单号
+	 * @return 返回订单结算结果
+	 * @throws HotelException 抛出订单未入住异常 code: 601
+	 */
 	@RequestMapping("/order/settle/{orderno}")
-	public Result orderSettle(@PathVariable("orderno") int orderno)
+	public Result<OrderHistory> orderSettle(@PathVariable("orderno") int orderno) throws HotelException
 	{
 		Order order=orderservice.findById(orderno);
 		if(order.getIsenter()==1)
@@ -227,7 +254,8 @@ public class OrderController
 		}
 		else
 		{
-			return ResultReturn.error(1,"还未入住");
+			throw new HotelException(ExceptionType.ORDER_ISENTER_ERROR.getCode(),
+					ExceptionType.ORDER_ISENTER_ERROR.getMsg());
 		}
 
 	}

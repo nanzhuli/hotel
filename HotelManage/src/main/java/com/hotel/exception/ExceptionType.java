@@ -4,6 +4,12 @@ public enum ExceptionType
 {
 	DONE(0,"成功"),
 
+	ROOM_FIND_BY_ROOMNO_ERROR(100,"未找到该房间号对应的房间信息"),
+
+	ORDERROOM_FIND_BY_ROOMIDNO_ERROR(200,"未找到该序号对应的订单-房间信息"),
+
+	ROOMID_FIND_BY_ROOMIDNO_ERROR(300,"未找到该序号对应的房间-身份证信息"),
+
 	GARAGE_FIND_BY_ID_ERROR(400,"未通过车库编号找到对应车库"),
 	GARAGE_FIND_BY_BRAND_ERROR(401,"未通过车牌找到对应车库"),
 
@@ -14,6 +20,7 @@ public enum ExceptionType
 	GARAGE_HISTORY_FIND_BY_YEAR_ERROR(505,"未找到该年份对应的订单历史"),
 
 	ORDER_FIND_BY_ID_ERROR(600,"未找到该订单号对应的订单"),
+	ORDER_ISENTER_ERROR(601,"该订单未入住"),
 
 	MEMBER_FIND_BY_PHONE_ERROR(700,"未找到该电话号码对应的会员"),
 	MEMBER_FIND_BY_ID_ERROR(701,"未找到该身份证对应的会员"),

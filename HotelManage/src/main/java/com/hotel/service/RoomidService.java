@@ -1,5 +1,7 @@
 package com.hotel.service;
 
+import com.hotel.exception.ExceptionType;
+import com.hotel.exception.HotelException;
 import com.hotel.model.Roomid;
 import com.hotel.repository.RoomidRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,19 @@ public class RoomidService
 		return roomidrepository.findAll(ex);
 	}
 
-	public Roomid findById(int r)
+	public Roomid findByRino(int rino) throws HotelException
 	{
-		return roomidrepository.findById(r).orElse(null);
+		Roomid roomid=roomidrepository.findById(rino).orElse(null);
+
+		if(roomid!=null)
+		{
+			return roomid;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.ROOMID_FIND_BY_ROOMIDNO_ERROR.getCode(),
+					ExceptionType.ROOMID_FIND_BY_ROOMIDNO_ERROR.getMsg());
+		}
 	}
 
 	public List<Roomid> findAllWithoutparam()
@@ -43,11 +55,6 @@ public class RoomidService
 	public List<Roomid> saveAll(List<Roomid> ri)
 	{
 		return roomidrepository.saveAll(ri);
-	}
-
-	public Roomid findByRino(int rino)
-	{
-		return roomidrepository.findById(rino).orElse(null);
 	}
 
 }

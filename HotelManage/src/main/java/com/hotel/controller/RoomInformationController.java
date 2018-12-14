@@ -41,9 +41,9 @@ public class RoomInformationController {
     public Result roomAdd(@RequestParam("roomno") int roomno,@RequestParam("type") int type,
 						  @RequestParam("price") int price,@RequestParam("ifwindow") int ifwindow,
 						  @RequestParam("comment") String comment) {
-        System.out.println("qian"+roomno+"   "+roomservice.findById(roomno));
+        System.out.println("qian"+roomno+"   "+roomservice.findByRoom(roomno));
         //需要做检测
-        if(roomservice.findById(roomno)==null) {
+        if(roomservice.findByRoom(roomno)==null) {
             System.out.println(roomno);
             Room r = saveRoom(roomno, type, price, ifwindow, comment);
             return ResultReturn.success(roomservice.save(r));
@@ -58,7 +58,7 @@ public class RoomInformationController {
 							 @RequestParam("price") int price,@RequestParam("ifwindow") int ifwindow,
 							 @RequestParam("comment") String comment) {
         //需要先查询是否存在
-        if(roomservice.findById(roomno)==null) {
+        if(roomservice.findByRoom(roomno)==null) {
             return ResultReturn.error(1,"cant't find roomno!");
         }
         else {
@@ -69,7 +69,7 @@ public class RoomInformationController {
 
     @RequestMapping("/room/searchOne/{roomno}")
     public Result roomSerchOne(@PathVariable("roomno") int roomno) {
-        Room r = roomservice.findById(roomno);
+        Room r = roomservice.findByRoom(roomno);
         if(r == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
@@ -82,7 +82,7 @@ public class RoomInformationController {
     @RequestMapping("/room/delete/{roomno}")
     public Result roomDelete(@PathVariable("roomno") int roomno) {
         //需要先查询是否存在
-        Room r = roomservice.findById(roomno);
+        Room r = roomservice.findByRoom(roomno);
         if(r == null) {
             return ResultReturn.error(1,"it's not exist, you can't delete!");
         }
