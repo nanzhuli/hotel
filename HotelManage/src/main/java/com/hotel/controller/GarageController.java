@@ -115,12 +115,7 @@ public class GarageController
 		Garage garage=garageService.findById(garageNo);
 		Timestamp endTime=new Timestamp(System.currentTimeMillis());
 
-		Garage garageTemp=new Garage();
-		garageTemp.setType(garage.getType());
-		garageTemp.setBrand(garage.getBrand());
-		garageTemp.setStarttime(garage.getStarttime());
-		garageTemp.setEndtime(garage.getEndtime());
-		garageTemp.setGarageno(garage.getGarageno());
+		Garage garageTemp=new Garage(garage);
 
 		garageUpdate(garage.getGarageno(),0,null,null,null);
 

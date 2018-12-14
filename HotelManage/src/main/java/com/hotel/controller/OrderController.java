@@ -217,12 +217,13 @@ public class OrderController
 	@RequestMapping("/order/settle/{orderno}")
 	public Result orderSettle(@PathVariable("orderno") int orderno)
 	{
-		Order o=orderservice.findById(orderno);
-		if(o.getIsenter()==1)
+		Order order=orderservice.findById(orderno);
+		if(order.getIsenter()==1)
 		{
-			orderservice.delete(o);
+			Order orderTemp=new Order(order);
+			orderservice.delete(order);
 
-			return new OrderHistoryController(orderHistoryService,financeService).orderHistoryInsert(o);
+			return new OrderHistoryController(orderHistoryService,financeService).orderHistoryInsert(orderTemp);
 		}
 		else
 		{

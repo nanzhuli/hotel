@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name="garage")
-public class Garage
+public class Garage implements Cloneable
 {
 	@Id
 	private int garageno;
@@ -15,6 +15,34 @@ public class Garage
 	private Timestamp starttime;
 	private Timestamp endtime;
 	private String brand;
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException
+	{
+		return super.clone();
+	}
+
+	public Garage()
+	{
+	}
+
+	public Garage(int garageno,int type,Timestamp starttime,Timestamp endtime,String brand)
+	{
+		this.garageno=garageno;
+		this.type=type;
+		this.starttime=starttime;
+		this.endtime=endtime;
+		this.brand=brand;
+	}
+
+	public Garage(Garage garage)
+	{
+		this.garageno=garage.getGarageno();
+		this.type=garage.getType();
+		this.starttime=garage.getStarttime();
+		this.endtime=garage.getEndtime();
+		this.brand=garage.getBrand();
+	}
 
 	public int getGarageno()
 	{
