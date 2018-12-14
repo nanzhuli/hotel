@@ -243,7 +243,7 @@ var order = {
                                 "<tr><td>离开时间</td><td colspan='3' id='endtime'>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
                                 "<tr><td>是否会员</td><td colspan='3' id='ismenber'>" + home.vars.member[res.ismenber] + "</td></tr>" +
                                 "<tr><td>是否入住</td><td colspan='3'><select id='isenter' style='width: 145px; height: 22px'>" + home.funcs.generateOption(2, home.vars.enter, res.isenter) + "</select>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>全部保存</label></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>保存</label></button></td></tr>" +
                                 "<tr><th colspan='4'>房间详情</th></tr>" +
                                 "<tr><td>房间号</td><td>绑定车牌</td><td>保存</td><td>编辑房客</td></tr>" +
                                 "</table>" +

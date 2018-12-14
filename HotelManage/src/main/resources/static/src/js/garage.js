@@ -25,6 +25,8 @@ var garage = {
             // 数据渲染完毕
             var refreshBtn = $("#refresh");
             garage.funcs.bindRefreshEventListener(refreshBtn);
+            var addBtn = $("#add");
+            garage.funcs.bindAddEventListener(addBtn);
         },
         renderHandler: function ($tbody, data) {
             $tbody.empty();                  //清空表格
@@ -62,6 +64,60 @@ var garage = {
                         layer.close(index);
                         clearTimeout(time);
                     }, 200)
+                });
+            })
+        },
+        bindAddEventListener: function (addBtn) {
+            addBtn.off('click');
+            addBtn.on('click', function () {
+                console.log("ADD");
+                // 弹出框
+                layui.use('layer', function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 1,
+                        title: '添加',
+                        content:
+                            "<div id='addModal' class='popup'>" +
+                            "<p>车位：<input type='number' id='garageNo'/></p>" +
+                            "<p>类型：<select id='type'>" +
+                            home.funcs.generateSelect(2, home.vars.garageType) +
+                            "</select></p>" +
+                            "<p>车牌：<input type='text' id='brand' maxlength='7'/></p>" +
+                            "</div>",
+                        area: ['350px', '380px'],
+                        btn: ['确认', '取消'],
+                        offset: ['30%', '35%'],
+                        yes: function (index) {
+                            var garageNo = $('#garageNo').val();
+                            var type = $('#type').val();
+                            var brand = $('#brand').val();
+                            console.log(garageNo);
+                            console.log(type);
+                            console.log(brand);
+                            $.post(home.urls.garage.driveIn, {
+                                garageno: garageNo,
+                                type: type,
+                                brand: brand
+                            }, function (result) {
+                                console.log(result);
+                                layer.msg(result.msg, {
+                                    offset: ['50%', '50%'],
+                                    time: 700
+                                });
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        garage.init();
+                                        clearTimeout(time);
+                                    }, 500)
+                                }
+                                layer.close(index)
+                            })
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                        }
+                    });
                 });
             })
         },
