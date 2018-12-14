@@ -154,7 +154,7 @@ var garage = {
                                     });
                                     if (result.code === 0) {
                                         var time = setTimeout(function () {
-                                            order.init();
+                                            garage.init();
                                             clearTimeout(time)
                                         }, 500)
                                     }

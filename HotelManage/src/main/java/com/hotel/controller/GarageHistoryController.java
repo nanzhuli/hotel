@@ -4,6 +4,7 @@ import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
 import com.hotel.model.Result;
 import com.hotel.service.GarageHistoryService;
+import com.hotel.service.GarageService;
 import com.hotel.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,14 @@ import java.util.List;
 @RestController
 public class GarageHistoryController
 {
+	final GarageHistoryService garageHistoryService;
+	
 	@Autowired
-	GarageHistoryService garageHistoryService;
-
+	GarageService garageService;
+	
+	@Autowired
+	public GarageHistoryController(GarageHistoryService garageHistoryService) {this.garageHistoryService = garageHistoryService;}
+	
 	/**
 	 * @return 返回车库历史纪录列表
 	 */
@@ -90,7 +96,7 @@ public class GarageHistoryController
 	 * @param endTime 出库时间
 	 * @return 返回当前车库记录
 	 */
-	Result<GarageHistory> garageHistoryInsertLog(Garage garage,Timestamp endTime)
+	Result garageHistoryInsertLog(Garage garage,Timestamp endTime)
 	{
 		GarageHistory newGarageHistory=new GarageHistory();
 
@@ -108,8 +114,6 @@ public class GarageHistoryController
 
 			new FinanceController().insert(newGarageHistory);
 		}
-		System.out.println(newGarageHistory);
-
 		return ResultReturn.success(garageHistoryService.save(newGarageHistory));
 	}
 }

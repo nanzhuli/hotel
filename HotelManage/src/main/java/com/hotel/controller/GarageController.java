@@ -2,6 +2,7 @@ package com.hotel.controller;
 
 import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
+import com.hotel.service.GarageHistoryService;
 import com.hotel.service.GarageService;
 import com.hotel.model.Result;
 import com.hotel.util.ResultReturn;
@@ -20,6 +21,9 @@ public class GarageController
 {
 	@Autowired
 	GarageService garageService;
+	
+	@Autowired
+	GarageHistoryService garageHistoryService;
 
 	/**
 	 * @return 返回车库列表
@@ -96,7 +100,7 @@ public class GarageController
 	 * @return 返回出库结果
 	 */
 	@RequestMapping("/garage/driveout")
-	public Result<GarageHistory> garageDriveOut(@RequestParam("garageno") int garageNo)
+	public Result garageDriveOut(@RequestParam("garageno") int garageNo)
 	{
 		Garage garage=garageService.findById(garageNo);
 
@@ -113,7 +117,7 @@ public class GarageController
 
 		garageUpdate(garage.getGarageno(),0,null,null,null);
 
-		return new GarageHistoryController().garageHistoryInsertLog(garageTemp,endTime);
+		return new GarageHistoryController(garageHistoryService).garageHistoryInsertLog(garageTemp,endTime);
 	}
 
 	/**
