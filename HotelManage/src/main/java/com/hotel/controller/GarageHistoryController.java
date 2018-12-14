@@ -3,6 +3,7 @@ package com.hotel.controller;
 import com.hotel.model.Garage;
 import com.hotel.model.GarageHistory;
 import com.hotel.model.Result;
+import com.hotel.service.FinanceService;
 import com.hotel.service.GarageHistoryService;
 import com.hotel.service.GarageService;
 import com.hotel.util.*;
@@ -18,14 +19,17 @@ import java.util.List;
 @RestController
 public class GarageHistoryController
 {
-	final GarageHistoryService garageHistoryService;
-	
+	private final GarageHistoryService garageHistoryService;
+
+	private final FinanceService financeService;
+
 	@Autowired
-	GarageService garageService;
-	
-	@Autowired
-	public GarageHistoryController(GarageHistoryService garageHistoryService) {this.garageHistoryService = garageHistoryService;}
-	
+	public GarageHistoryController(GarageHistoryService garageHistoryService,FinanceService financeService)
+	{
+		this.garageHistoryService=garageHistoryService;
+		this.financeService=financeService;
+	}
+
 	/**
 	 * @return 返回车库历史纪录列表
 	 */
@@ -96,11 +100,9 @@ public class GarageHistoryController
 	 * @param endTime 出库时间
 	 * @return 返回当前车库记录
 	 */
-	Result garageHistoryInsertLog(Garage garage,Timestamp endTime)
+	Result<GarageHistory> garageHistoryInsertLog(Garage garage,Timestamp endTime)
 	{
 		GarageHistory newGarageHistory=new GarageHistory();
-
-		System.out.println(garage);
 
 		newGarageHistory.setEndtime(endTime);
 		newGarageHistory.setBrand(garage.getBrand());
@@ -112,7 +114,7 @@ public class GarageHistoryController
 			newGarageHistory.setPrice(new TimeStampUtil().getHoursFromTwoTimeStamp(garage.getStarttime(),
 					endTime)*GarageUtil.getGaragePricePreHour());
 
-			new FinanceController().insert(newGarageHistory);
+			new FinanceController(financeService).insert(newGarageHistory);
 		}
 		return ResultReturn.success(garageHistoryService.save(newGarageHistory));
 	}
