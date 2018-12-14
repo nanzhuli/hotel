@@ -43,19 +43,6 @@ public class OrderController
 	}
 
 	/**
-	 * order表有查 更新 删除操作，更新可以更新name/id/phone/isenter 更改phone后需要去核对会员信息
-	 * 删除操作则是当isenter=N时才可以
-	 * <p>
-	 * orderroom可以查看和更改，更改操作仅可以对brand车牌号进行更改
-	 * <p>
-	 * roomid表有查看 更改操作，更改操作可以更改name/id/roomno
-	 * 注意的是roomno更改时应该可以下拉当前可选roomno 逻辑是先便利roomid表查找没有在其中的roomno提供给前台做选择
-	 * 选择之后核对并修改price
-	 * <p>
-	 * 还有就是订单页面还有结算功能 当ismember=Y时且endtime在当天才可以阶段，逻辑是检测后删除然后转到历史中去
-	 */
-
-	/**
 	 * 查找所有订单
 	 *
 	 * @return 返回现有的全部订单
@@ -89,7 +76,7 @@ public class OrderController
 	 * @return 返回更新后的订单
 	 */
 	@RequestMapping("/order/update/{orderno}")
-	public Result orderUpdate(@PathVariable("orderno") String orderno,@RequestParam("name") String name,
+	public Result<Order> orderUpdate(@PathVariable("orderno") String orderno,@RequestParam("name") String name,
 							  @RequestParam("id") String id,@RequestParam("phone") String phone,
 							  @RequestParam("isenter") int isenter)
 	{
@@ -99,6 +86,19 @@ public class OrderController
 		o.setPhone(phone);
 		o.setIsenter(isenter);
 		return ResultReturn.success(orderservice.save(o));
+	}
+
+	/**
+	 * 插入订单
+	 * 测试用接口，只需测试，无需前端实现
+	 *
+	 * @param guestWannaOrder 下订单的客人信息
+	 * @return
+	 */
+	@RequestMapping("/order/insert")
+	public Result orderInsert(@RequestParam("guestwannaorder") String guestWannaOrder)
+	{
+		return ResultReturn.success();
 	}
 
 	/**
