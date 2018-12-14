@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class Order
 {
 	@Id
-	private int orderno;
+	private String orderno;
 	private int roomcount;
 	private int price;
 	private String name;
@@ -25,7 +25,7 @@ public class Order
 	{
 	}
 
-	public Order(int orderno,int roomcount,int price,String name,String id,String phone,Timestamp starttime,
+	public Order(String orderno,int roomcount,int price,String name,String id,String phone,Timestamp starttime,
 				 Timestamp endtime,int ismenber,int isenter)
 	{
 		this.orderno=orderno;
@@ -54,12 +54,12 @@ public class Order
 		this.isenter=order.getIsenter();
 	}
 
-	public int getOrderno()
+	public String getOrderno()
 	{
 		return orderno;
 	}
 
-	public void setOrderno(int orderno)
+	public void setOrderno(String orderno)
 	{
 		this.orderno=orderno;
 	}
@@ -157,6 +157,6 @@ public class Order
 	@Override
 	public String toString()
 	{
-		return "order{"+"orderno="+orderno+", roomcount="+roomcount+", price="+price+", name='"+name+'\''+", id='"+id+'\''+", phone='"+phone+'\''+", starttime="+starttime+", endtime="+endtime+", ismenber='"+ismenber+'\''+", isenter='"+isenter+'\''+'}';
+		return "order{"+"orderno='"+orderno+'\''+", roomcount="+roomcount+", price="+price+", name='"+name+'\''+", id='"+id+'\''+", phone='"+phone+'\''+", starttime="+starttime+", endtime="+endtime+", ismenber='"+ismenber+'\''+", isenter='"+isenter+'\''+'}';
 	}
 }

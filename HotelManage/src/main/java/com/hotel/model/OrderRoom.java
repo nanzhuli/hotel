@@ -5,54 +5,58 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "orderroom")
+@Table(name="orderroom")
 public class OrderRoom
 {
-    @Id
-    private int orno;
-    private int orderno;
-    private int roomno;
-    private String brand;
+	@Id
+	private int orno;
+	private String orderno;
+	private int roomno;
+	private String brand;
 
-    public int getOrno() {
-        return orno;
-    }
+	public int getOrno()
+	{
+		return orno;
+	}
 
-    public void setOrno(int orno) {
-        this.orno = orno;
-    }
+	public void setOrno(int orno)
+	{
+		this.orno=orno;
+	}
 
-    public int getOrderno() {
-        return orderno;
-    }
+	public String getOrderno()
+	{
+		return orderno;
+	}
 
-    public void setOrderno(int orderno) {
-        this.orderno = orderno;
-    }
+	public void setOrderno(String orderno)
+	{
+		this.orderno=orderno;
+	}
 
-    public int getRoomno() {
-        return roomno;
-    }
+	public int getRoomno()
+	{
+		return roomno;
+	}
 
-    public void setRoomno(int roomno) {
-        this.roomno = roomno;
-    }
+	public void setRoomno(int roomno)
+	{
+		this.roomno=roomno;
+	}
 
-    public String getBrand() {
-        return brand;
-    }
+	public String getBrand()
+	{
+		return brand;
+	}
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+	public void setBrand(String brand)
+	{
+		this.brand=brand;
+	}
 
-    @Override
-    public String toString() {
-        return "OrderRoom{" +
-                "orno=" + orno +
-                ", orderno=" + orderno +
-                ", roomno=" + roomno +
-                ", brand='" + brand + '\'' +
-                '}';
-    }
+	@Override
+	public String toString()
+	{
+		return "OrderRoom{"+"orno="+orno+", orderno='"+orderno+'\''+", roomno="+roomno+", brand='"+brand+'\''+'}';
+	}
 }

@@ -20,18 +20,18 @@ public class OrderService
 		return orderrepository.findAll();
 	}
 
-	public Order findById(int o) throws HotelException
+	public Order findByOrderNo(String orderNo) throws HotelException
 	{
-		Order order=orderrepository.findById(o).orElse(null);
-		if(order==null)
+		for (Order order : orderrepository.findAll())
 		{
-			throw new HotelException(ExceptionType.ORDER_FIND_BY_ID_ERROR.getCode(),
-					ExceptionType.ORDER_FIND_BY_ID_ERROR.getMsg());
+			if(order.getOrderno().equals(orderNo))
+			{
+				return order;
+			}
 		}
-		else
-		{
-			return order;
-		}
+
+		throw new HotelException(ExceptionType.ORDER_FIND_BY_ID_ERROR.getCode(),
+				ExceptionType.ORDER_FIND_BY_ID_ERROR.getMsg());
 	}
 
 	public Order save(Order r)

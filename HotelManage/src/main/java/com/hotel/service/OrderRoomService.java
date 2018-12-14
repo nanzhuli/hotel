@@ -18,7 +18,7 @@ public class OrderRoomService
 	@Autowired
 	OrderRoomRepository orderroomrepository;
 
-	public List<OrderRoom> findAll(int orderno)
+	public List<OrderRoom> findAll(String orderno)
 	{
 		OrderRoom or=new OrderRoom();
 		or.setOrderno(orderno);
@@ -46,6 +46,11 @@ public class OrderRoomService
 	public OrderRoom save(OrderRoom e)
 	{
 		return orderroomrepository.save(e);
+	}
+
+	public void deleteByOrderNo(String orderNo)
+	{
+
 	}
 
 }

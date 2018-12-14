@@ -73,9 +73,9 @@ public class OrderController
 	 * @return 返回订单号对应的订单
 	 */
 	@RequestMapping("/order/searchOne/{orderno}")
-	public Result<Order> orderSearchOne(@PathVariable("orderno") int orderno)
+	public Result<Order> orderSearchOne(@PathVariable("orderno") String orderno)
 	{
-		return ResultReturn.success(orderservice.findById(orderno));
+		return ResultReturn.success(orderservice.findByOrderNo(orderno));
 	}
 
 	/**
@@ -89,11 +89,11 @@ public class OrderController
 	 * @return 返回更新后的订单
 	 */
 	@RequestMapping("/order/update/{orderno}")
-	public Result orderUpdate(@PathVariable("orderno") int orderno,@RequestParam("name") String name,
+	public Result orderUpdate(@PathVariable("orderno") String orderno,@RequestParam("name") String name,
 							  @RequestParam("id") String id,@RequestParam("phone") String phone,
 							  @RequestParam("isenter") int isenter)
 	{
-		Order o=orderservice.findById(orderno);
+		Order o=orderservice.findByOrderNo(orderno);
 		o.setName(name);
 		o.setId(id);
 		o.setPhone(phone);
@@ -108,9 +108,9 @@ public class OrderController
 	 * @return 返回成功
 	 */
 	@RequestMapping("/order/delete/{orderno}")
-	public Result orderDelete(@PathVariable("orderno") int orderno)
+	public Result orderDelete(@PathVariable("orderno") String orderno)
 	{
-		Order o=orderservice.findById(orderno);
+		Order o=orderservice.findByOrderNo(orderno);
 		orderservice.delete(o);
 		return ResultReturn.success();
 	}
@@ -122,7 +122,7 @@ public class OrderController
 	 * @return 返回房间列表
 	 */
 	@RequestMapping("/order/orderroom/{orderno}")
-	public Result<List<OrderRoom>> orderroomList(@PathVariable("orderno") int orderno)
+	public Result<List<OrderRoom>> orderroomList(@PathVariable("orderno") String orderno)
 	{
 		return ResultReturn.success(orderroomservice.findAll(orderno));
 	}
@@ -152,7 +152,7 @@ public class OrderController
 	@RequestMapping("/order/orderroom/update/{orno}")
 	public Result orderroomUpdate(@PathVariable("orno") int orno,@RequestParam("brand") String brand,
 								  @RequestParam("roomnoAfter") int roomnoAfter,
-								  @RequestParam("roomnoBefore") int roomnoBefore,@RequestParam("orderno") int orderno)
+								  @RequestParam("roomnoBefore") int roomnoBefore,@RequestParam("orderno") String orderno)
 	{
 		OrderRoom or=orderroomservice.findOne(orno);
 		or.setBrand(brand);
@@ -165,7 +165,7 @@ public class OrderController
 		}
 		roomidservice.saveAll(ri);
 
-		Order order=orderservice.findById(orderno);
+		Order order=orderservice.findByOrderNo(orderno);
 		Room roomAfter=roomservice.findByRoom(roomnoAfter);
 		Room roomBefore=roomservice.findByRoom(roomnoBefore);
 		order.setPrice(order.getPrice()+roomAfter.getPrice()-roomBefore.getPrice());
@@ -242,9 +242,9 @@ public class OrderController
 	 * @throws HotelException 抛出订单未入住异常 code: 601
 	 */
 	@RequestMapping("/order/settle/{orderno}")
-	public Result<OrderHistory> orderSettle(@PathVariable("orderno") int orderno) throws HotelException
+	public Result<OrderHistory> orderSettle(@PathVariable("orderno") String orderno) throws HotelException
 	{
-		Order order=orderservice.findById(orderno);
+		Order order=orderservice.findByOrderNo(orderno);
 		if(order.getIsenter()==1)
 		{
 			Order orderTemp=new Order(order);

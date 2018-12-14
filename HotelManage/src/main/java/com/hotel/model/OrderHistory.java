@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class OrderHistory
 {
 	@Id
-	private int orderno;
+	private String orderno;
 	private int roomcount;
 	private int price;
 	private String name;
@@ -20,12 +20,12 @@ public class OrderHistory
 	private Timestamp endtime;
 	private int ismember;
 
-	public int getOrderno()
+	public String getOrderno()
 	{
 		return orderno;
 	}
 
-	public void setOrderno(int orderno)
+	public void setOrderno(String orderno)
 	{
 		this.orderno=orderno;
 	}
