@@ -243,7 +243,7 @@ var order = {
                                 "<tr><td>离开时间</td><td colspan='3' id='endtime'>" + home.funcs.timeStrDate(res.endtime) + "</td></tr>" +
                                 "<tr><td>是否会员</td><td colspan='3' id='ismenber'>" + home.vars.member[res.ismenber] + "</td></tr>" +
                                 "<tr><td>是否入住</td><td colspan='3'><select id='isenter' style='width: 145px; height: 22px'>" + home.funcs.generateOption(2, home.vars.enter, res.isenter) + "</select>" +
-                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>保存</label></button></td></tr>" +
+                                "&nbsp;&nbsp;<button class='layui-btn layui-btn-primary layui-btn-xs'><label class='order-update'>全部保存</label></button></td></tr>" +
                                 "<tr><th colspan='4'>房间详情</th></tr>" +
                                 "<tr><td>房间号</td><td>绑定车牌</td><td>保存</td><td>编辑房客</td></tr>" +
                                 "</table>" +
@@ -346,6 +346,42 @@ var order = {
             })
         },
         bindSubmitEventListener: function (submitBtns) {
+            submitBtns.off('click');
+            submitBtns.on('click', function () {
+                console.log("SUBMIT");
+                var code = this.id.substr(7);
+                console.log(code);
+                layui.use('layer', function () {
+                    layer.open({
+                        type: 1,
+                        title: '删除',
+                        content: "<h5 style='text-align: center;padding-top: 8px'>确认要结算该记录？</h5>",
+                        area: ['180px', '130px'],
+                        btn: ['确认', '取消'],
+                        offset: 'auto',//: ['35%', '40%'],
+                        yes: function (index) {
+                            console.log(code);
+                            $.post(home.urls.order.submit + code, {}, function (result) {
+                                console.log(result);
+                                layer.msg(result.msg, {
+                                    offset: ['50%', '50%'],
+                                    time: 700
+                                });
+                                if (result.code === 0) {
+                                    var time = setTimeout(function () {
+                                        order.init();
+                                        clearTimeout(time)
+                                    }, 500)
+                                }
+                                layer.close(index)
+                            })
+                        },
+                        btn2: function (index) {
+                            layer.close(index)
+                        }
+                    })
+                })
+            })
         },
         bindSelectEventListener: function (selectBtn) {
             selectBtn.off('click');

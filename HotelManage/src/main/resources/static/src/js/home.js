@@ -9,7 +9,8 @@ var home = {
         gender: ["女", "男"],
         position: ["无", "楼层1", "楼层2", "楼层3"],
         authority: ["Admin", "Worker", "Server"],
-        workTime: ["全天", "00:00-11:59", "12:00-23:59"]
+        workTime: ["全天", "00:00-11:59", "12:00-23:59"],
+        garageType: ["外来车辆", "房客车辆"]
     },
     // 请求地址参数
     urls: {
@@ -86,6 +87,17 @@ var home = {
             update: "/garage/update",
             driveIn: "/garage/drivein",
             driveOut: "/garage/driveout"
+        },
+        user: {
+            get: "/employ/personalMeasage"
+        },
+        garageHistory: {
+            getAll: "/garagehistory/getall",
+            getOne: "/garagehistory/getallbyid/",//garageno
+            getByBrand: "/garagehistory/getallbybrand",//brand
+            getByDay: "/garagehistory/getallbyday",
+            getByMonth: "/garagehistory/getallbymonth",
+            getByYear: "/garagehistory/getallbyyear"
         }
     },
     // 功能型函数

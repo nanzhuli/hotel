@@ -184,7 +184,7 @@ var garage = {
             }
             // 0外来，1住店
             else {
-                return (parseInt(type) === 0) ? "外来车辆" : "客户车辆";
+                return home.vars.garageType[parseInt(type)];
             }
         }
     }

@@ -104,13 +104,13 @@
         $("#myFrame").attr("src", "./src/html/" + type + ".html");
     }
 
-    // //JavaScript代码区域
-    // $(function () {
-    //     var userStr = $.session.get('user');
-    //     var userJson = JSON.parse(userStr).sname;
-    //     var user_name = $("#user_name");
-    //     user_name.html(userJson);
-    // });
+    $(function () {
+        $.get(home.urls.user.get, {}, function (result) {
+            console.log(result);
+            console.log(result.data);
+            $("#user_name")[0].innerHTML = "<a href='#'>" + result.data.employname + "</a>";
+        });
+    });
 </script>
 
 </body>
