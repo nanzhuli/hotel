@@ -66,7 +66,7 @@ public class FinanceController
 	 * @param object 收入对象
 	 * @throws HotelException 抛出异常收入的错误
 	 */
-	public void insert(Object object) throws HotelException
+	void insert(Object object) throws HotelException
 	{
 		if(object instanceof OrderHistory)
 		{
@@ -85,6 +85,9 @@ public class FinanceController
 			finance.setMoney(((GarageHistory)object).getPrice());
 			finance.setTime(((GarageHistory)object).getEndtime());
 			finance.setType("车库");
+			finance.setFinanceno(2);
+
+			System.out.println(finance);
 
 			financeService.save(finance);
 		}

@@ -60,8 +60,8 @@ public class GarageController
 	 */
 	@RequestMapping("/garage/update")
 	public Result<Garage> garageUpdate(@RequestParam("garageno") int garageNo,@RequestParam("type") int type,
-							   @RequestParam("starttime") Timestamp startTime,
-							   @RequestParam("endtime") Timestamp endTime,@RequestParam("brand") String brand)
+									   @RequestParam("starttime") Timestamp startTime,
+									   @RequestParam("endtime") Timestamp endTime,@RequestParam("brand") String brand)
 	{
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
@@ -73,19 +73,18 @@ public class GarageController
 	}
 
 	/**
-	 * @param garageNo  车库(位)编号
-	 * @param type      类型
-	 * @param startTime 入库时间
-	 * @param brand     车牌
+	 * @param garageNo 车库(位)编号
+	 * @param type     类型
+	 * @param brand    车牌
 	 * @return 返回更新车库结果
 	 */
 	@RequestMapping("/garage/drivein")
 	public Result<Garage> garageDriveIn(@RequestParam("garageno") int garageNo,@RequestParam("type") int type,
-								@RequestParam("starttime") Timestamp startTime,@RequestParam("brand") String brand)
+										@RequestParam("brand") String brand)
 	{
 		Garage garage=garageService.findById(garageNo);
 		garage.setType(type);
-		garage.setStarttime(startTime);
+		garage.setStarttime(new Timestamp(System.currentTimeMillis()));
 		garage.setEndtime(new Timestamp(0));
 		garage.setBrand(brand);
 
@@ -100,10 +99,21 @@ public class GarageController
 	public Result<GarageHistory> garageDriveOut(@RequestParam("garageno") int garageNo)
 	{
 		Garage garage=garageService.findById(garageNo);
+
+		System.out.println(garage.hashCode()+": "+garage.toString());
+
 		Timestamp endTime=new Timestamp(System.currentTimeMillis());
+
+		Garage garageTemp=new Garage();
+		garageTemp.setType(garage.getType());
+		garageTemp.setBrand(garage.getBrand());
+		garageTemp.setStarttime(garage.getStarttime());
+		garageTemp.setEndtime(garage.getEndtime());
+		garageTemp.setGarageno(garage.getGarageno());
+
 		garageUpdate(garage.getGarageno(),0,null,null,null);
 
-		return new GarageHistoryController().garageHistoryInsertLog(garage,endTime);
+		return new GarageHistoryController().garageHistoryInsertLog(garageTemp,endTime);
 	}
 
 	/**
@@ -119,7 +129,7 @@ public class GarageController
 		{
 			Garage newGarage=new Garage();
 
-			if (temp==number)
+			if(temp==number)
 			{
 				newGarage.setGarageno(1);
 			}
@@ -129,7 +139,7 @@ public class GarageController
 			newGarage.setType(0);
 			garageList.add(garageService.save(newGarage));
 			garageService.save(newGarage);
-		} while (--number>0);
+		}while (--number>0);
 
 		return ResultReturn.success(garageList);
 	}

@@ -94,6 +94,8 @@ public class GarageHistoryController
 	{
 		GarageHistory newGarageHistory=new GarageHistory();
 
+		System.out.println(garage);
+
 		newGarageHistory.setEndtime(endTime);
 		newGarageHistory.setBrand(garage.getBrand());
 		newGarageHistory.setGarageid(garage.getGarageno());
@@ -106,6 +108,7 @@ public class GarageHistoryController
 
 			new FinanceController().insert(newGarageHistory);
 		}
+		System.out.println(newGarageHistory);
 
 		return ResultReturn.success(garageHistoryService.save(newGarageHistory));
 	}
