@@ -47,14 +47,14 @@ public class EmployController
                             @RequestParam("employauthority") int employauthority,
                             @RequestParam("employpaymentpermonth")int employpaymentpermonth,
                             @RequestParam("employworktime") int employworktime,
-                            @RequestParam("loginname") String loginname,
+                            @RequestParam("username") String username,
                             @RequestParam("password") String password) {
         Employ e = employservice.findByEmployno(employno);
         if(e!=null)
             return ResultReturn.error(2,"that employno arleady exist");
         else{
             e = saveEmploy(employno,employname,employsex,employage,employposition,employauthority,
-                    employpaymentpermonth,employworktime,loginname,password);
+                    employpaymentpermonth,employworktime,username,password);
             return ResultReturn.success(employservice.save(e));
         }
     }

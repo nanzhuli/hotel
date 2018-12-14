@@ -125,7 +125,7 @@ var employeeInfo = {
                                 employauthority: authority,
                                 employpaymentpermonth: salary,
                                 employworktime: time,
-                                loginname: username,
+                                username: username,
                                 password: password
                             }, function (result) {
                                 console.log(result);
@@ -206,7 +206,7 @@ var employeeInfo = {
                                     employauthority: authority,
                                     employpaymentpermonth: salary,
                                     employworktime: time,
-                                    loginname: username,
+                                    username: username,
                                     password: password
                                 }, function (result) {
                                     console.log(result);

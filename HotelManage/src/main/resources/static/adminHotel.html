@@ -108,9 +108,78 @@
         $.get(home.urls.user.get, {}, function (result) {
             console.log(result);
             console.log(result.data);
-            $("#user_name")[0].innerHTML = "<a href='#'>" + result.data.employname + "</a>";
+            $("#user_name")[0].innerHTML = "<a href=\"javascript:void(0)\" onclick=\"edit()\">" + result.data.employname + "</a>";
         });
     });
+
+    function edit() {
+        $.get(home.urls.user.get, {}, function (result) {
+            console.log(result);
+            var res = result.data;
+            layui.use('layer', function () {
+                layer.open({
+                    type: 1,
+                    title: res.employname,
+                    content:
+                        "<div id='addModal' class='popup'>" +
+                        "<p>工号：<input type='number' id='employee-no' disabled='disabled' value='" + res.employno + "'/></p>" +
+                        "<p>姓名：<input type='text' id='employee-name' disabled='disabled' value='" + res.employname + "'/></p>" +
+                        "<p>性别：<input type='text' id='employee-sex' disabled='disabled' value='" + home.vars.gender[res.employsex] + "'/></p>"+
+                        "<p>年龄：<input type='number' id='employee-age' disabled='disabled' value='" + res.employage + "'/></p>" +
+                        "<p>职位：<input type='text' id='employee-position' disabled='disabled' value='" + home.vars.position[res.employposition] + "'/></p>"+
+                        "<p>权限：<input type='text' id='employee-authority' disabled='disabled' value='" + home.vars.authority[res.employauthority] + "'/></p>"+
+                        "<p>工资：<input type='number' id='employee-salary' disabled='disabled' value='" + res.employpaymentpermonth + "'/></p>" +
+                        "<p>时段：<input type='text' id='employee-time' disabled='disabled' value='" + home.vars.workTime[res.employworktime] + "'/></p>"+
+                        // "<p>账号：<input type='text' id='employee-username' disabled='disabled' value='" + res.username + "'/></p>" +
+                        // "<p>密码：<input type='text' id='employee-password' placeholder='" +"输入并保存以改变密码"+ "'/></p>" +
+                        "</div>",
+                    area: ['350px', '500px'],
+                    btn: ['确认'],
+                    offset: ['18%', '41%'],
+                    // yes: function (index) {
+                    //     var employeeNo = res.employno;
+                    //     var name = res.employname;
+                    //     var sex = res.employsex;
+                    //     var age = res.employage;
+                    //     var position = res.employposition;
+                    //     var authority = res.employauthority;
+                    //     var salary = res.employpaymentpermonth;
+                    //     var time = res.employworktime;
+                    //     var username = res.username;
+                    //     var password = $('#employee-password').val();
+                    //     $.post(home.urls.employee.update + employeeNo, {
+                    //         // employno: employeeNo,
+                    //         employname: name,
+                    //         employsex: sex,
+                    //         employage: age,
+                    //         employposition: position,
+                    //         employauthority: authority,
+                    //         employpaymentpermonth: salary,
+                    //         employworktime: time,
+                    //         username: username,
+                    //         password: password
+                    //     }, function (result) {
+                    //         console.log(result);
+                    //         layer.msg(result.msg, {
+                    //             offset: ['auto', 'auto'],
+                    //             time: 700
+                    //         });
+                    //         if (result.code === 0) {
+                    //             var time = setTimeout(function () {
+                    //                 employeeInfo.init();
+                    //                 clearTimeout(time);
+                    //             }, 500)
+                    //         }
+                    //         layer.close(index)
+                    //     })
+                    // },
+                    yes: function (index) {
+                        layer.close(index)
+                    }
+                });
+            })
+        });
+    }
 </script>
 
 </body>
