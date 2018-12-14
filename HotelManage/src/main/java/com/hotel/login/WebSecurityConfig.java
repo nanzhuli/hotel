@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //HTTP请求安全处理
         http.csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/css/**","/dist/**","/js/**",
+                        "/layui/**","/src/js/**").permitAll()
                 .anyRequest().authenticated()
                 // .antMatchers("Employ/**","order/**","Event/**").hasRole("WORKER")
 //                .antMatchers("/css/**", "/dist/**", "/js/**", "/layui/**", "/src/**").permitAll()
