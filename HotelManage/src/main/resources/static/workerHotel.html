@@ -116,6 +116,7 @@
         $.get(home.urls.user.get, {}, function (result) {
             console.log(result);
             var res = result.data;
+            home.vars.userNo = res.employno;
             layui.use('layer', function () {
                 layer.open({
                     type: 1,

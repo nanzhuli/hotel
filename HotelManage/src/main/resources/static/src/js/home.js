@@ -10,7 +10,8 @@ var home = {
         position: ["无", "楼层1", "楼层2", "楼层3"],
         authority: ["Admin", "Worker", "Server"],
         workTime: ["全天", "00:00-11:59", "12:00-23:59"],
-        garageType: ["外来车辆", "房客车辆"]
+        garageType: ["外来车辆", "房客车辆"],
+        userNo: -1
     },
     // 请求地址参数
     urls: {
@@ -60,7 +61,8 @@ var home = {
             getOne: "/event/searchOne/",
             add: "/event/add",
             update: "/event/update/",
-            delete: "/event/delete/"
+            delete: "/event/delete/",
+            getByEmployee:"/employ/personalEvent"
         },
         finance: {
             getAll: "/finance/getall",
