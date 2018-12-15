@@ -1,7 +1,9 @@
 package com.hotel.controller;
 
 import com.hotel.model.Employ;
+import com.hotel.model.Event;
 import com.hotel.model.Result;
+import com.hotel.service.EventService;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.EmployService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class EmployController
 {
@@ -23,6 +27,9 @@ public class EmployController
     {
         this.employservice=employservice;
     }
+
+    @Autowired
+    EventService eventService;
 
     @RequestMapping("/employ/list")
     public Result<Employ> employList() {
@@ -97,6 +104,18 @@ public class EmployController
         Employ e = employservice.findByUsernameAndPassword(username,password);
         System.out.println("employ measage:"+e);
         return ResultReturn.success(e);
+
+    }
+
+    @RequestMapping("/employ/personalEvent")
+    public Result getPersonalEvent() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        String password = userDetails.getPassword();
+        Employ e = employservice.findByUsernameAndPassword(username,password);
+        List<Event> event = eventService.findAllByEmployno(e.getEmployno());
+        System.out.println("event: "+event);
+        return ResultReturn.success(event);
 
     }
 
