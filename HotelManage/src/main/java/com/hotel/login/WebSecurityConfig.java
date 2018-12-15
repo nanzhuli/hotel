@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login")
                 //设置默认登录成功跳转页面
                 .defaultSuccessUrl("/").successHandler(new LoginSuccessHandle()).permitAll()
-                .failureUrl("/login").permitAll()
+                .failureUrl("/login?error").permitAll()
                 .and()
                 .logout()
                 //默认注销行为为logout，可以通过下面的方式来修改
