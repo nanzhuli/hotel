@@ -135,6 +135,29 @@ public class OrderHistoryService
 		}
 	}
 
+	public List<OrderHistory> findByOrderNo(String orderNo)
+	{
+		List<OrderHistory> orderHistoryList=new ArrayList<>();
+
+		for (OrderHistory orderHistory : orderHistoryRepository.findAll())
+		{
+			if(orderHistory.getOrderno().equals(orderNo))
+			{
+				orderHistoryList.add(orderHistory);
+			}
+		}
+
+		if(orderHistoryList.size()>0)
+		{
+			return orderHistoryList;
+		}
+		else
+		{
+			throw new HotelException(ExceptionType.ORDER_HISTORY_FIND_BY_ORDERNO_ERROR.getCode(),
+					ExceptionType.ORDER_HISTORY_FIND_BY_ORDERNO_ERROR.getMsg());
+		}
+	}
+
 	public OrderHistory save(OrderHistory orderHistory)
 	{
 		return orderHistoryRepository.save(orderHistory);

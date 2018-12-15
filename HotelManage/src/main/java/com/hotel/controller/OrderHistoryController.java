@@ -6,9 +6,11 @@ import com.hotel.service.FinanceService;
 import com.hotel.util.ResultReturn;
 import com.hotel.service.OrderHistoryService;
 import com.hotel.model.Order;
+import com.hotel.util.TimeStampUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -80,6 +82,17 @@ public class OrderHistoryController
 	}
 
 	/**
+	 *
+	 * @param orderNo 订单号
+	 * @return 返回对应的订单历史
+	 */
+	@RequestMapping("/orderhistory/getallbyorderno")
+	public Result<List<OrderHistory>> getAllByOrderNo(@RequestParam("orderno") String orderNo)
+	{
+		return ResultReturn.success(orderHistoryService.findByOrderNo(orderNo));
+	}
+
+	/**
 	 * @param order 结算完成的订单
 	 * @return 返回对应的订单记录（作为历史记录）
 	 */
@@ -107,6 +120,7 @@ public class OrderHistoryController
 	Result<OrderHistory> orderHistoryInsert(Order order)
 	{
 		OrderHistory orderHistory=saveOrderHistory(order);
+		orderHistory.setOrderno(new TimeStampUtil().getString(new Timestamp(System.currentTimeMillis())));
 
 		new FinanceController(financeService).insert(orderHistory);
 		return ResultReturn.success(orderHistoryService.save(orderHistory));

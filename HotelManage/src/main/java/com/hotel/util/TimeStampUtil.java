@@ -17,6 +17,22 @@ public class TimeStampUtil
 	}
 
 	/**
+	 * 形如yyyymmddhhmmssfffffffff
+	 *
+	 * @param timestamp 时间戳
+	 * @return 返回时间戳字符串(纯数字无连接符)
+	 */
+	public String getString(Timestamp timestamp)
+	{
+		StringBuilder str=new StringBuilder();
+		for (String string :getStringArray(timestamp))
+		{
+			str.append(string);
+		}
+		return str.toString();
+	}
+
+	/**
 	 *
 	 * @param timeStamp1 时间戳1
 	 * @param timeStamp2 时间戳2

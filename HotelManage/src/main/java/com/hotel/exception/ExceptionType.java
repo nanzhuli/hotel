@@ -29,6 +29,7 @@ public enum ExceptionType
 	ORDER_HISTORY_FIND_BY_MONTH_ERROR(801,"未找到该月份对应的订单历史"),
 	ORDER_HISTORY_FIND_BY_YEAR_ERROR(802,"未找到该年份对应的订单历史"),
 	ORDER_HISTORY_FIND_BY_ID_ERROR(803,"未找到该身份证对应的订单历史"),
+	ORDER_HISTORY_FIND_BY_ORDERNO_ERROR(804,"未找到该订单号对应的订单历史"),
 
 	FINANCE_FIND_BY_DAY_ERROR(900,"日财务报表获取失败"),
 	FINANCE_FIND_BY_MONTH_ERROR(901,"月财务报表获取失败"),

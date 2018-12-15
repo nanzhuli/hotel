@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import static org.junit.Assert.*;
@@ -30,6 +31,8 @@ public class TimeStampUtilTest
 		{
 			System.out.println(str);
 		}
+
+		System.out.println(new TimeStampUtil().getString(timestamp));
 
 		Timestamp ts1=new Timestamp(System.currentTimeMillis());
 		try
